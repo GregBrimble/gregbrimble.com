@@ -1,38 +1,49 @@
-import type { MetaFunction, LinksFunction, LoaderFunction } from "remix";
-import { useLoaderData } from "remix";
-import { Link } from "react-router-dom";
-
-import stylesUrl from "../styles/index.css";
+import type { MetaFunction } from "remix";
+import type { AnchorHTMLAttributes } from "react";
+import { SmartLink } from "../components/SmartLink";
+import Biography from "../components/Biography.mdx";
 
 export let meta: MetaFunction = () => {
   return {
-    title: "Remix Starter",
+    title: "Greg Brimble",
     description: "Welcome to remix!",
   };
 };
 
-export let links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesUrl }];
-};
-
-export let loader: LoaderFunction = async () => {
-  return { message: "this is awesome 😎" };
-};
-
 export default function Index() {
-  let data = useLoaderData();
-
   return (
-    <div style={{ textAlign: "center", padding: 20 }}>
-      <h2>Welcome to Remix!</h2>
-      <p>
-        <a href="https://docs.remix.run">Check out the docs</a> to get started.
-      </p>
-      <p>Message from the loader: {data.message}</p>
-      <p>
-        <Link to="not-found">Link to 404 not found page.</Link> Clicking this
-        link will land you in your root CatchBoundary component.
-      </p>
-    </div>
+    <main className="overflow-hidden">
+      <div className="py-24 lg:py-32">
+        <div className="relative z-10 max-w-7xl mx-auto pl-4 pr-8 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
+            Greg Brimble
+          </h1>
+          <p className="mt-6 text-xl text-gray-500 dark:text-gray-400 max-w-3xl">
+            Technological Engineer
+          </p>
+        </div>
+      </div>
+      <section aria-labelledby="about-me">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 lg:pb-16">
+          <div className="max-w-7xl mx-auto lg:ml-auto">
+            <h2
+              id="about-me"
+              className="text-3xl font-extrabold text-gray-900 dark:text-white"
+            >
+              About Me
+            </h2>
+            <div className="mt-6 prose prose-blue dark:prose-@light dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400">
+              <Biography
+                components={{
+                  a: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
+                    <SmartLink {...props} />
+                  ),
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
