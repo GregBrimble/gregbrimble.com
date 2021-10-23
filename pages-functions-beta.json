@@ -1,0 +1,4 @@
+{
+  "entryPoint": "./dist/worker.mjs",
+  "baseURL": "/"
+}
