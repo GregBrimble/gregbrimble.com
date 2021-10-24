@@ -7,7 +7,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
-import { MailIcon } from "@heroicons/react/outline";
+import MailIcon from "@heroicons/react/outline/MailIcon";
 import { SmartLink } from "./SmartLink";
 
 const navigation = [
