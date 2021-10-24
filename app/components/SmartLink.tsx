@@ -1,6 +1,6 @@
 import { forwardRef, AnchorHTMLAttributes } from "react";
-import { Link } from "react-router-dom";
-import type { LinkProps } from "react-router-dom";
+import { Link } from "remix";
+import type { LinkProps } from "remix";
 import { ExternalLink } from "./ExternalLink";
 
 export const SmartLink = forwardRef<
