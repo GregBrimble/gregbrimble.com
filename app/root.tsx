@@ -1,4 +1,9 @@
-import type { LinksFunction, MetaFunction } from "remix";
+import {
+  LinksFunction,
+  MetaFunction,
+  LoaderFunction,
+  useLoaderData,
+} from "remix";
 import { Meta, Links, Scripts, LiveReload, Outlet, useCatch } from "remix";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
@@ -18,6 +23,11 @@ export const meta: MetaFunction = () => {
   };
 };
 
+export const loader: LoaderFunction = () => {
+  const isLive = false;
+  return { isLive };
+};
+
 function Document({
   children,
   title,
@@ -29,8 +39,11 @@ function Document({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
@@ -45,9 +58,10 @@ function Document({
 }
 
 export default function App() {
+  const { isLive } = useLoaderData();
   return (
     <Document>
-      <Header />
+      <Header isLive={isLive} />
       <Outlet />
       <Footer />
     </Document>

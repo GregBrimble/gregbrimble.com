@@ -15,9 +15,7 @@ const navigation: NavigationLink[] = [
   { name: "Blog", to: "/blog" },
 ];
 
-export const Header = () => {
-  const isLive = false;
-
+export const Header = ({ isLive = false }: { isLive?: boolean }) => {
   const videoLink: NavigationLink = isLive
     ? {
         name: (

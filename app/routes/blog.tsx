@@ -5,6 +5,36 @@ import { usePathname } from "~/utils/usePathname";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
+interface Blog {
+  to: string;
+  title: string;
+  date: string;
+  description: string;
+  image?: string;
+}
+
+export const loader: LoaderFunction = () => {
+  const issues = [
+    {
+      id: 311387,
+      title: "Initialization",
+      html: '\u003ch3\u003e\u003cp\u003eHello! 👋 Hopefully the first of many, but we all know how side-projects go.\u003c/p\u003e\u003cp\u003eNothing too interesting for you today, sorry! This is primarily just a test of deliverability and figuring out how to write on Revue.\u003c/p\u003e\u003cp\u003eHowever, (blatently stealing \u003ca href="https://twitter.com/rick_viscomi/status/1427303084074672144" target="_blank"\u003eRick\'s idea\u003c/a\u003e), I am going to stream myself as I fumble around the analysis for the Structured Data chapter of this year\'s \u003ca href="https://httparchive.org/" target="_blank"\u003eHTTP Archive\u003c/a\u003e\'s \u003ca href="https://almanac.httparchive.org/" target="_blank"\u003eWeb Almanac\u003c/a\u003e. Assuming I\'ve set everything up correctly, we should be live tomorrow (Sunday, 5th September) at 1200 UTC on \u003ca href="https://www.twitch.tv/gregbrimble/schedule?seriesID=63ca5912-192f-4425-bd6c-abaf7fc484bb" target="_blank"\u003eTwitch\u003c/a\u003e and \u003ca href="https://www.youtube.com/watch?v=BNAYe4Rn6s8" target="_blank"\u003eYouTube\u003c/a\u003e. I\'m guessing it will take about three hours to complete, but we\'ll see.\u003c/p\u003e\u003cp\u003eGetting dangerously close to my undergraduate project, the bulk of the work will be writing a script to parse JSON-LD from the 13 million webpages we scraped in July. There will also be some SQL and Google Sheets shenanigans sprinkled throughout.\u003c/p\u003e\u003cp\u003eIf this sort of thing interests you, check out \u003ca href="https://almanac.httparchive.org/en/2020/cms" target="_blank"\u003elast year\'s chapter on CMSs\u003c/a\u003e which I also did the analysis for.\u003c/p\u003e\u003cp\u003eI have a couple of other ideas for projects I\'d like to stream, so stay tuned for some more sessions in the near future.\u003c/p\u003e\u003cp\u003eThanks for trying this out with me!\u003c/p\u003e\u003cp\u003eGreg\u003ca href="https://www.getrevue.co/app/issues/current#" target="_blank"\u003e \u003c/a\u003e\u003c/p\u003e\u003c/h3\u003e\n\u003chr\u003e\n\u003cp\u003e\u003ch2\u003e\u003cstrong\u003eWatch me stream on \u003c/strong\u003e\u003ca href="https://www.twitch.tv/gregbrimble/schedule?seriesID=63ca5912-192f-4425-bd6c-abaf7fc484bc" target="_blank"\u003e\u003cstrong\u003eTwitch\u003c/strong\u003e\u003c/a\u003e\u003cstrong\u003e or \u003c/strong\u003e\u003ca href="https://www.youtube.com/watch?v=BNAYe4Rn6s8" target="_blank"\u003e\u003cstrong\u003eYouTube\u003c/strong\u003e\u003c/a\u003e\u003c/h2\u003e\u003cp\u003eTomorrow (Sunday, 5th September) at 1200 UTC.\u003c/p\u003e\u003c/p\u003e\n',
+      sent_at: "2021-09-04T20:18:48.390Z",
+      description:
+        '\u003cp\u003eHello! 👋 Hopefully the first of many, but we all know how side-projects go.\u003c/p\u003e\u003cp\u003eNothing too interesting for you today, sorry! This is primarily just a test of deliverability and figuring out how to write on Revue.\u003c/p\u003e\u003cp\u003eHowever, (blatently stealing \u003ca href="https://twitter.com/rick_viscomi/status/1427303084074672144" target="_blank"\u003eRick\'s idea\u003c/a\u003e), I am going to stream myself as I fumble around the analysis for the Structured Data chapter of this year\'s \u003ca href="https://httparchive.org/" target="_blank"\u003eHTTP Archive\u003c/a\u003e\'s \u003ca href="https://almanac.httparchive.org/" target="_blank"\u003eWeb Almanac\u003c/a\u003e. Assuming I\'ve set everything up correctly, we should be live tomorrow (Sunday, 5th September) at 1200 UTC on \u003ca href="https://www.twitch.tv/gregbrimble/schedule?seriesID=63ca5912-192f-4425-bd6c-abaf7fc484bb" target="_blank"\u003eTwitch\u003c/a\u003e and \u003ca href="https://www.youtube.com/watch?v=BNAYe4Rn6s8" target="_blank"\u003eYouTube\u003c/a\u003e. I\'m guessing it will take about three hours to complete, but we\'ll see.\u003c/p\u003e\u003cp\u003eGetting dangerously close to my undergraduate project, the bulk of the work will be writing a script to parse JSON-LD from the 13 million webpages we scraped in July. There will also be some SQL and Google Sheets shenanigans sprinkled throughout.\u003c/p\u003e\u003cp\u003eIf this sort of thing interests you, check out \u003ca href="https://almanac.httparchive.org/en/2020/cms" target="_blank"\u003elast year\'s chapter on CMSs\u003c/a\u003e which I also did the analysis for.\u003c/p\u003e\u003cp\u003eI have a couple of other ideas for projects I\'d like to stream, so stay tuned for some more sessions in the near future.\u003c/p\u003e\u003cp\u003eThanks for trying this out with me!\u003c/p\u003e\u003cp\u003eGreg\u003ca href="https://www.getrevue.co/app/issues/current#" target="_blank"\u003e \u003c/a\u003e\u003c/p\u003e',
+      url: "https://www.getrevue.co/profile/gregbrimble/issues/initialization-311387",
+      active: false,
+    },
+  ];
+
+  return issues.map(({ id, title, sent_at, description }) => ({
+    id,
+    title,
+    sent_at,
+    description,
+  }));
+};
+
 const posts = [
   {
     title: "Boost your conversion rate",
@@ -32,13 +62,8 @@ const posts = [
   },
 ];
 
-export const loader: LoaderFunction = () => {
-  return { arbitrary: "data" };
-};
-
 const BlogIndex = () => {
-  const data = useLoaderData();
-  console.log(data);
+  const newsletters = useLoaderData();
 
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
@@ -113,7 +138,7 @@ const BlogIndex = () => {
                   to={post.to}
                   className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400"
                 >
-                  Read full story
+                  Read the full post
                 </Link>
               </div>
             </div>
