@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ComponentType } from "react";
 
 interface BlogAttributes {
   title: string;
@@ -15,7 +15,7 @@ export const BlogPost = ({
     attributes: { title, description, image },
   },
 }: {
-  blog: { default: FC; attributes: BlogAttributes };
+  blog: { default: ComponentType; attributes: BlogAttributes };
 }) => {
   return (
     <>
