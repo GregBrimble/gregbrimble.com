@@ -9,7 +9,7 @@
     "setup:local": "remix setup",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
-    "build:css": "echo \"Nada\"",
+    "build:css": "postcss styles --base styles --dir app/styles --env production",
     "build:remix": "remix build",
     "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --minify --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "prebuild": "npm run build:css && npm run setup:worker",
