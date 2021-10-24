@@ -35,18 +35,19 @@ export const Header = () => {
             </div>
           </div>
         </div> */}
-        {/* <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
+        <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
           {navigation.map((link) => (
-            <SmartLink
-              key={link.name}
-              to={link.to}
-              href={link.href}
-              className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-            >
-              {link.name}
-            </SmartLink>
+            // <SmartLink
+            //   key={link.name}
+            //   to={link.to}
+            //   href={link.href}
+            //   className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            // >
+            //   {link.name}
+            // </SmartLink>
+            <div>{link.name}</div>
           ))}
-        </div> */}
+        </div>
       </nav>
     </header>
   );
