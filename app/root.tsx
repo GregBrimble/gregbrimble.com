@@ -8,7 +8,7 @@ import {
   useCatch,
 } from "remix";
 import { Outlet } from "react-router-dom";
-// import { Header } from "./components/Header";
+import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
 import stylesUrl from "./styles/app.css";
@@ -56,7 +56,7 @@ export default function App() {
 
   return (
     <Document>
-      {/* <Header /> */}
+      <Header />
       <Outlet />
       <Footer />
     </Document>
