@@ -1,5 +1,5 @@
 // import { Link } from "react-router-dom";
-// import { Logo } from "./Logo";
+import { Logo } from "./Logo";
 import { SmartLink } from "./SmartLink";
 
 const navigation = [
@@ -18,7 +18,7 @@ export const Header = () => {
             {/* <Link to="/"> */}
             <span className="sr-only">gregbrimble.com</span>
             <svg className="h-10 w-10 text-gray-900 dark:text-white">
-              {/* <Logo /> */}
+              <Logo />
             </svg>
             {/* </Link> */}
             <div className="hidden ml-10 space-x-8 lg:block">
