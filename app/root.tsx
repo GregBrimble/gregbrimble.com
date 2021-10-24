@@ -56,9 +56,9 @@ export default function App() {
 
   return (
     <Document>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </Document>
   );
 }
