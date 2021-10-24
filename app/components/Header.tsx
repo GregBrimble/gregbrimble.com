@@ -24,7 +24,7 @@ export const Header = () => {
           <span className="flex items-center space-x-3">
             <span>Live</span>
             <span
-              className="bg-red-100 dark:bg-red-900 h-4 w-4 rounded-full flex items-center justify-center"
+              className="bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full flex items-center justify-center"
               aria-hidden="true"
             >
               <span className="bg-red-400 dark:bg-red-500 h-2 w-2 rounded-full" />
