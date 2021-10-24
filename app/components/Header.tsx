@@ -8,48 +8,48 @@ import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
 import { MailIcon } from "@heroicons/react/outline";
-import { ExternalLink } from "./ExternalLink";
+import { SmartLink } from "./SmartLink";
 
 const navigation = [
   {
     name: "LinkedIn",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://www.linkedin.com/in/gregbrimble" {...props} />
+      <SmartLink href="https://www.linkedin.com/in/gregbrimble" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faLinkedin} />,
   },
   {
     name: "GitHub",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://github.com/gregbrimble/" {...props} />
+      <SmartLink href="https://github.com/gregbrimble/" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faGithub} />,
   },
   {
     name: "DEV",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://dev.to/gregbrimble" {...props} />
+      <SmartLink href="https://dev.to/gregbrimble" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faDev} />,
   },
   {
     name: "Twitter",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://twitter.com/gregbrimble" {...props} />
+      <SmartLink href="https://twitter.com/gregbrimble" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faTwitter} />,
   },
   {
     name: "Twitch",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://www.twitch.tv/gregbrimble" {...props} />
+      <SmartLink href="https://www.twitch.tv/gregbrimble" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faTwitch} />,
   },
   {
     name: "YouTube",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink
+      <SmartLink
         href="https://www.youtube.com/channel/UCUfprYvJEwcfNCcMnTGxVWA"
         {...props}
       />
@@ -59,14 +59,14 @@ const navigation = [
   {
     name: "Instagram",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="https://www.instagram.com/gregbrimble/" {...props} />
+      <SmartLink href="https://www.instagram.com/gregbrimble/" {...props} />
     ),
     icon: <FontAwesomeIcon icon={faInstagram} />,
   },
   {
     name: "Email",
     link: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <ExternalLink href="mailto:hello@gregbrimble.com" {...props} />
+      <SmartLink href="mailto:hello@gregbrimble.com" {...props} />
     ),
     icon: <MailIcon />,
   },
