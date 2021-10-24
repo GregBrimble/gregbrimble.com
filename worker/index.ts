@@ -3,7 +3,12 @@ import { createFetchHandler } from "./singleWorkerRemixLoader";
 // @ts-ignore
 import * as build from "../build";
 
-const handleFetch = createFetchHandler({ build });
+const handleFetch = createFetchHandler({
+  build,
+  getLoadContext: () => ({
+    token: "Greg",
+  }),
+});
 
 export default {
   async fetch(

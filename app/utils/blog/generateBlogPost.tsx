@@ -2,10 +2,10 @@ import type { LinksFunction, MetaFunction } from "remix";
 import type { ComponentType } from "react";
 import { BlogPost } from "~/components/blog/BlogPost";
 
-interface BlogAttributes {
+interface BlogPostAttributes {
   title: string;
-  description?: string;
-  date?: string;
+  description: string;
+  date: string;
   canonical_url?: string;
   image?: {
     url: string;
@@ -13,29 +13,40 @@ interface BlogAttributes {
   };
 }
 
-interface Blog {
+interface BlogPostComponent {
   default: ComponentType;
-  attributes: BlogAttributes;
+  attributes: BlogPostAttributes;
 }
 
-export const generateBlogPost = (blog: Blog) => {
+export const generateBlogPost = (blogPost: BlogPostComponent) => {
+  const {
+    attributes: { title, description, date, canonical_url, image },
+  } = blogPost;
+
   const links: LinksFunction = () => {
     const links = [];
 
-    if (blog.attributes.canonical_url)
-      links.push({ rel: "canonical", href: blog.attributes.canonical_url });
+    if (canonical_url) links.push({ rel: "canonical", href: canonical_url });
 
     return links;
   };
 
   const meta: MetaFunction = () => {
     return {
-      title: `${blog.attributes.title} | Greg Brimble`,
+      title: `${title} | Greg Brimble`,
     };
   };
 
   const Component = () => {
-    return <BlogPost blog={blog} />;
+    return (
+      <BlogPost
+        Component={blogPost.default}
+        title={title}
+        description={description}
+        date={date}
+        image={image}
+      />
+    );
   };
 
   return {
