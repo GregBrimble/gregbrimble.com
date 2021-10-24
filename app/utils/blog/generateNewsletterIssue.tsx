@@ -33,7 +33,7 @@ export const generateNewsletterIssue = ({
     return links;
   };
 
-  const loader: LoaderFunction = async () => {
+  const loader: LoaderFunction = async ({ context }) => {
     try {
       // const response = await fetch(`https://www.getrevue.co/api/v2/issues/${id}`, { headers: { Authorization: `Token ${API_TOKEN}` } })
       // const {
@@ -56,7 +56,7 @@ export const generateNewsletterIssue = ({
 
       return {
         html: html.slice(4),
-        title,
+        title: title + context.token,
         date,
       };
     } catch {}
