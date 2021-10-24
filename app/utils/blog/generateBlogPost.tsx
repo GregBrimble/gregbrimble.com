@@ -1,8 +1,10 @@
 import type { LinksFunction, MetaFunction } from "remix";
 import type { ComponentType } from "react";
 import { BlogPost } from "~/components/blog/BlogPost";
+import { IndexLoader } from "~/routes/blog";
 
 interface BlogPostAttributes {
+  slug: string;
   title: string;
   description: string;
   date: string;
@@ -20,7 +22,7 @@ interface BlogPostComponent {
 
 export const generateBlogPost = (blogPost: BlogPostComponent) => {
   const {
-    attributes: { title, description, date, canonical_url, image },
+    attributes: { slug, title, description, date, canonical_url, image },
   } = blogPost;
 
   const links: LinksFunction = () => {
@@ -34,6 +36,16 @@ export const generateBlogPost = (blogPost: BlogPostComponent) => {
   const meta: MetaFunction = () => {
     return {
       title: `${title} | Greg Brimble`,
+    };
+  };
+
+  const indexLoader: IndexLoader = async () => {
+    return {
+      to: `/blog/${slug}`,
+      title: title,
+      description: description,
+      date: date,
+      image: image?.url,
     };
   };
 
@@ -52,6 +64,7 @@ export const generateBlogPost = (blogPost: BlogPostComponent) => {
   return {
     links,
     meta,
+    indexLoader,
     default: Component,
   };
 };

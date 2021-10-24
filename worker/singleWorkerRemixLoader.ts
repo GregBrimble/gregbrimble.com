@@ -4,7 +4,7 @@ import serverRuntime, {
   AppLoadContext,
 } from "@remix-run/server-runtime";
 
-interface GetLoadContextFunction<Env> {
+export interface GetLoadContextFunction<Env = Record<string, unknown>> {
   ({
     request,
     env,

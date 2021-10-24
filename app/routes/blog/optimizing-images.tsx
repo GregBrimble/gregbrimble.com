@@ -5,4 +5,5 @@ const BlogPost = generateBlogPost(OptimizingImages);
 
 export const links = BlogPost.links;
 export const meta = BlogPost.meta;
+export const indexLoader = BlogPost.indexLoader;
 export default BlogPost.default;
