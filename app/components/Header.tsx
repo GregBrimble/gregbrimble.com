@@ -23,30 +23,28 @@ export const Header = () => {
             </Link>
             <div className="hidden ml-10 space-x-8 lg:block">
               {navigation.map((link) => (
-                // <SmartLink
-                //   key={link.name}
-                //   to={link.to}
-                //   href={link.href}
-                //   className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                // >
-                //   {link.name}
-                // </SmartLink>
-                <div>{link.name}</div>
+                <SmartLink
+                  key={link.name}
+                  to={link.to}
+                  href={link.href}
+                  className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                >
+                  {link.name}
+                </SmartLink>
               ))}
             </div>
           </div>
         </div>
         <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
           {navigation.map((link) => (
-            // <SmartLink
-            //   key={link.name}
-            //   to={link.to}
-            //   href={link.href}
-            //   className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-            // >
-            //   {link.name}
-            // </SmartLink>
-            <div>{link.name}</div>
+            <SmartLink
+              key={link.name}
+              to={link.to}
+              href={link.href}
+              className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >
+              {link.name}
+            </SmartLink>
           ))}
         </div>
       </nav>
