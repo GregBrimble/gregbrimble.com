@@ -9,7 +9,7 @@
     "setup:local": "remix setup",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
-    "build:css": "tailwindcss -o app/styles/app.css",
+    "build:css": "postcss styles --base styles --dir app/styles",
     "build:remix": "remix build",
     "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --minify --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "prebuild": "npm run build:css && npm run setup:worker",
@@ -46,6 +46,8 @@
     "concurrently": "6.3.0",
     "esbuild": "0.11.16",
     "miniflare": "1.4.1",
+    "postcss": "8.3.11",
+    "postcss-cli": "9.0.1",
     "tailwindcss": "3.0.0-alpha.1",
     "typescript": "4.4.4"
   },
