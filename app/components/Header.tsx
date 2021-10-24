@@ -15,12 +15,12 @@ export const Header = () => {
       <nav className="px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-6 flex items-center justify-between border-b border-gray-500 dark:border-gray-400 lg:border-none">
           <div className="flex items-center">
-            {/* <Link to="/"> */}
-            <span className="sr-only">gregbrimble.com</span>
-            <svg className="h-10 w-10 text-gray-900 dark:text-white">
-              <Logo />
-            </svg>
-            {/* </Link> */}
+            <Link to="/">
+              <span className="sr-only">gregbrimble.com</span>
+              <svg className="h-10 w-10 text-gray-900 dark:text-white">
+                <Logo />
+              </svg>
+            </Link>
             <div className="hidden ml-10 space-x-8 lg:block">
               {navigation.map((link) => (
                 // <SmartLink
