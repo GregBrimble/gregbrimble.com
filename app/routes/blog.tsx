@@ -6,7 +6,9 @@ const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
 export default function Blog() {
   const location = useLocation();
+  console.log(location);
   const isBlogPost = IS_BLOG_POST_REGEXP.test(location.pathname);
+  console.log(isBlogPost);
 
   if (isBlogPost) {
     return (
