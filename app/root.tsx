@@ -43,7 +43,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body className="dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-800">
+      <body className="bg-white dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-800">
         {children}
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

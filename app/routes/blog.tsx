@@ -1,6 +1,6 @@
-import { useMatches } from "remix";
 import { Outlet } from "remix";
 import { Decoration } from "~/components/blog/Decoration";
+import { usePathname } from "~/utils/usePathname";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -29,27 +29,19 @@ const posts = [
     date: "Feb 12, 2020",
     datetime: "2020-02-12",
   },
-  {
-    title: "Writing effective landing page copy",
-    href: "#",
-    description:
-      "Ipsum voluptates quia doloremque culpa qui eius. Id qui id officia molestias quaerat deleniti. Qui facere numquam autem libero quae cupiditate asperiores vitae cupiditate. Cumque id deleniti explicabo.",
-    date: "Jan 29, 2020",
-    datetime: "2020-01-29",
-  },
 ];
 
 const BlogIndex = () => {
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
-      <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 dark:divide-gray-800 lg:max-w-7xl">
+      <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 dark:divide-gray-700 lg:max-w-7xl">
         <div>
           <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-            Press
+            From the blog
           </h2>
           <div className="mt-3 sm:mt-4 lg:grid lg:grid-cols-2 lg:gap-5 lg:items-center">
-            <p className="text-xl text-gray-500">
-              Get weekly articles in your inbox on how to grow your business.
+            <p className="text-xl text-gray-500 dark:text-gray-400">
+              A collection of posts primarily about technology.
             </p>
             <form className="mt-6 flex flex-col sm:flex-row lg:mt-0 lg:justify-end">
               <div>
@@ -62,14 +54,14 @@ const BlogIndex = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none w-full px-4 py-2 border border-gray-300 text-base rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 lg:max-w-xs"
+                  className="appearance-none w-full px-4 py-2 border border-gray-300 dark:border-gray-600 text-base rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-900 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400 lg:max-w-xs"
                   placeholder="Enter your email"
                 />
               </div>
               <div className="mt-2 flex-shrink-0 w-full flex rounded-md shadow-sm sm:mt-0 sm:ml-3 sm:w-auto sm:inline-flex">
                 <button
                   type="button"
-                  className="w-full bg-indigo-600 px-4 py-2 border border-transparent rounded-md flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:inline-flex"
+                  className="w-full bg-blue-600 dark:bg-blue-300 px-4 py-2 border border-transparent rounded-md flex items-center justify-center text-base font-medium text-white dark:text-gray-900 hover:bg-blue-700 dark:hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-400 sm:w-auto sm:inline-flex"
                 >
                   Notify me
                 </button>
@@ -80,21 +72,28 @@ const BlogIndex = () => {
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
           {posts.map((post) => (
             <div key={post.title}>
-              <p className="text-sm text-gray-500">
+              <div className="aspect-w-3 aspect-h-2">
+                <img
+                  className="object-cover shadow-lg rounded-lg"
+                  src="http://localhost:4000/build/_assets/banner-75T4H25Z.jpg"
+                  alt=""
+                />
+              </div>
+              <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                 <time dateTime={post.datetime}>{post.date}</time>
               </p>
               <a href="#" className="mt-2 block">
-                <p className="text-xl font-semibold text-gray-900">
+                <p className="text-xl font-semibold text-gray-900 dark:text-white">
                   {post.title}
                 </p>
-                <p className="mt-3 text-base text-gray-500">
+                <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
                   {post.description}
                 </p>
               </a>
               <div className="mt-3">
                 <a
                   href={post.href}
-                  className="text-base font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400"
                 >
                   Read full story
                 </a>
@@ -108,8 +107,9 @@ const BlogIndex = () => {
 };
 
 export default function Blog() {
-  const matches = useMatches();
-  const isBlogPost = matches.length > 2;
+  const pathname = usePathname();
+
+  const isBlogPost = IS_BLOG_POST_REGEXP.test(pathname);
 
   if (isBlogPost) {
     return (
