@@ -1,14 +1,12 @@
 import type { AnchorHTMLAttributes } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDev,
-  faTwitch,
-  faYoutube,
-  faGithub,
-  faInstagram,
-  faLinkedin,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import { faDev } from "@fortawesome/free-brands-svg-icons/faDev";
+import { faTwitch } from "@fortawesome/free-brands-svg-icons/faTwitch";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons/faYoutube";
+import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
 import { MailIcon } from "@heroicons/react/outline";
 import { ExternalLink } from "./ExternalLink";
 
