@@ -35,7 +35,7 @@ export const Header = () => {
             </div>
           </div>
         </div> */}
-        <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
+        {/* <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
           {navigation.map((link) => (
             <SmartLink
               key={link.name}
@@ -46,7 +46,7 @@ export const Header = () => {
               {link.name}
             </SmartLink>
           ))}
-        </div>
+        </div> */}
       </nav>
     </header>
   );
