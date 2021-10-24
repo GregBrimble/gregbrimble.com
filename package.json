@@ -4,21 +4,15 @@
   "description": "Personal website of Greg Brimble, Technological Engineer",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "npm run setup:worker && npm run prebuild:css",
+    "postinstall": "npm run setup:worker",
     "setup:worker": "remix setup cloudflare-workers",
     "setup:local": "remix setup",
-    "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
-    "prebuild:css": "npm run build:fonts",
-    "build:css": "postcss styles --base styles --dir app/styles --env production",
     "build:remix": "remix build",
+    "prebuild:worker": "npm run setup:worker",
     "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --minify --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
-    "prebuild": "npm run build:css && npm run setup:worker",
     "build": "npm run build:remix && npm run build:worker",
     "prestart": "npm run setup:local",
-    "start:remix": "remix run",
-    "prestart:css": "npm run build:fonts",
-    "start:css": "postcss styles --base styles --dir app/styles -w",
-    "start": "concurrently \"npm run start:remix\" \"npm run start:css\""
+    "start": "remix run"
   },
   "dependencies": {
     "@fontsource/inter": "4.5.0",
