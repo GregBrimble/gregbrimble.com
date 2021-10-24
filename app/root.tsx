@@ -1,27 +1,32 @@
-import type { LinksFunction, LoaderFunction } from "remix";
+import type { LinksFunction, MetaFunction } from "remix";
 import {
   Meta,
   Links,
   Scripts,
   useLoaderData,
   LiveReload,
-  useCatch
+  useCatch,
 } from "remix";
 import { Outlet } from "react-router-dom";
-
-import stylesUrl from "./styles/global.css";
+// import { Header } from "./components/Header";
+// import { Footer } from "./components/Footer";
 
 export let links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesUrl }];
+  return [
+    // { rel: "stylesheet", href: stylesUrl },
+    { rel: "stylesheet", href: "/fonts/inter/variable.css" },
+  ];
 };
 
-export let loader: LoaderFunction = async () => {
-  return { date: new Date() };
+export const meta: MetaFunction = () => {
+  return {
+    title: "Greg Brimble",
+  };
 };
 
 function Document({
   children,
-  title
+  title,
 }: {
   children: React.ReactNode;
   title?: string;
@@ -49,10 +54,9 @@ export default function App() {
 
   return (
     <Document>
+      {/* <Header /> */}
       <Outlet />
-      <footer>
-        <p>This page was rendered at {data.date.toLocaleString()}</p>
-      </footer>
+      {/* <Footer /> */}
     </Document>
   );
 }
