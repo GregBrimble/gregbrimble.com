@@ -1,13 +1,5 @@
 import type { LinksFunction, MetaFunction } from "remix";
-import {
-  Meta,
-  Links,
-  Scripts,
-  useLoaderData,
-  LiveReload,
-  Outlet,
-  useCatch,
-} from "remix";
+import { Meta, Links, Scripts, LiveReload, Outlet, useCatch } from "remix";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
 
@@ -53,8 +45,6 @@ function Document({
 }
 
 export default function App() {
-  let data = useLoaderData();
-
   return (
     <Document>
       <Header />

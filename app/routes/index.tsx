@@ -34,6 +34,7 @@ export default function Index() {
             </h2>
             <div className="mt-6 prose prose-blue dark:prose-@light dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400">
               <Biography
+                // @ts-ignore: Bug in Remix. They didn't grab the full types from xdm.
                 components={{
                   a: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
                     <SmartLink {...props} />
