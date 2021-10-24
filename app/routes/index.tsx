@@ -1,6 +1,6 @@
 import type { MetaFunction } from "remix";
 import type { AnchorHTMLAttributes } from "react";
-import { SmartLink } from "../components/SmartLink";
+import { SmartLink } from "~/components/SmartLink";
 import Biography from "../components/Biography.mdx";
 
 export let meta: MetaFunction = () => {
