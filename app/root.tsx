@@ -5,9 +5,9 @@ import {
   Scripts,
   useLoaderData,
   LiveReload,
+  Outlet,
   useCatch,
 } from "remix";
-import { Outlet } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
@@ -43,7 +43,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body className="dark:bg-gray-900">
+      <body className="dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-900">
         {children}
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

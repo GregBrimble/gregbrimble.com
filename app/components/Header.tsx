@@ -2,11 +2,11 @@ import { Link } from "remix";
 import { Logo } from "./Logo";
 import { SmartLink } from "./SmartLink";
 
-const navigation = [
+const navigation: { name: string; to?: string; href?: string }[] = [
   { name: "Open Source", to: "/open-source" },
   { name: "Data", to: "/data" },
-  { name: "Blog", href: "https://blog.gregbrimble.com/" },
-  { name: "Newsletter", href: "https://newsletter.gregbrimble.com/" },
+  { name: "Blog", to: "/blog" },
+  { name: "Videos", to: "/live" },
 ];
 
 export const Header = () => {
