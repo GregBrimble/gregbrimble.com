@@ -38,6 +38,7 @@
     "@remix-run/dev": "0.19.3",
     "@remix-run/node": "0.19.3",
     "@remix-run/serve": "0.19.3",
+    "@tailwindcss/aspect-ratio": "0.3.0",
     "@tailwindcss/forms": "0.4.0-alpha.1",
     "@tailwindcss/typography": "0.5.0-alpha.2",
     "@types/react": "17.0.31",
