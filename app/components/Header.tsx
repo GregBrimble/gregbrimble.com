@@ -1,5 +1,5 @@
-// import { Link } from "react-router-dom";
-// import { Logo } from "./Logo";
+import { Link } from "react-router-dom";
+import { Logo } from "./Logo";
 import { SmartLink } from "./SmartLink";
 
 const navigation = [
@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <header>
       <nav className="px-4 sm:px-6 lg:px-8" aria-label="Top">
-        {/* <div className="w-full py-6 flex items-center justify-between border-b border-gray-500 dark:border-gray-400 lg:border-none">
+        <div className="w-full py-6 flex items-center justify-between border-b border-gray-500 dark:border-gray-400 lg:border-none">
           <div className="flex items-center">
             <Link to="/">
               <span className="sr-only">gregbrimble.com</span>
@@ -21,7 +21,7 @@ export const Header = () => {
                 <Logo />
               </svg>
             </Link>
-            <div className="hidden ml-10 space-x-8 lg:block">
+            {/* <div className="hidden ml-10 space-x-8 lg:block">
               {navigation.map((link) => (
                 <SmartLink
                   key={link.name}
@@ -32,9 +32,9 @@ export const Header = () => {
                   {link.name}
                 </SmartLink>
               ))}
-            </div>
+            </div> */}
           </div>
-        </div> */}
+        </div>
         <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
           {navigation.map((link) => (
             // <SmartLink
