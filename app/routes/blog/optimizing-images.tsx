@@ -1,6 +1,8 @@
-import { BlogPost } from "~/components/blog/BlogPost";
-import * as Blog from "../../content/blog/optimizing-images.mdx";
+import { generateBlogPost } from "~/utils/blog/generateBlogPost";
+import * as OptimizingImages from "../../content/blog/optimizing-images.mdx";
 
-export default function OptimizingImages() {
-  return <BlogPost blog={Blog} />;
-}
+const BlogPost = generateBlogPost(OptimizingImages);
+
+export const links = BlogPost.links;
+export const meta = BlogPost.meta;
+export default BlogPost.default;

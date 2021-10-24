@@ -34,7 +34,7 @@ export const BlogPost = ({
           </p>
         )}
         {image && (
-          <p className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+          <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
             <figure>
               <img
                 className="w-full rounded-lg"
@@ -49,7 +49,7 @@ export const BlogPost = ({
                 </figcaption>
               )}
             </figure>
-          </p>
+          </div>
         )}
       </div>
       <div className="mt-6 prose prose-blue prose-lg text-gray-500 dark:text-gray-400 mx-auto">
