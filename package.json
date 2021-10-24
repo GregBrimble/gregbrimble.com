@@ -11,7 +11,7 @@
     "prebuild:css": "npm run build:fonts",
     "build:css": "tailwindcss -o app/styles/app.css",
     "build:remix": "remix build",
-    "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --minify --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
+    "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "prebuild": "npm run build:css && npm run setup:worker",
     "build": "npm run build:remix && npm run build:worker",
     "prestart": "npm run setup:local",
