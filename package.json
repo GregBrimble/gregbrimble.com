@@ -11,12 +11,14 @@
     "prebuild:css": "npm run build:fonts",
     "build:css": "echo \"Nada\"",
     "build:remix": "remix build",
-    "prebuild:worker": "npm run setup:worker",
     "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --minify --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "prebuild": "npm run build:css && npm run setup:worker",
     "build": "npm run build:remix && npm run build:worker",
     "prestart": "npm run setup:local",
-    "start": "remix run"
+    "start:remix": "remix run",
+    "prestart:css": "npm run build:fonts",
+    "start:css": "postcss styles --base styles --dir app/styles -w",
+    "start": "concurrently \"npm run start:remix\" \"npm run start:css\""
   },
   "dependencies": {
     "@fontsource/inter": "4.5.0",
