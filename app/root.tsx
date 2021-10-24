@@ -58,7 +58,7 @@ export default function App() {
     <Document>
       <Header />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </Document>
   );
 }
