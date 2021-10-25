@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import { formatDate } from "~/utils/formatDate";
+import { SmartLink } from "../SmartLink";
 
 export const BlogPost = ({
   Component,
@@ -16,6 +17,7 @@ export const BlogPost = ({
     url: string;
     alt?: string;
     attribution?: string;
+    attribution_url?: string;
   };
 }) => {
   return (
@@ -44,7 +46,13 @@ export const BlogPost = ({
             />
             {image.attribution && (
               <figcaption className="text-right">
-                {image.attribution}
+                {image.attribution_url ? (
+                  <SmartLink href={image.attribution_url}>
+                    {image.attribution}
+                  </SmartLink>
+                ) : (
+                  image.attribution
+                )}
               </figcaption>
             )}
           </figure>
@@ -54,7 +62,7 @@ export const BlogPost = ({
           <time dateTime={date}>{formatDate(date)}</time>
         </p>
       </div>
-      <div className="mt-6 prose prose-blue prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+      <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
         <Component />
       </div>
     </>

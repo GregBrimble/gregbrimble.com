@@ -10,9 +10,9 @@ interface BlogPostAttributes {
   date: string;
   canonical_url?: string;
   image: {
-    url: string;
     alt?: string;
     attribution?: string;
+    attribution_url?: string;
   };
 }
 
@@ -21,15 +21,29 @@ interface BlogPostComponent {
   attributes: BlogPostAttributes;
 }
 
-export const generateBlogPost = (blogPost: BlogPostComponent) => {
+export const generateBlogPost = (
+  blogPost: BlogPostComponent,
+  imageURL: string
+) => {
   const {
-    attributes: { slug, title, description, date, canonical_url, image },
+    attributes: {
+      slug,
+      title,
+      description,
+      date,
+      canonical_url: canonicalURL,
+      image: dehydatedImage,
+    },
   } = blogPost;
+  const image = {
+    ...dehydatedImage,
+    url: imageURL,
+  };
 
   const links: LinksFunction = () => {
     const links = [];
 
-    if (canonical_url) links.push({ rel: "canonical", href: canonical_url });
+    if (canonicalURL) links.push({ rel: "canonical", href: canonicalURL });
 
     return links;
   };

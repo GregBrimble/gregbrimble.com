@@ -37,10 +37,13 @@ export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
 const posts = [initialization, optimizingImages];
 
 export const loader: LoaderFunction = async ({ context }) => {
-  const loadedPosts = await Promise.all(posts.map((post) => post(context)));
-  return loadedPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  try {
+    const loadedPosts = await Promise.all(posts.map((post) => post(context)));
+    return loadedPosts.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  } catch {}
+  return [];
 };
 
 const BlogIndex = () => {

@@ -30,7 +30,7 @@ export const NewsletterIssue = ({
         </p>
       </div>
       <div
-        className="mt-6 prose prose-blue prose-lg text-gray-500 dark:text-gray-400 mx-auto"
+        className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto"
         dangerouslySetInnerHTML={{ __html: html }}
       ></div>
     </>
