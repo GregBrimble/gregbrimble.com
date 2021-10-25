@@ -23,9 +23,16 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = () => {
-  const isLive = false;
-  return { isLive };
+export const loader: LoaderFunction = async ({ context }) => {
+  const data = {
+    isLive: false,
+  };
+
+  try {
+    data.isLive = !!(await context.clients.stream.getLiveVideo());
+  } catch {}
+
+  return data;
 };
 
 function Document({
@@ -59,6 +66,7 @@ function Document({
 
 export default function App() {
   const { isLive } = useLoaderData();
+
   return (
     <Document>
       <Header isLive={isLive} />

@@ -19,7 +19,7 @@ export const Header = ({ isLive = false }: { isLive?: boolean }) => {
   const videoLink: NavigationLink = isLive
     ? {
         name: (
-          <span className="flex items-center space-x-3">
+          <span className="inline-flex items-center space-x-3">
             <span>Live</span>
             <span
               className="bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full flex items-center justify-center"
