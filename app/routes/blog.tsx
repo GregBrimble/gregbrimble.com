@@ -4,6 +4,7 @@ import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
 
 import { indexLoader as initialization } from "./blog/initialization";
+import { formatDate } from "~/utils/formatDate";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -45,12 +46,12 @@ const posts = [
 ];
 
 export const loader: LoaderFunction = async ({ context }) => {
-  initialization(context);
-
-  return [];
+  return [await initialization(context)];
 };
 
 const BlogIndex = () => {
+  const writings: Writing[] = useLoaderData();
+
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
       <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 dark:divide-gray-700 lg:max-w-7xl">
@@ -95,9 +96,9 @@ const BlogIndex = () => {
           </div>
         </div>
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
-          {posts.map((post) => (
-            <div key={post.title}>
-              <Link to={post.to}>
+          {writings.map((writing) => (
+            <div key={writing.title}>
+              <Link to={writing.to}>
                 <div className="aspect-w-3 aspect-h-2">
                   <img
                     className="object-cover shadow-lg rounded-lg"
@@ -107,21 +108,23 @@ const BlogIndex = () => {
                 </div>
               </Link>
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                <Link to={post.to}>
-                  <time dateTime={post.datetime}>{post.date}</time>
+                <Link to={writing.to}>
+                  <time dateTime={writing.date}>
+                    {formatDate(writing.date)}
+                  </time>
                 </Link>
               </p>
-              <Link to={post.to} className="mt-2 block">
+              <Link to={writing.to} className="mt-2 block">
                 <p className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {post.title}
+                  {writing.title}
                 </p>
                 <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
-                  {post.description}
+                  {writing.description}
                 </p>
               </Link>
               <div className="mt-3">
                 <Link
-                  to={post.to}
+                  to={writing.to}
                   className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400"
                 >
                   Read the full post

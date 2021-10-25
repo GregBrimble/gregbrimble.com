@@ -40,7 +40,8 @@ export const generateNewsletterIssue = ({
   };
 
   const indexLoader: IndexLoader = async (context: AppLoadContext) => {
-    const { title, description, date } = await context.newsletter.getIssue(id);
+    const { title, description, date } =
+      await context.clients.newsletter.getIssue(id);
 
     return {
       to: `/blog/${slug}`,
