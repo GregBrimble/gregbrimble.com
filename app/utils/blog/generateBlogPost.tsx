@@ -11,6 +11,7 @@ interface BlogPostAttributes {
   canonical_url?: string;
   image?: {
     url: string;
+    alt?: string;
     attribution?: string;
   };
 }
@@ -45,7 +46,7 @@ export const generateBlogPost = (blogPost: BlogPostComponent) => {
       title: title,
       description: description,
       date: date,
-      image: image?.url,
+      image: image,
     };
   };
 

@@ -2,9 +2,10 @@ import { Link, Outlet, useLoaderData } from "remix";
 import type { LoaderFunction, AppLoadContext } from "remix";
 import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
+import { formatDate } from "~/utils/formatDate";
 
 import { indexLoader as initialization } from "./blog/initialization";
-import { formatDate } from "~/utils/formatDate";
+import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -13,12 +14,16 @@ interface Writing {
   title: string;
   date: string;
   description: string;
-  image?: string;
+  image?: {
+    url: string;
+    alt?: string;
+    attribution?: string;
+  };
 }
 
 export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
 
-const posts = [initialization];
+const posts = [initialization, optimizingImages];
 
 export const loader: LoaderFunction = async ({ context }) => {
   const loadedPosts = await Promise.all(posts.map((post) => post(context)));
@@ -76,15 +81,17 @@ const BlogIndex = () => {
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
           {writings.map((writing) => (
             <div key={writing.title}>
-              <Link to={writing.to}>
-                <div className="aspect-w-3 aspect-h-2">
-                  <img
-                    className="object-cover shadow-lg rounded-lg"
-                    src="http://localhost:4000/build/_assets/banner-75T4H25Z.jpg"
-                    alt=""
-                  />
-                </div>
-              </Link>
+              {writing.image && (
+                <Link to={writing.to}>
+                  <div className="aspect-w-3 aspect-h-2">
+                    <img
+                      className="object-cover shadow-lg rounded-lg"
+                      src={writing.image.url}
+                      alt={writing.image.alt || ""}
+                    />
+                  </div>
+                </Link>
+              )}
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                 <Link to={writing.to}>
                   <time dateTime={writing.date}>
