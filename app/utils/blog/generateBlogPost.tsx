@@ -9,7 +9,7 @@ interface BlogPostAttributes {
   description: string;
   date: string;
   canonical_url?: string;
-  image?: {
+  image: {
     url: string;
     alt?: string;
     attribution?: string;
@@ -42,6 +42,7 @@ export const generateBlogPost = (blogPost: BlogPostComponent) => {
 
   const indexLoader: IndexLoader = async () => {
     return {
+      type: "BlogPost",
       to: `/blog/${slug}`,
       title: title,
       description: description,

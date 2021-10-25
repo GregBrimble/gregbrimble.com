@@ -1,5 +1,6 @@
 import { Link, Outlet, useLoaderData } from "remix";
 import type { LoaderFunction, AppLoadContext } from "remix";
+import MailIcon from "@heroicons/react/solid/MailIcon";
 import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
 import { formatDate } from "~/utils/formatDate";
@@ -9,17 +10,27 @@ import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
-interface Writing {
+interface BlogPost {
+  type: "BlogPost";
   to: string;
   title: string;
   date: string;
   description: string;
-  image?: {
+  image: {
     url: string;
     alt?: string;
     attribution?: string;
   };
 }
+interface NewsletterIssue {
+  type: "NewsletterIssue";
+  to: string;
+  title: string;
+  date: string;
+  description: string;
+}
+
+type Writing = BlogPost | NewsletterIssue;
 
 export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
 
@@ -28,7 +39,7 @@ const posts = [initialization, optimizingImages];
 export const loader: LoaderFunction = async ({ context }) => {
   const loadedPosts = await Promise.all(posts.map((post) => post(context)));
   return loadedPosts.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 };
 
@@ -80,42 +91,39 @@ const BlogIndex = () => {
         </div>
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
           {writings.map((writing) => (
-            <div key={writing.title}>
-              {writing.image && (
-                <Link to={writing.to}>
-                  <div className="aspect-w-3 aspect-h-2">
-                    <img
-                      className="object-cover shadow-lg rounded-lg"
-                      src={writing.image.url}
-                      alt={writing.image.alt || ""}
-                    />
+            <Link to={writing.to} key={writing.title}>
+              {writing.type === "BlogPost" ? (
+                <div className="aspect-w-3 aspect-h-2">
+                  <img
+                    className="object-cover shadow-lg rounded-lg"
+                    src={writing.image.url}
+                    alt={writing.image.alt || ""}
+                  />
+                </div>
+              ) : (
+                <div className="hidden lg:block aspect-w-3 aspect-h-2">
+                  <div className="shadow-lg rounded-lg bg-gray-200 dark:bg-gray-700 flex items-center">
+                    <MailIcon className="mx-auto w-28 h-28 text-gray-500 dark:text-gray-400" />
                   </div>
-                </Link>
+                </div>
               )}
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                <Link to={writing.to}>
-                  <time dateTime={writing.date}>
-                    {formatDate(writing.date)}
-                  </time>
-                </Link>
+                <time dateTime={writing.date}>{formatDate(writing.date)}</time>
               </p>
-              <Link to={writing.to} className="mt-2 block">
+              <div className="mt-2 block">
                 <p className="text-xl font-semibold text-gray-900 dark:text-white">
                   {writing.title}
                 </p>
                 <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
                   {writing.description}
                 </p>
-              </Link>
-              <div className="mt-3">
-                <Link
-                  to={writing.to}
-                  className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400"
-                >
-                  Read the full post
-                </Link>
               </div>
-            </div>
+              <div className="mt-3">
+                <p className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400">
+                  Read the full post
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

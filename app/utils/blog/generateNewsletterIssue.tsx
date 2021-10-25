@@ -43,6 +43,7 @@ export const generateNewsletterIssue = ({
     const { title, date } = await context.clients.newsletter.getIssue(id);
 
     return {
+      type: "NewsletterIssue",
       to: `/blog/${slug}`,
       title,
       description,

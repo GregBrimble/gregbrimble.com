@@ -12,8 +12,9 @@ export const BlogPost = ({
   title: string;
   description: string;
   date: string;
-  image?: {
+  image: {
     url: string;
+    alt?: string;
     attribution?: string;
   };
 }) => {
@@ -31,24 +32,24 @@ export const BlogPost = ({
         <p className="mt-8 text-xl text-gray-500 dark:text-gray-400 leading-8">
           {description}
         </p>
-        {image && (
-          <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
-            <figure>
-              <img
-                className="w-full rounded-lg"
-                src={image.url}
-                alt=""
-                width="1310"
-                height="873"
-              />
-              {image.attribution && (
-                <figcaption className="text-right">
-                  {image.attribution}
-                </figcaption>
-              )}
-            </figure>
-          </div>
-        )}
+
+        <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+          <figure>
+            <img
+              className="w-full rounded-lg"
+              src={image.url}
+              alt={image.alt || ""}
+              width="1310"
+              height="873"
+            />
+            {image.attribution && (
+              <figcaption className="text-right">
+                {image.attribution}
+              </figcaption>
+            )}
+          </figure>
+        </div>
+
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
           <time dateTime={date}>{formatDate(date)}</time>
         </p>
