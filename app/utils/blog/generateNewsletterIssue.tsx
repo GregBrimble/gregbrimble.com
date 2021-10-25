@@ -30,7 +30,7 @@ export const generateNewsletterIssue = ({
   };
 
   const loader: LoaderFunction = async ({ context }) => {
-    return await context.newsletter.getIssue(id);
+    return await context.clients.newsletter.getIssue(id);
   };
 
   const meta: MetaFunction = ({ data: { title } }) => {

@@ -18,35 +18,13 @@ interface Writing {
 
 export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
 
-const posts = [
-  {
-    title: "Boost your conversion rate",
-    to: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-  },
-  {
-    title: "How to use search engine optimization to drive sales",
-    to: "#",
-    description:
-      "Optio cum necessitatibus dolor voluptatum provident commodi et. Qui aperiam fugiat nemo cumque.",
-    date: "Mar 10, 2020",
-    datetime: "2020-03-10",
-  },
-  {
-    title: "Improve your customer experience",
-    to: "#",
-    description:
-      "Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis.",
-    date: "Feb 12, 2020",
-    datetime: "2020-02-12",
-  },
-];
+const posts = [initialization];
 
 export const loader: LoaderFunction = async ({ context }) => {
-  return [await initialization(context)];
+  const loadedPosts = await Promise.all(posts.map((post) => post(context)));
+  return loadedPosts.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 };
 
 const BlogIndex = () => {
