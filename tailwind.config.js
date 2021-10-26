@@ -11,6 +11,13 @@ module.exports = {
       },
       // This mess until dark mode is added to @tailwindcss/typography
       typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            "pre code": {
+              paddingRight: "24px",
+            },
+          },
+        },
         "@light": {
           css: {
             '[class~="lead"]': {

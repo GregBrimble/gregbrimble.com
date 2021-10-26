@@ -1,0 +1,106 @@
+---
+slug: "custom-headers-for-pages"
+title: "Custom Headers for Cloudflare Pages"
+description: "Announcing support for custom headers for projects on Cloudflare Pages."
+canonical_url: "https://blog.cloudflare.com/custom-headers-for-pages/"
+date: "2021-10-27"
+image:
+  attribution: "Cloudflare"
+  attribution_url: "https://blog.cloudflare.com/custom-headers-for-pages/"
+authors:
+  - name: "Nevi Shah"
+    url: "https://twitter.com/nevikashah"
+  - name: "Greg Brimble"
+    url: "https://gregbrimble.com/"
+---
+
+Until today, Cloudflare Workers has been a great solution to setting headers, but we wanted to create an even smoother developer experience. Today, we're excited to announce that Pages now natively supports custom headers on your projects! Simply create a `_headers` file in the build directory of your project and within it, define the rules you want to apply.
+
+```txt
+/developer-docs/*
+  X-Hiring: Looking for a job? We're hiring engineers (https://www.cloudflare.com/careers/jobs)
+```
+
+## What can you set with custom headers?
+
+Being able to set custom headers is useful for a variety of reasons — let’s explore some of your most popular use cases.
+
+### Search Engine Optimization (SEO)
+
+When you create a Pages project, a `pages.dev` deployment is created for your project which enables you to [get started immediately](https://developers.cloudflare.com/pages/get-started) and easily [preview changes](https://developers.cloudflare.com/pages/platform/preview-deployments) as you iterate. However, we realize this poses an issue — publishing multiple copies of your website can harm your rankings in search engine results. One way to solve this is by disabling indexing on all `pages.dev` subdomains, but we see many using their `pages.dev` subdomain as their primary domain. With today’s announcement you can attach headers such as [`X-Robots-Tag`](https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag) to hint to Google and other search engines how you'd like your deployment to be indexed.
+
+For example, to prevent your `pages.dev` deployment from being indexed, you can add the following to your `_headers` file:
+
+```txt
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+```
+
+### Security
+
+Customizing headers doesn’t just help with your site’s search result ranking — a number of browser security features can be configured with headers. A few headers that can enhance your site’s security are:
+
+- [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options): You can prevent [click-jacking](https://owasp.org/www-community/attacks/Clickjacking) by informing browsers not to embed your application inside another (e.g. with an `<iframe>`).
+
+- [`X-Content-Type-Option: nosniff`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options): To prevent browsers from interpreting a response as any other content-type than what is defined with the `Content-Type` header.
+
+- [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy): This allows you to customize how much information visitors give about where they're coming from when they navigate away from your page.
+
+- [`Permissions-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy): Browser features can be disabled to varying degrees with this header (recently renamed from `Feature-Policy`).
+
+- [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy): And if you need fine-grained control over the content in your application, this header allows you to configure a number of security settings, including similar controls to the `X-Frame-Options` header.
+
+You can configure these headers to protect an `/app/*` path, with the following in your `_headers` file:
+
+```txt
+/app/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: document-domain=()
+  Content-Security-Policy: script-src 'self'; frame-ancestors 'none';
+```
+
+### CORS
+
+Modern browsers implement a security protection called _CORS_ or Cross-Origin Resource Sharing. This prevents one domain from being able to force a user's action on another. Without CORS, a malicious site owner might be able to do things like make requests to unsuspecting visitors' banks and initiate a transfer on their behalf. However with CORS, requests are prevented from one origin to another to stop the malicious activity.
+
+There are, however, some cases where it is safe to allow these cross-origin requests. So-called, "[simple requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests)" (such as linking to an image hosted on a different domain) are permitted by the browser. Fetching these resources dynamically is often where the difficulty arises, and the browser is sometimes overzealous in its protection. Simple static assets on Pages are safe to serve to any domain, since the request takes no action and there is no visitor session. Because of this, a domain owner can attach CORS headers to specify exactly which requests can be allowed in the `_headers` file for fine-grained and explicit control.
+
+For example, the use of the asterisk will enable any origin to request any asset from your Pages deployment:
+
+```txt
+/*
+  Access-Control-Allow-Origin: *
+```
+
+To be more restrictive and limit requests to only be allowed from a 'staging' subdomain, we can do the following:
+
+```txt
+https://:project.pages.dev/*
+  Access-Control-Allow-Origin: https://staging.:project.pages.dev
+```
+
+## How we built support for custom headers
+
+To support all these use cases for custom headers, we had to build a new engine to determine which rules to apply for each incoming request. Backed, of course, by Workers, this engine supports splats and placeholders, and allows you to include those matched values in your headers.
+
+Although we don't support all of its features, we've modeled this matching engine after the [URLPattern specification](https://wicg.github.io/urlpattern/) which was recently shipped with Chrome 95. We plan to be able to fully implement this specification for custom headers once URLPattern lands in the Workers runtime, and there should hopefully be no breaking changes to migrate.
+
+## Enhanced support for redirects
+
+With this same engine, we’re bringing these features to your `_redirects` file as well. You can now configure your redirects with splats, placeholders and status codes as shown in the example below:
+
+```txt
+/blog/* https://blog.example.com/:splat 301
+/products/:code/:name /products?name=:name&code=:code
+/submit-form https://static-form.example.com/submit 307
+```
+
+## Get started
+
+Custom [headers](https://developers.cloudflare.com/pages/platform/headers) and [redirects](https://developers.cloudflare.com/pages/platform/redirects) for Cloudflare Pages can be configured today. Check out [our documentation](https://developers.cloudflare.com/pages/platform) to get started, and let us know how you're using it in [our Discord server](https://discord.gg/cloudflaredev). We'd love to hear about what this unlocks for your projects!
+
+## Coming up...
+
+And finally, if a `_headers` file and enhanced support for `_redirects` just isn't enough for you, we also have something _big_ coming very soon which will give you the power to build even more powerful projects. Stay tuned!

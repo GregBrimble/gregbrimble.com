@@ -14,6 +14,10 @@ interface BlogPostAttributes {
     attribution?: string;
     attribution_url?: string;
   };
+  authors?: {
+    name: string;
+    url?: string;
+  }[];
 }
 
 interface BlogPostComponent {
@@ -33,8 +37,10 @@ export const generateBlogPost = (
       date,
       canonical_url: canonicalURL,
       image: dehydatedImage,
+      authors = [{ name: "Greg Brimble", url: "https://gregbrimble.com/" }],
     },
   } = blogPost;
+
   const image = {
     ...dehydatedImage,
     url: imageURL,
@@ -73,6 +79,7 @@ export const generateBlogPost = (
         description={description}
         date={date}
         image={image}
+        authors={authors}
       />
     );
   };

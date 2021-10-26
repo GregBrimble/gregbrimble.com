@@ -8,6 +8,7 @@ export const BlogPost = ({
   description,
   date,
   image,
+  authors,
 }: {
   Component: ComponentType;
   title: string;
@@ -19,6 +20,10 @@ export const BlogPost = ({
     attribution?: string;
     attribution_url?: string;
   };
+  authors: {
+    name: string;
+    url?: string;
+  }[];
 }) => {
   return (
     <>
@@ -31,6 +36,7 @@ export const BlogPost = ({
             {title}
           </span>
         </h1>
+
         <p className="mt-8 text-xl text-gray-500 dark:text-gray-400 leading-8">
           {description}
         </p>
@@ -58,13 +64,26 @@ export const BlogPost = ({
           </figure>
         </div>
 
+        {authors.length > 1 && (
+          <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
+            {authors.map((author, index) => (
+              <>
+                <SmartLink href={author.url} className="underline">
+                  {author.name}
+                </SmartLink>
+                {index < authors.length - 1 ? ", " : ""}
+              </>
+            ))}
+          </p>
+        )}
+
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
           <time dateTime={date}>{formatDate(date)}</time>
         </p>
       </div>
-      <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+      <article className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
         <Component />
-      </div>
+      </article>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { formatDate } from "~/utils/formatDate";
 
 import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";
+import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
 import { ExternalLink } from "~/components/ExternalLink";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
@@ -35,7 +36,7 @@ type Writing = BlogPost | NewsletterIssue;
 
 export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
 
-const posts = [initialization, optimizingImages];
+const posts = [initialization, optimizingImages, customHeadersForPages];
 
 export const loader: LoaderFunction = async ({ context, request }) => {
   const loadedWritings = (
