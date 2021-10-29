@@ -7,6 +7,7 @@ import * as build from "../build";
 
 export interface Env {
   REVUE_API_TOKEN: string;
+  LAST_FM_API_KEY: string;
   CLOUDFLARE_API_TOKEN: string;
 }
 
