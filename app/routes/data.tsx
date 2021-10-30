@@ -114,7 +114,7 @@ export const loader: LoaderFunction = async ({
 
 export default function OpenSource() {
   const { currentTrack, recentTracks } = useLoaderData<LoaderData>();
-  useRevalidateOnInterval({ enabled: true });
+  useRevalidateOnInterval();
 
   return (
     <div>
