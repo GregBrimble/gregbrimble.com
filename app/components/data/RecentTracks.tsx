@@ -5,6 +5,11 @@ import { ExternalLink } from "../ExternalLink";
 export const RecentTracks = ({ tracks }: { tracks: Track[] }) => {
   return (
     <div className="w-96">
+      <div className="pb-5 border-b border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+          Music
+        </h3>
+      </div>
       <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
         {tracks.map((track) => (
           <li key={track.date} className="py-4">

@@ -21,19 +21,19 @@ export const loader: LoaderFunction = async ({
   };
 
   return {
-    // currentTrack: {
-    //   artist: {
-    //     url: "https://www.last.fm/music/Oscar+Scheller",
-    //     name: "Oscar Scheller",
-    //   },
-    //   name: "Peach",
-    //   image:
-    //     "https://lastfm.freetls.fastly.net/i/u/300x300/8c77ba682ee2ead43e4f6d66d13d54b4.jpg",
+    currentTrack: {
+      artist: {
+        url: "https://www.last.fm/music/Oscar+Scheller",
+        name: "Oscar Scheller",
+      },
+      name: "Peach",
+      image:
+        "https://lastfm.freetls.fastly.net/i/u/300x300/8c77ba682ee2ead43e4f6d66d13d54b4.jpg",
 
-    //   album: "Boys Cry",
+      album: "Boys Cry",
 
-    //   url: "https://www.last.fm/music/Oscar+Scheller/_/Peach",
-    // },
+      url: "https://www.last.fm/music/Oscar+Scheller/_/Peach",
+    },
     recentTracks: [
       {
         artist: {
@@ -116,14 +116,26 @@ export default function OpenSource() {
 
   return (
     <div>
-      {currentTrack ? (
+      <div className="pt-16 px-4 sm:px-6 lg:pt-24 lg:px-8">
+        <div className="max-w-lg mx-auto lg:max-w-7xl">
+          <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+            Data
+          </h2>
+        </div>
+      </div>
+
+      {currentTrack && (
         <CurrentlyListingTo
           currentTrack={currentTrack}
           recentTracks={recentTracks}
         />
-      ) : (
-        <RecentTracks tracks={recentTracks} />
       )}
+
+      <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
+        <div className="max-w-lg mx-auto lg:max-w-7xl">
+          {!currentTrack && <RecentTracks tracks={recentTracks} />}
+        </div>
+      </div>
     </div>
   );
 }
