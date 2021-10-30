@@ -9,6 +9,17 @@ module.exports = {
       fontFamily: {
         sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
       },
+      animation: {
+        "ping-small": "ping-small 1s cubic-bezier(0, 0, 0.2, 1) infinite",
+      },
+      keyframes: {
+        "ping-small": {
+          "75%, 100%": {
+            transform: "scale(1.5)",
+            opacity: "0",
+          },
+        },
+      },
       // This mess until dark mode is added to @tailwindcss/typography
       typography: (theme) => ({
         DEFAULT: {

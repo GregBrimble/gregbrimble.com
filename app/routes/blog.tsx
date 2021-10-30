@@ -10,6 +10,7 @@ import type { Context } from "../../data";
 import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
+import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -37,7 +38,12 @@ type Writing = BlogPost | NewsletterIssue;
 
 export type IndexLoader = (context: Context) => Promise<Writing>;
 
-const posts = [initialization, optimizingImages, customHeadersForPages];
+const posts = [
+  initialization,
+  optimizingImages,
+  customHeadersForPages,
+  cloudflareImagesAndCloudflarePages,
+];
 
 export const loader: LoaderFunction = async ({
   context,
