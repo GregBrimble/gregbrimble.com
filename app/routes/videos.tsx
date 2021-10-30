@@ -1,7 +1,7 @@
-export default function OpenSource() {
+export default function Videos() {
   return (
     <div>
-      <h1>Open Source</h1>
+      <h1>Videos</h1>
     </div>
   );
 }

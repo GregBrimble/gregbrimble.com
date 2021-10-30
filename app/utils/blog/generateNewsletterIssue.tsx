@@ -1,12 +1,9 @@
-import type {
-  LinksFunction,
-  MetaFunction,
-  LoaderFunction,
-  AppLoadContext,
-} from "remix";
+import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData } from "remix";
+import type { IndexLoader } from "~/routes/blog";
+import type { Context } from "../../../data";
+import type { Issue } from "../../../data/newsletter";
 import { NewsletterIssue } from "~/components/blog/NewsletterIssue";
-import { IndexLoader } from "~/routes/blog";
 
 const EXTRACT_ID_REGEXP = /\-(\d+)$/i;
 
@@ -29,8 +26,22 @@ export const generateNewsletterIssue = ({
     return links;
   };
 
-  const loader: LoaderFunction = async ({ context }) => {
-    return await context.clients.newsletter.getIssue(id);
+  interface LoaderData {
+    title: string;
+    date: string;
+    html: string;
+  }
+
+  const loader: LoaderFunction = async ({
+    context,
+  }: {
+    context: Context;
+  }): Promise<LoaderData> => {
+    const { title, date, html } = (await context.clients.newsletter.getIssue(
+      id
+    )) as Issue;
+
+    return { title, date, html };
   };
 
   const meta: MetaFunction = ({ data: { title } }) => {
@@ -39,8 +50,10 @@ export const generateNewsletterIssue = ({
     };
   };
 
-  const indexLoader: IndexLoader = async (context: AppLoadContext) => {
-    const { title, date } = await context.clients.newsletter.getIssue(id);
+  const indexLoader: IndexLoader = async (context: Context) => {
+    const { title, date } = (await context.clients.newsletter.getIssue(
+      id
+    )) as Issue;
 
     return {
       type: "NewsletterIssue",
@@ -52,14 +65,14 @@ export const generateNewsletterIssue = ({
   };
 
   const Component = () => {
-    const { html, title, date } = useLoaderData();
+    const { title, date, html } = useLoaderData<LoaderData>();
 
     return (
       <NewsletterIssue
-        html={html}
         title={title}
         description={description}
         date={date}
+        html={html}
       />
     );
   };

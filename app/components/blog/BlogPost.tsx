@@ -78,7 +78,9 @@ export const BlogPost = ({
         )}
 
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
-          <time dateTime={date}>{formatDate(date)}</time>
+          <time dateTime={new Date(date).toISOString()}>
+            {formatDate(date)}
+          </time>
         </p>
       </div>
       <article className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">

@@ -16,7 +16,7 @@ const navigation: NavigationLink[] = [
 ];
 
 export const Header = ({ isLive = false }: { isLive?: boolean }) => {
-  const videoLink: NavigationLink = true
+  const videoLink: NavigationLink = isLive
     ? {
         name: (
           <span className="inline-flex items-center space-x-3">

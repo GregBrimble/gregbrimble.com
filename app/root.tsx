@@ -1,10 +1,14 @@
 import {
-  LinksFunction,
-  MetaFunction,
-  LoaderFunction,
   useLoaderData,
+  Meta,
+  Links,
+  Scripts,
+  LiveReload,
+  Outlet,
+  useCatch,
 } from "remix";
-import { Meta, Links, Scripts, LiveReload, Outlet, useCatch } from "remix";
+import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
+import type { Context } from "../data";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
 
@@ -23,13 +27,21 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async ({ context }) => {
+interface LoaderData {
+  isLive: boolean;
+}
+
+export const loader: LoaderFunction = async ({
+  context,
+}: {
+  context: Context;
+}): Promise<LoaderData> => {
   const data = {
     isLive: false,
   };
 
   try {
-    data.isLive = !!(await context.clients.stream.getLiveVideo());
+    data.isLive = (await context.clients.videos.getLiveVideo()) !== undefined;
   } catch {}
 
   return data;
@@ -65,7 +77,7 @@ function Document({
 }
 
 export default function App() {
-  const { isLive } = useLoaderData();
+  const { isLive } = useLoaderData<LoaderData>();
 
   return (
     <Document>

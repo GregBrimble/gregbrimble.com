@@ -4,11 +4,12 @@ import MailIcon from "@heroicons/react/solid/MailIcon";
 import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
 import { formatDate } from "~/utils/formatDate";
+import { ExternalLink } from "~/components/ExternalLink";
+import type { Context } from "../../data";
 
 import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
-import { ExternalLink } from "~/components/ExternalLink";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -16,8 +17,8 @@ interface BlogPost {
   type: "BlogPost";
   to: string;
   title: string;
-  date: string;
   description: string;
+  date: string;
   image: {
     url: string;
     alt?: string;
@@ -28,17 +29,21 @@ interface NewsletterIssue {
   type: "NewsletterIssue";
   to: string;
   title: string;
-  date: string;
   description: string;
+  date: string;
 }
 
 type Writing = BlogPost | NewsletterIssue;
 
-export type IndexLoader = (context: AppLoadContext) => Promise<Writing>;
+export type IndexLoader = (context: Context) => Promise<Writing>;
 
 const posts = [initialization, optimizingImages, customHeadersForPages];
 
-export const loader: LoaderFunction = async ({ context, request }) => {
+export const loader: LoaderFunction = async ({
+  context,
+}: {
+  context: Context;
+}) => {
   const loadedWritings = (
     await Promise.allSettled(posts.map((post) => post(context)))
   )

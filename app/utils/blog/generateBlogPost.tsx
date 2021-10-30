@@ -64,10 +64,10 @@ export const generateBlogPost = (
     return {
       type: "BlogPost",
       to: `/blog/${slug}`,
-      title: title,
-      description: description,
-      date: date,
-      image: image,
+      title,
+      description,
+      date,
+      image,
     };
   };
 

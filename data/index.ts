@@ -1,14 +1,21 @@
 import type { Env } from "../worker";
 import type { GetLoadContextFunction } from "../worker/singleWorkerRemixLoader";
+import { Music } from "./music";
 import { Newsletter } from "./newsletter";
-import { Stream } from "./stream";
+import { Videos } from "./videos";
 
-export const attachClients: GetLoadContextFunction<Env> = ({ env }) => {
+export interface Context {
+  clients: { music: Music; newsletter: Newsletter; videos: Videos };
+}
+
+export const attachClients: GetLoadContextFunction<Env> = ({
+  env,
+}): Context => {
   return {
     clients: {
+      music: new Music(env.LAST_FM_API_KEY),
       newsletter: new Newsletter(env.REVUE_API_TOKEN),
-      music: new Stream(env.LAST_FM_API_KEY),
-      stream: new Stream(env.CLOUDFLARE_API_TOKEN),
+      videos: new Videos(env.CLOUDFLARE_API_TOKEN),
     },
   };
 };

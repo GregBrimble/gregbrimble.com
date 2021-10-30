@@ -88,7 +88,7 @@ export const CurrentlyListingTo = ({
                           </ExternalLink>
                         </p>
                         <p className="text-xs text-blue-100 dark:text-blue-800 whitespace-nowrap">
-                          {moment(parseInt(track.date) * 1000).fromNow()}
+                          {moment(track.date).fromNow()}
                         </p>
                       </div>
                     </div>

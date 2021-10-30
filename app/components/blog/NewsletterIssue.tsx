@@ -2,16 +2,15 @@ import { formatDate } from "~/utils/formatDate";
 import { SmartLink } from "../SmartLink";
 
 export const NewsletterIssue = ({
-  html,
   title,
   description,
   date,
-  authors,
+  html,
 }: {
-  html: string;
   title: string;
   description: string;
   date: string;
+  html: string;
 }) => {
   return (
     <>
@@ -30,7 +29,9 @@ export const NewsletterIssue = ({
         </p>
 
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
-          <time dateTime={date}>{formatDate(date)}</time>
+          <time dateTime={new Date(date).toISOString()}>
+            {formatDate(date)}
+          </time>
         </p>
       </div>
       <div

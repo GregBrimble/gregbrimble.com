@@ -1,4 +1,4 @@
-interface Track {
+interface LastFMTrack {
   artist: {
     url: string;
     name: string;
@@ -24,9 +24,36 @@ interface Track {
   date?: { uts: string; "#text": string };
 }
 
-interface RecentTracks {
-  recenttracks: { track: Track[] };
+interface LastFMRecentTracksResponse {
+  recenttracks: { track: LastFMTrack[] };
 }
+
+export interface Track {
+  name: string;
+  url: string;
+  image: string;
+  artist: { name: string; url: string };
+  album: string;
+  date?: string;
+}
+
+const mapLastFMTrack = async ({
+  name,
+  url,
+  image,
+  artist,
+  album: { "#text": album },
+  date,
+}: LastFMTrack): Promise<Track> => ({
+  name,
+  url,
+  image: image[image.length - 1]["#text"],
+  artist: { name: artist.name, url: artist.url },
+  album,
+  date: date?.uts
+    ? new Date(parseInt(date?.uts) * 1000).toISOString()
+    : undefined,
+});
 
 export class Music {
   token: string;
@@ -49,9 +76,10 @@ export class Music {
         recenttracks: {
           track: [track],
         },
-      } = (await response.json()) as RecentTracks;
+      } = (await response.json()) as LastFMRecentTracksResponse;
 
-      if (track["@attr"]?.nowplaying === "true") return track;
+      if (track["@attr"]?.nowplaying === "true")
+        return await mapLastFMTrack(track);
     } catch {}
   }
 
@@ -66,9 +94,13 @@ export class Music {
       const response = await fetch(url.toString());
       const {
         recenttracks: { track: tracks },
-      } = (await response.json()) as RecentTracks;
+      } = (await response.json()) as LastFMRecentTracksResponse;
 
-      return tracks.filter((track) => track["@attr"]?.nowplaying !== "true");
+      return await Promise.all(
+        tracks
+          .filter((track) => track["@attr"]?.nowplaying !== "true")
+          .map(mapLastFMTrack)
+      );
     } catch {}
   }
 }

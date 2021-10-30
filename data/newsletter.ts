@@ -1,14 +1,30 @@
-interface Issue {
-  issue: [
-    {
-      title: string;
-      html: string;
-      sent_at: string;
-      description: string;
-      url: string;
-    }
-  ];
+interface RevueIssue {
+  title: string;
+  description: string;
+  sent_at: string;
+  html: string;
+  url: string;
 }
+
+interface RevueIssueResponse {
+  issue: [RevueIssue];
+}
+
+export interface Issue {
+  title: string;
+  date: string;
+  html: string;
+}
+
+const mapRevueIssue = async ({
+  title,
+  sent_at: date,
+  html,
+}: RevueIssue): Promise<Issue> => ({
+  title,
+  date,
+  html: html.slice(4),
+});
 
 export class Newsletter {
   token: string;
@@ -26,10 +42,10 @@ export class Newsletter {
         }
       );
       const {
-        issue: [{ html, title, sent_at: date }],
-      } = (await response.json()) as Issue;
+        issue: [issue],
+      } = (await response.json()) as RevueIssueResponse;
 
-      return { html: html.slice(4), title, date };
+      return await mapRevueIssue(issue);
     } catch {}
   }
 }
