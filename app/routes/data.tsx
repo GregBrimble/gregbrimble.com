@@ -3,6 +3,7 @@ import type { LoaderFunction } from "remix";
 import { CurrentlyListingTo } from "~/components/data/CurrentlyListingTo";
 import type { Context } from "../../data";
 import type { Track } from "../../data/music";
+import { RecentTracks } from "~/components/data/RecentTracks";
 
 interface LoaderData {
   currentTrack?: Track;
@@ -20,19 +21,19 @@ export const loader: LoaderFunction = async ({
   };
 
   return {
-    currentTrack: {
-      artist: {
-        url: "https://www.last.fm/music/Oscar+Scheller",
-        name: "Oscar Scheller",
-      },
-      name: "Peach",
-      image:
-        "https://lastfm.freetls.fastly.net/i/u/300x300/8c77ba682ee2ead43e4f6d66d13d54b4.jpg",
+    // currentTrack: {
+    //   artist: {
+    //     url: "https://www.last.fm/music/Oscar+Scheller",
+    //     name: "Oscar Scheller",
+    //   },
+    //   name: "Peach",
+    //   image:
+    //     "https://lastfm.freetls.fastly.net/i/u/300x300/8c77ba682ee2ead43e4f6d66d13d54b4.jpg",
 
-      album: "Boys Cry",
+    //   album: "Boys Cry",
 
-      url: "https://www.last.fm/music/Oscar+Scheller/_/Peach",
-    },
+    //   url: "https://www.last.fm/music/Oscar+Scheller/_/Peach",
+    // },
     recentTracks: [
       {
         artist: {
@@ -121,7 +122,7 @@ export default function OpenSource() {
           recentTracks={recentTracks}
         />
       ) : (
-        <>TODO</>
+        <RecentTracks tracks={recentTracks} />
       )}
     </div>
   );

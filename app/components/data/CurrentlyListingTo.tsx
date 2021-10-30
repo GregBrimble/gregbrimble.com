@@ -65,7 +65,10 @@ export const CurrentlyListingTo = ({
                 {recentTracks && (
                   <div className="mt-10 lg:mt-2 flex flex-col lg:block space-y-4 lg:space-x-6 max-w-full overflow-y-scroll whitespace-nowrap pb-3">
                     {recentTracks.map((track) => (
-                      <div className="flex lg:inline-flex items-center">
+                      <div
+                        className="flex lg:inline-flex items-center"
+                        key={track.date}
+                      >
                         <ExternalLink href={track.url}>
                           <img
                             src={track.image}
