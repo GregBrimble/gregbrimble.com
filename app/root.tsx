@@ -8,9 +8,11 @@ import {
   useCatch,
 } from "remix";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
+import type { WithContext, Person } from "schema-dts";
 import type { Context } from "../data";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
+import { GregBrimble, GregBrimble } from "./schema.org/GregBrimble";
 
 import stylesUrl from "./styles/app.css";
 
@@ -47,13 +49,13 @@ export const loader: LoaderFunction = async ({
   return data;
 };
 
-function Document({
+const Document = ({
   children,
   title,
 }: {
   children: React.ReactNode;
   title?: string;
-}) {
+}) => {
   return (
     <html lang="en">
       <head>
@@ -70,11 +72,18 @@ function Document({
       <body className="bg-white dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-800">
         {children}
         <Scripts />
+        <script type="application/ld+json">
+          $
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            ...Object(GregBrimble),
+          } as WithContext<Person>)}
+        </script>
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );
-}
+};
 
 export default function App() {
   const { isLive } = useLoaderData<LoaderData>();

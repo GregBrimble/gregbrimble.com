@@ -1,6 +1,7 @@
 import type { Person } from "schema-dts";
+import { GregBrimbleBrand } from "./GregBrimbleBrand";
 
-export const GregBrimble: Person = {
+export const GregBrimble: Person & { "@id": string } = {
   "@type": "Person",
   "@id": "https://gregbrimble.com/#GregBrimble",
   alumniOf: [
@@ -33,13 +34,7 @@ export const GregBrimble: Person = {
     "The James Clayton Undergraduate Scholarship",
   ],
   brand: {
-    "@type": "Brand",
-    "@id": "https://gregbrimble.com/#GregBrimbleBrand",
-    logo: "https://gregbrimble.com/logo.png",
-    description: "gregbrimble.com",
-    image: "https://gregbrimble.com/logo.png",
-    name: "gregbrimble.com",
-    url: "https://gregbrimble.com/",
+    "@id": GregBrimbleBrand["@id"],
   },
   email: "hello@gregbrimble.com",
   familyName: "Brimble",

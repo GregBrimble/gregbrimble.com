@@ -1,17 +1,99 @@
+import type { WithContext, BlogPosting } from "schema-dts";
+import { GregBrimble } from "~/schema.org/GregBrimble";
+import { GregBrimbleCom } from "~/schema.org/GregBrimbleOrganization";
 import { formatDate } from "~/utils/formatDate";
-import { SmartLink } from "../SmartLink";
 
 export const NewsletterIssue = ({
+  slug,
   title,
   description,
   date,
   html,
 }: {
+  slug: string;
   title: string;
   description: string;
   date: string;
   html: string;
 }) => {
+  const url = `https://gregbrimble.com/blog/${slug}`;
+
+  const jsonLD: WithContext<BlogPosting> = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    // TODO: articleBody
+    // TODO: speakable
+    // TODO: wordCount
+    abstract: description,
+    // TODO: accessMode
+    // TODO: accessModeSufficient
+    accountablePerson: {
+      "@id": GregBrimble["@id"],
+    },
+
+    author: { "@id": GregBrimble["@id"] },
+    copyrightHolder: {
+      "@id": GregBrimbleCom["@id"],
+    },
+    copyrightNotice: "© 2021 gregbrimble.com. All rights reserved.",
+    copyrightYear: new Date(date).getFullYear(),
+    creditText: "© 2021 gregbrimble.com. All rights reserved.",
+    dateCreated: date,
+    // TODO: dateModified
+    datePublished: date,
+    headline: title,
+    inLanguage: "en-US",
+    // TODO: interactionStatistic
+    // TODO: interactivityType
+    isAccessibleForFree: "https://schema.org/True",
+    isPartOf: {
+      "@type": "Blog",
+      abstract: "A collection of articles primarily about technology.",
+      // TODO: accessMode
+      // TODO: accessModeSufficient
+      accountablePerson: {
+        "@id": GregBrimble["@id"],
+      },
+      author: {
+        "@id": GregBrimble["@id"],
+      },
+      copyrightHolder: {
+        "@id": GregBrimbleCom["@id"],
+      },
+      copyrightNotice: "© 2021 gregbrimble.com. All rights reserved.",
+      creditText: "© 2021 gregbrimble.com. All rights reserved.",
+      // TODO: dateCreated
+      // TODO: dateModified
+      // TODO: datePublished
+      editor: {
+        "@id": GregBrimble["@id"],
+      },
+      headline: "Writings",
+      inLanguage: "en-US",
+      // TODO: interactionStatistic
+      // TODO: interactivityType
+      isAccessibleForFree: "https://schema.org/True",
+      publisher: {
+        "@id": GregBrimbleCom["@id"],
+      },
+      alternateName: "Blog",
+      description: "A collection of articles primarily about technology.",
+      mainEntityOfPage: "https://gregbrimble.com/blog",
+      name: "Writings",
+      url: "https://gregbrimble.com/blog",
+    },
+    // TODO: keywords
+    // TODO: license
+    publisher: {
+      "@id": GregBrimbleCom["@id"],
+    },
+    description,
+    identifier: url,
+    mainEntityOfPage: url,
+    name: title,
+    url,
+  };
+
   return (
     <>
       <div className="text-lg max-w-prose mx-auto">
@@ -34,10 +116,11 @@ export const NewsletterIssue = ({
           </time>
         </p>
       </div>
-      <div
+      <article
         className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto"
         dangerouslySetInnerHTML={{ __html: html }}
-      ></div>
+      ></article>
+      <script type="application/ld+json">{JSON.stringify(jsonLD)}</script>
     </>
   );
 };

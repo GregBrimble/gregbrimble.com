@@ -2,7 +2,6 @@ import type { MetaFunction } from "remix";
 import type { AnchorHTMLAttributes } from "react";
 import { SmartLink } from "~/components/SmartLink";
 import Biography from "../components/Biography.mdx";
-import { GregBrimble } from "~/schema.org/gregbrimble";
 
 export let meta: MetaFunction = () => {
   return {
@@ -48,7 +47,6 @@ export default function Index() {
           </div>
         </section>
       </main>
-      <script type="application/ld+json">${JSON.stringify(GregBrimble)}</script>
     </>
   );
 }

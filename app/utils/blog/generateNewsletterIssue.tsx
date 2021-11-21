@@ -69,6 +69,7 @@ export const generateNewsletterIssue = ({
 
     return (
       <NewsletterIssue
+        slug={slug}
         title={title}
         description={description}
         date={date}

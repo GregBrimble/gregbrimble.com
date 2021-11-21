@@ -75,6 +75,7 @@ export const generateBlogPost = (
     return (
       <BlogPost
         Component={blogPost.default}
+        slug={slug}
         title={title}
         description={description}
         date={date}
