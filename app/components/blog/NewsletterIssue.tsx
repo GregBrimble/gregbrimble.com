@@ -1,6 +1,7 @@
 import type { WithContext, BlogPosting } from "schema-dts";
 import { GregBrimble } from "~/schema.org/GregBrimble";
-import { GregBrimbleCom } from "~/schema.org/GregBrimbleOrganization";
+import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
+import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
 import { formatDate } from "~/utils/formatDate";
 
 export const NewsletterIssue = ({
@@ -47,40 +48,7 @@ export const NewsletterIssue = ({
     // TODO: interactivityType
     isAccessibleForFree: "https://schema.org/True",
     isPartOf: {
-      "@type": "Blog",
-      abstract: "A collection of articles primarily about technology.",
-      // TODO: accessMode
-      // TODO: accessModeSufficient
-      accountablePerson: {
-        "@id": GregBrimble["@id"],
-      },
-      author: {
-        "@id": GregBrimble["@id"],
-      },
-      copyrightHolder: {
-        "@id": GregBrimbleCom["@id"],
-      },
-      copyrightNotice: "© 2021 gregbrimble.com. All rights reserved.",
-      creditText: "© 2021 gregbrimble.com. All rights reserved.",
-      // TODO: dateCreated
-      // TODO: dateModified
-      // TODO: datePublished
-      editor: {
-        "@id": GregBrimble["@id"],
-      },
-      headline: "Writings",
-      inLanguage: "en-US",
-      // TODO: interactionStatistic
-      // TODO: interactivityType
-      isAccessibleForFree: "https://schema.org/True",
-      publisher: {
-        "@id": GregBrimbleCom["@id"],
-      },
-      alternateName: "Blog",
-      description: "A collection of articles primarily about technology.",
-      mainEntityOfPage: "https://gregbrimble.com/blog",
-      name: "Writings",
-      url: "https://gregbrimble.com/blog",
+      "@id": GregBrimbleBlog["@id"],
     },
     // TODO: keywords
     // TODO: license

@@ -8,11 +8,13 @@ import {
   useCatch,
 } from "remix";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
-import type { WithContext, Person } from "schema-dts";
+import type { WithContext, Person, Brand, Organization } from "schema-dts";
 import type { Context } from "../data";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
-import { GregBrimble, GregBrimble } from "./schema.org/GregBrimble";
+import { GregBrimbleBrand } from "./schema.org/GregBrimbleBrand";
+import { GregBrimble } from "./schema.org/GregBrimble";
+import { GregBrimbleCom } from "./schema.org/GregBrimbleCom";
 
 import stylesUrl from "./styles/app.css";
 
@@ -73,11 +75,22 @@ const Document = ({
         {children}
         <Scripts />
         <script type="application/ld+json">
-          $
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            ...Object(GregBrimbleBrand),
+          } as WithContext<Brand>)}
+        </script>
+        <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             ...Object(GregBrimble),
           } as WithContext<Person>)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            ...Object(GregBrimbleCom),
+          } as WithContext<Organization>)}
         </script>
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>

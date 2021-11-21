@@ -1,5 +1,6 @@
 import { Link, Outlet, useLoaderData } from "remix";
 import type { LoaderFunction, AppLoadContext } from "remix";
+import type { WithContext, Blog } from "schema-dts";
 import MailIcon from "@heroicons/react/solid/MailIcon";
 import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
@@ -12,6 +13,7 @@ import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
 import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
 import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
+import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -177,16 +179,24 @@ export default function Blog() {
 
   const isBlogPost = IS_BLOG_POST_REGEXP.test(pathname);
 
-  if (isBlogPost) {
-    return (
-      <div className="relative py-16 overflow-hidden">
-        <Decoration />
-        <div className="relative px-4 sm:px-6 lg:px-8">
-          <Outlet />
+  return (
+    <>
+      {isBlogPost ? (
+        <div className="relative py-16 overflow-hidden">
+          <Decoration />
+          <div className="relative px-4 sm:px-6 lg:px-8">
+            <Outlet />
+          </div>
         </div>
-      </div>
-    );
-  }
-
-  return <BlogIndex />;
+      ) : (
+        <BlogIndex />
+      )}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          ...Object(GregBrimbleBlog),
+        } as WithContext<Blog>)}
+      </script>
+    </>
+  );
 }
