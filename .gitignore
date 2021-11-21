@@ -159,7 +159,7 @@ dist
 
 /.cache
 /build
-/dist
+/public/_worker.js
 /public/build
 
 /public/fonts

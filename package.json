@@ -11,7 +11,7 @@
     "prebuild:css": "npm run build:fonts",
     "build:css": "tailwindcss -o app/styles/app.css",
     "build:remix": "remix build",
-    "build:worker": "esbuild worker/index.ts --bundle --outfile=dist/worker.mjs --format=esm --sourcemap --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
+    "build:worker": "esbuild worker/index.ts --bundle --outfile=public/_worker.js --format=esm --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "prebuild": "npm run build:css && npm run setup:worker",
     "build": "npm run build:remix && npm run build:worker",
     "prestart": "npm run setup:local",
@@ -53,8 +53,8 @@
     "typescript": "4.4.4"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16.7"
   },
   "sideEffects": false,
-  "main": "dist/worker.mjs"
+  "main": "public/_worker.js"
 }
