@@ -74,24 +74,33 @@ const Document = ({
       <body className="bg-white dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-800">
         {children}
         <Scripts />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            ...Object(GregBrimbleBrand),
-          } as WithContext<Brand>)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            ...Object(GregBrimble),
-          } as WithContext<Person>)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            ...Object(GregBrimbleCom),
-          } as WithContext<Organization>)}
-        </script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              ...Object(GregBrimbleBrand),
+            } as WithContext<Brand>),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              ...Object(GregBrimble),
+            } as WithContext<Person>),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              ...Object(GregBrimbleCom),
+            } as WithContext<Organization>),
+          }}
+        />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>

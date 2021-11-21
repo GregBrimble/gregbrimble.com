@@ -88,7 +88,10 @@ export const NewsletterIssue = ({
         className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto"
         dangerouslySetInnerHTML={{ __html: html }}
       ></article>
-      <script type="application/ld+json">{JSON.stringify(jsonLD)}</script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLD) }}
+      />
     </>
   );
 };
