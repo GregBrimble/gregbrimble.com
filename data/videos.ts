@@ -74,4 +74,13 @@ export class Videos {
       if (isLive) return await mapCloudflareStreamVideo(video);
     } catch {}
   }
+
+  async getSchedule() {
+    try {
+      const response = await fetch(
+        "https://api.twitch.tv/helix/schedule/icalendar?broadcaster_id=613488943"
+      );
+      const ical = await response.text();
+    } catch {}
+  }
 }

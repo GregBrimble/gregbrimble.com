@@ -11,6 +11,7 @@ import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
 import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
+import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -43,6 +44,7 @@ const posts = [
   optimizingImages,
   customHeadersForPages,
   cloudflareImagesAndCloudflarePages,
+  buildingFullStackWithPages,
 ];
 
 export const loader: LoaderFunction = async ({
