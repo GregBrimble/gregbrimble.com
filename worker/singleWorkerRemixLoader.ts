@@ -4,7 +4,7 @@ import serverRuntime, {
   AppLoadContext,
 } from "@remix-run/server-runtime";
 
-export interface GetLoadContextFunction<Env = Record<string, unknown>> {
+export interface GetLoadContextFunction<Env = unknown> {
   ({
     request,
     env,
@@ -12,7 +12,7 @@ export interface GetLoadContextFunction<Env = Record<string, unknown>> {
   }: {
     request: Request;
     env: Env;
-    context: SingleWorker.Context;
+    context: ExecutionContext;
   }): AppLoadContext;
 }
 
@@ -37,7 +37,7 @@ const createRequestHandler = <Env>({
   }: {
     request: Request;
     env: Env;
-    context: SingleWorker.Context;
+    context: ExecutionContext;
   }) => {
     let loadContext =
       typeof getLoadContext === "function"
@@ -52,18 +52,20 @@ const handleAsset = async ({
   env,
 }: {
   request: Request;
-  env: SingleWorker.Env;
+  env: unknown;
 }) => {
-  const response = await env.ASSETS.fetch(request);
+  const response = await (
+    env as { ASSETS: { fetch: typeof fetch } }
+  ).ASSETS.fetch(request);
   if (response.ok) return response;
 };
 
-export const createFetchHandler = <Env = Record<string, unknown>>({
+export const createFetchHandler = <Env>({
   build,
   getLoadContext,
   mode,
-}: CreateRequestHandlerParams<Env>) => {
-  const handleRequest = createRequestHandler<SingleWorker.Env<Env>>({
+}: CreateRequestHandlerParams<Env>): ExportedHandlerFetchHandler<Env> => {
+  const handleRequest = createRequestHandler({
     build,
     getLoadContext,
     mode,
@@ -71,10 +73,13 @@ export const createFetchHandler = <Env = Record<string, unknown>>({
 
   const handleFetch = async (
     request: Request,
-    env: SingleWorker.Env<Env>,
-    context: SingleWorker.Context
+    env: Env,
+    context: ExecutionContext
   ) => {
-    let response = await handleAsset({ request, env });
+    let response = await handleAsset({
+      request,
+      env,
+    });
 
     if (!response) {
       response = await handleRequest({ request, env, context });
@@ -83,16 +88,12 @@ export const createFetchHandler = <Env = Record<string, unknown>>({
     return response;
   };
 
-  return async (
-    request: Request,
-    env: SingleWorker.Env<Env>,
-    context: SingleWorker.Context
-  ) => {
+  return async (request, env, context) => {
     try {
       return await handleFetch(request, env, context);
-    } catch (e) {
-      if (process.env.NODE_ENV === "development" && e instanceof Error) {
-        return new Response(e.message || e.toString(), {
+    } catch (thrown) {
+      if (process.env.NODE_ENV === "development") {
+        return new Response(`${thrown}`, {
           status: 500,
         });
       }
