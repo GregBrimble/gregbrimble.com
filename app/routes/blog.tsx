@@ -191,12 +191,15 @@ export default function Blog() {
       ) : (
         <BlogIndex />
       )}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          ...Object(GregBrimbleBlog),
-        } as WithContext<Blog>)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            ...Object(GregBrimbleBlog),
+          } as WithContext<Blog>),
+        }}
+      />
     </>
   );
 }
