@@ -1,5 +1,5 @@
 import type { Env } from "../worker";
-import type { GetLoadContextFunction } from "../worker/singleWorkerRemixLoader";
+import type { GetLoadContextFunction } from "../worker/cloudflarePagesRemixLoader";
 import { Music } from "./music";
 import { Newsletter } from "./newsletter";
 import { Videos } from "./videos";

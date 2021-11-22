@@ -1,6 +1,6 @@
 import { attachClients } from "./../data/index";
-import { createFetchHandler } from "./singleWorkerRemixLoader";
-import type { GetLoadContextFunction } from "./singleWorkerRemixLoader";
+import { createFetchHandler } from "./cloudflarePagesRemixLoader";
+import type { GetLoadContextFunction } from "./cloudflarePagesRemixLoader";
 
 // @ts-ignore
 import * as build from "../build";
@@ -24,6 +24,7 @@ const getLoadContext: GetLoadContextFunction<Env> = ({
 const handleFetch: ExportedHandlerFetchHandler<Env> = createFetchHandler({
   build,
   getLoadContext,
+  mode: process.env.NODE_ENV,
 });
 
 export default {

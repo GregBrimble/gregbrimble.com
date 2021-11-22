@@ -15,7 +15,7 @@
     "//": "Builds the static Remix assets",
     "build:remix": "remix build",
     "//": "Builds the Cloudflare Worker",
-    "build:worker": "esbuild worker/index.ts --bundle --outfile=public/_worker.js --format=esm --define:VERSION=\\\"$(git rev-parse HEAD)\\\" ",
+    "build:worker": "esbuild worker/index.ts --bundle --outfile=public/_worker.js --format=esm --define:VERSION=\\\"$(git rev-parse HEAD)\\\"",
     "build:worker:production": "npm run build:worker -- --define:process.env.NODE_ENV=\"'production'\" --minify",
     "build:worker:development": "npm run build:worker -- --define:process.env.NODE_ENV=\"'development'\"",
     "//": "Builds everything",
