@@ -28,18 +28,5 @@ const handleFetch: ExportedHandlerFetchHandler<Env> = createFetchHandler({
 });
 
 export default {
-  // TODO: Hack to stop glitchy browser caching
-  // Will ordinarily just be able to export handleFetch like so
-  // fetch: handleFetch,
-
-  async fetch(
-    request: Request,
-    env: Env & { ASSETS: { fetch: typeof fetch } },
-    context: ExecutionContext
-  ) {
-    request = new Request(request);
-    request.headers.delete("If-None-Match");
-
-    return handleFetch(request, env, context);
-  },
+  fetch: handleFetch,
 };
