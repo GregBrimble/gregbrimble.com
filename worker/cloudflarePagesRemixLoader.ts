@@ -1,7 +1,7 @@
-import { createRequestHandler as _createRequestHandler } from "@remix-run/cloudflare-workers";
-import serverRuntime, {
+import {
   ServerBuild,
   AppLoadContext,
+  createRequestHandler as _createRequestHandler,
 } from "@remix-run/server-runtime";
 
 export interface GetLoadContextFunction<Env = unknown> {
@@ -28,7 +28,7 @@ const createRequestHandler = <Env>({
   mode,
 }: CreateRequestHandlerParams<Env>) => {
   let platform = {};
-  let handleRequest = serverRuntime.createRequestHandler(build, platform, mode);
+  let handleRequest = _createRequestHandler(build, platform, mode);
 
   return ({
     request,
@@ -54,10 +54,20 @@ const handleAsset = async ({
   request: Request;
   env: unknown;
 }) => {
-  const response = await (
+  let response = await (
     env as { ASSETS: { fetch: typeof fetch } }
   ).ASSETS.fetch(request);
-  if (response.ok) return response;
+  if (response.ok) {
+    response = new Response(
+      [101, 204, 205, 304].includes(response.status) ? null : response.body,
+      response
+    );
+    response.headers.set(
+      "cache-control",
+      "public, max-age=31536000, immutable"
+    );
+    return response;
+  }
 };
 
 export const createFetchHandler = <Env>({
@@ -76,7 +86,13 @@ export const createFetchHandler = <Env>({
     env: Env,
     context: ExecutionContext
   ) => {
-    let response = await handleAsset({
+    const cache = await caches.open(VERSION);
+    let response = await cache.match(request);
+    if (response) {
+      return response;
+    }
+
+    response = await handleAsset({
       request,
       env,
     });
@@ -84,6 +100,8 @@ export const createFetchHandler = <Env>({
     if (!response) {
       response = await handleRequest({ request, env, context });
     }
+
+    context.waitUntil(cache.put(request, response.clone()));
 
     return response;
   };
