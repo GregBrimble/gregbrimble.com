@@ -48,6 +48,6 @@ esbuild worker/index.ts --bundle --outfile=public/_worker.js --format=esm --defi
 
 ## To-Do List
 
-- [ ] Caching
-- [ ] KV
-- [ ] Durable Objects
+- [x] Caching
+- [x] KV
+- [x] Durable Objects
