@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "//": "Runs everything locally (with watch)",
-    "postinstall": "patch-package && remix setup cloudflare-workers",
+    "postinstall": "cp custom-remix.js node_modules/@remix-run/dev/cli.js && remix setup cloudflare-workers",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
     "build:css": "tailwindcss -o app/styles/app.css",
