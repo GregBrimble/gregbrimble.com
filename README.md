@@ -29,4 +29,3 @@ Use wrangler to build and deploy your application to Cloudflare Workers:
 ```sh
 npm run deploy
 ```
-
