@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "//": "Runs everything locally (with watch)",
-    "prestart:remix": "remix setup cloudflare-workers",
+    "postinstall": "patch-package && remix setup cloudflare-workers",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
     "build:css": "tailwindcss -o app/styles/app.css",
@@ -31,6 +31,7 @@
     "@remix-run/cloudflare-workers": "1.0.0-rc.2",
     "@remix-run/react": "1.0.0-rc.2",
     "moment": "2.29.1",
+    "patch-package": "6.4.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-router-dom": "6.0.2",
