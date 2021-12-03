@@ -5,7 +5,7 @@ import type {
 } from "@remix-run/server-runtime";
 import { createSessionStorage } from "@remix-run/server-runtime";
 
-export const createCloudflareDurableObjectSessionStorageGenerator = ({
+export const createCloudflareDurableObjectSessionStorage = ({
   cookie,
   durableObjectNamespace,
 }: {

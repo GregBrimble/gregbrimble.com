@@ -1,8 +1,8 @@
 import { attachClients } from "./../data/index";
 import { createFetchHandler } from "./cloudflarePagesRemixLoader";
 import type { GetLoadContextFunction } from "./cloudflarePagesRemixLoader";
-import { SessionStorageDurableObject } from "./cloudflareDurableObjectSessionStorageGenerator";
-import { createCloudflareDurableObjectSessionStorageGenerator } from "./cloudflareDurableObjectSessionStorageGenerator";
+import { SessionStorageDurableObject } from "./cloudflareDurableObjectSessionStorage";
+import { createCloudflareDurableObjectSessionStorage } from "./cloudflareDurableObjectSessionStorage";
 
 // @ts-ignore
 import * as build from "../build";
@@ -20,7 +20,7 @@ const getLoadContext: GetLoadContextFunction<Env> = ({
   env,
   context,
 }) => {
-  const sessionStorage = createCloudflareDurableObjectSessionStorageGenerator({
+  const sessionStorage = createCloudflareDurableObjectSessionStorage({
     durableObjectNamespace: env.SESSIONS_DO,
   });
   return {
