@@ -54,6 +54,8 @@ export const createCloudflareDurableObjectSessionStorage = ({
   });
 };
 
+const EXPIRES_KEY = "__expires";
+
 export class SessionStorageDurableObject implements DurableObject {
   storage: DurableObjectStorage;
 
@@ -65,11 +67,21 @@ export class SessionStorageDurableObject implements DurableObject {
     switch (request.method.toLowerCase()) {
       case "get": {
         const dataMap = await this.storage.list();
-        if (dataMap.size === 0) return new Response(JSON.stringify(null));
+        const expires = dataMap.get(EXPIRES_KEY) as Date | undefined;
 
-        return new Response(
-          JSON.stringify(Object.fromEntries(dataMap.entries()))
-        );
+        if (expires && expires < new Date()) {
+          await this.storage.deleteAll();
+          return new Response(JSON.stringify(null));
+        }
+
+        if (dataMap.size === 0 || (expires !== undefined && dataMap.size === 1))
+          return new Response(JSON.stringify(null));
+
+        const entries = [...dataMap.entries()].filter(
+          ([key]) => key !== EXPIRES_KEY
+        ) as [string, SessionData][];
+
+        return new Response(JSON.stringify(Object.fromEntries(entries)));
       }
       case "post": {
         const { data, expires } = await request.json<{
@@ -77,7 +89,10 @@ export class SessionStorageDurableObject implements DurableObject {
           expires: Date | undefined;
         }>();
 
+        await this.storage.deleteAll();
+        if (expires !== undefined) await this.storage.put(EXPIRES_KEY, expires);
         await this.storage.put(data);
+
         return new Response();
       }
       case "delete": {
