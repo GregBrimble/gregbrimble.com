@@ -52,13 +52,13 @@ So, how can website authors avoid these pitfalls and ensure a correctly sized im
 
 When embedding an image on a webpage, traditionally the author would simply pass a `src` attribute on an `img` tag:
 
-```html
+```html filename="hello_world.html"
 <img src="hello_world_12000.jpg" alt="Hello, world!" />
 ```
 
 [Since 2017, all modern browsers have supported the more dynamic `srcset` attribute](https://caniuse.com/srcset). This allows authors to set multiple image sources, depending on the matching media condition of the visitor's browser:
 
-```html
+```html filename="hello_world.html"
 <img
   srcset="
     hello_world_1500.jpg   1500w,
@@ -85,7 +85,7 @@ Client Hints are a standard that some browsers are choosing to implement, and so
 
 This simplifies the markup in the previous example greatly — in fact, no changes are required from the original simple HTML:
 
-```html
+```html filename="hello_world.html"
 <img src="hello_world_12000.jpg" alt="Hello, world!" />
 ```
 
@@ -133,7 +133,7 @@ On a poorly optimized webpage, images will be embedded without their dimensions 
 
 It is important to include dimensions of the image inside HTML markup to allow the browser to allocate space for that image before it even begins loading. This prevents unnecessary redraws and reduces layout shift. It is even possible to set dimensions when dynamically loading responsive images: by informing the browser of the height and width of the original image, assuming the aspect ratio is constant, it will automatically calculate the correct height, even when using a width selector.
 
-```html
+```html filename="hello_world.html"
 <img
   height="9000"
   width="12000"

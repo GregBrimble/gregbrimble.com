@@ -3,6 +3,7 @@ import copy from "copy-to-clipboard";
 import hljs from "highlight.js";
 import ClipboardCopyIcon from "@heroicons/react/outline/ClipboardCopyIcon";
 import ClipboardCheckIcon from "@heroicons/react/outline/ClipboardCheckIcon";
+import ArrowsExpandIcon from "@heroicons/react/outline/ArrowsExpandIcon";
 
 export const CodeBlock = ({
   filename,
@@ -15,6 +16,8 @@ export const CodeBlock = ({
   lineNumbers?: boolean;
 }) => {
   const { children, ...codeProps } = (props.children as Component).props;
+
+  const [expanded, setExpanded] = useState(false);
 
   const code = children?.toString().trimEnd() || "";
   const [copied, setCopied] = useState(false);
@@ -32,11 +35,15 @@ export const CodeBlock = ({
 
   const highlightedCode = hljs.highlight(code, { language }).value;
   const lines = highlightedCode.split("\n");
-  const numLines = lines.length + 1;
+  const numLines = lines.length;
   const maxDigits = numLines.toString().length;
 
   return (
-    <div className="transition-all delay-50 duration-300 ease-in-out lg:hover:-mx-24 xl:hover:-mx-52 2xl:hover:-mx-72 motion-reduce:transition-none motion-reduce:hover:!mx-0">
+    <div
+      className={`transition-all motion-reduce:transition-none delay-50 duration-300 ease-in-out ${
+        expanded && "lg:-mx-24 xl:-mx-52 2xl:-mx-72"
+      }`}
+    >
       <div className="bg-[color:var(--tw-prose-pre-bg)] text-gray-200 dark:text-gray-300 rounded-t-md flex items-center">
         {label ? (
           <div className="px-6 py-4 text-sm border-b-2 border-blue-300 dark:border-blue-600 break-all">
@@ -45,7 +52,20 @@ export const CodeBlock = ({
         ) : undefined}
         <div className="flex-1" />
         <div
-          className={`no-js:hidden py-4 pr-4 pl-6 flex items-center ${
+          className="no-js:!hidden hidden py-4 pl-6 pr-4 lg:flex items-center text-gray-200 dark:text-gray-300 hover:text-white cursor-pointer"
+          onClick={() => setExpanded(!expanded)}
+        >
+          <span className="mr-2 text-xs select-none">
+            {expanded ? "Collapse" : "Expand"}
+          </span>
+          {expanded ? (
+            <ArrowsExpandIcon className="w-6" />
+          ) : (
+            <ArrowsExpandIcon className="w-6" />
+          )}
+        </div>
+        <div
+          className={`no-js:hidden py-4 pr-4 flex items-center ${
             copied
               ? "text-green-400"
               : "text-gray-200 dark:text-gray-300 hover:text-white cursor-pointer"
@@ -77,7 +97,7 @@ export const CodeBlock = ({
                   return `<span class="before:content-['__']" />${line}`;
                 }
 
-                if (lineNumbers) {
+                if (numLines > 1 && lineNumbers) {
                   return `<span class="md:before:content-[attr(data-line-number)] before:text-gray-600 dark:before:text-gray-700" data-line-number="${(
                     i + 1
                   )
