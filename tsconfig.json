@@ -1,13 +1,16 @@
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2020"],
-    "types": ["@cloudflare/workers-types"],
+    "lib": ["DOM", "DOM.Iterable", "ES2021"],
+    "types": ["@cloudflare/workers-types", "@types/node"],
+    "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "target": "ES2019",
+    "resolveJsonModule": true,
+    "target": "ES2021",
     "strict": true,
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
     },

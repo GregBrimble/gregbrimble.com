@@ -1,32 +1,22 @@
 # Welcome to Remix!
 
-- [Remix Docs](https://docs.remix.run)
-- [Customer Dashboard](https://remix.run/dashboard)
+- [Remix Docs](https://remix.run/docs)
 
 ## Development
 
-You will be running two processes during development when using Vercel as your server.
-
-- Your Miniflare server in one (miniflare is a local environment for Cloudflare Workers)
-- The Remix development server in another
+You will be utlizing Wrangler for local development to emulate the Cloudflare runtime. This is already wired up in your package.json as the `dev` script:
 
 ```sh
-# in one tab (starts remix dev server)
+# start the remix dev server and wrangler
 $ npm run dev
-
-# in another (starts miniflare server)
-$ npm start
 ```
 
-Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready to go!
-
-If you'd rather run everything in a single tab, you can look at [concurrently](https://npm.im/concurrently) or similar tools to run both processes in one tab.
+Open up [http://127.0.0.1:8788](http://127.0.0.1:8788) and you should be ready to go!
 
 ## Deployment
 
-Use wrangler to build and deploy your application to Cloudflare Workers:
+Cloudflare Pages are currently only deployable through their Git provider integrations.
 
-```sh
-npm run deploy
-```
+If you don't already have an account, then [create a Cloudflare account here](https://dash.cloudflare.com/sign-up/pages) and after verifying your email address with Cloudflare, go to your dashboard and follow the [Cloudflare Pages deployment guide](https://developers.cloudflare.com/pages/framework-guides/deploy-anything).
 
+Configure the "Build command" should be set to `npm run build`, and the "Build output directory" should be set to `public`.

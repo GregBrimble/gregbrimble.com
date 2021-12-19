@@ -157,10 +157,13 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,node
 
+### Remix ###
+
 /.cache
 /build
-/public/_worker.js
 /public/build
+
+#########
 
 /public/fonts
 /app/styles

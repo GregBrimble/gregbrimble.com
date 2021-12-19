@@ -1,4 +1,3 @@
-// Copyright © 2021 Remix Software Inc. All rights reserved.
 /// <reference types="@remix-run/dev" />
-/// <reference types="@remix-run/cloudflare-workers/globals" />
+/// <reference types="@remix-run/cloudflare-pages/globals" />
 /// <reference types="@cloudflare/workers-types" />

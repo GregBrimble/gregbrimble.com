@@ -1,8 +1,6 @@
 import { attachClients } from "./../data/index";
-import { createFetchHandler } from "./cloudflarePagesRemixLoader";
+import { createFetchHandler } from "@remix-run/cloudflare-pages";
 import type { GetLoadContextFunction } from "./cloudflarePagesRemixLoader";
-import { SessionStorageDurableObject } from "./cloudflareDurableObjectSessionStorage";
-import { createCloudflareDurableObjectSessionStorage } from "./cloudflareDurableObjectSessionStorage";
 
 // @ts-ignore
 import * as build from "../build";
@@ -11,8 +9,6 @@ export interface Env {
   REVUE_API_TOKEN: string;
   LAST_FM_API_KEY: string;
   CLOUDFLARE_API_TOKEN: string;
-  SESSIONS_KV: KVNamespace;
-  SESSIONS_DO: DurableObjectNamespace;
 }
 
 const getLoadContext: GetLoadContextFunction<Env> = ({
@@ -20,11 +16,7 @@ const getLoadContext: GetLoadContextFunction<Env> = ({
   env,
   context,
 }) => {
-  const sessionStorage = createCloudflareDurableObjectSessionStorage({
-    durableObjectNamespace: env.SESSIONS_DO,
-  });
   return {
-    sessionStorage,
     ...attachClients({ request, env, context }),
   };
 };
