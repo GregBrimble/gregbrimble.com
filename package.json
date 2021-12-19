@@ -14,7 +14,7 @@
     "build": "npm run build:production",
     "start:css": "npm run build:css -- -w",
     "start:remix": "remix watch",
-    "start:wrangler": "wrangler pages dev ./public",
+    "start:wrangler": "wrangler pages dev ./public --kv GREGBRIMBLE_COM_SECRETS",
     "start": "concurrently \"npm run start:css\" \"npm run start:remix\" \"npm run start:wrangler\""
   },
   "dependencies": {

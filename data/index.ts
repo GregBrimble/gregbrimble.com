@@ -1,21 +1,18 @@
-import type { Env } from "../worker";
-import type { GetLoadContextFunction } from "../worker/cloudflarePagesRemixLoader";
+import { Env } from "functions/[[path]]";
 import { Music } from "./music";
 import { Newsletter } from "./newsletter";
 import { Videos } from "./videos";
 
 export interface Context {
-  clients: { music: Music; newsletter: Newsletter; videos: Videos };
+  clients: { music?: Music; newsletter: Newsletter; videos?: Videos };
 }
 
-export const attachClients: GetLoadContextFunction<Env> = ({
-  env,
-}): Context => {
+export const attachClients = ({ env }: { env: Env }): Context => {
   return {
     clients: {
-      music: new Music(env.LAST_FM_API_KEY),
-      newsletter: new Newsletter(env.REVUE_API_TOKEN),
-      videos: new Videos(env.CLOUDFLARE_API_TOKEN),
+      // music: new Music(env.GREGBRIMBLE_COM_SECRETS),
+      newsletter: new Newsletter(env.GREGBRIMBLE_COM_SECRETS),
+      // videos: new Videos(env.GREGBRIMBLE_COM_SECRETS),
     },
   };
 };

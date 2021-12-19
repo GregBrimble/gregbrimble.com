@@ -27,10 +27,17 @@ const mapRevueIssue = async ({
 });
 
 export class Newsletter {
-  token: string;
+  kv: KVNamespace;
+  token?: string;
 
-  constructor(token: string) {
-    this.token = token;
+  constructor(kv: KVNamespace) {
+    this.kv = kv;
+  }
+
+  async getToken() {
+    if (this.token) return this.token;
+    this.token = (await this.kv.get("REVUE_API_TOKEN")) || undefined;
+    return this.token;
   }
 
   async getIssue(id: string) {
@@ -38,7 +45,7 @@ export class Newsletter {
       const response = await fetch(
         `https://www.getrevue.co/api/v2/issues/${id}`,
         {
-          headers: { Authorization: `Token ${this.token}` },
+          headers: { Authorization: `Token ${await this.getToken()}` },
         }
       );
       const {
