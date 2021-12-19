@@ -1,7 +1,6 @@
 import type { MetaFunction } from "remix";
-import type { AnchorHTMLAttributes } from "react";
-import { SmartLink } from "~/components/SmartLink";
 import Biography from "../components/Biography.mdx";
+import { Markdown } from "~/components/Markdown";
 
 export let meta: MetaFunction = () => {
   return {
@@ -34,14 +33,7 @@ export default function Index() {
                 About Me
               </h2>
               <div className="mt-6 prose dark:prose-invert prose-lg">
-                <Biography
-                  // @ts-ignore: Bug in Remix. They didn't grab the full types from xdm.
-                  components={{
-                    a: (props: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-                      <SmartLink {...props} />
-                    ),
-                  }}
-                />
+                <Markdown contents={Biography} />
               </div>
             </div>
           </div>

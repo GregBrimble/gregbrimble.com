@@ -1,5 +1,7 @@
-import { Link, Outlet, useLoaderData } from "remix";
-import type { LoaderFunction, AppLoadContext } from "remix";
+import { Link, LinksFunction, Outlet, useLoaderData } from "remix";
+import type { LoaderFunction } from "remix";
+import gitHubDark from "highlight.js/styles/github-dark.css";
+import gitHubDarkDimmed from "highlight.js/styles/github-dark-dimmed.css";
 import type { WithContext, Blog } from "schema-dts";
 import MailIcon from "@heroicons/react/solid/MailIcon";
 import { Decoration } from "~/components/blog/Decoration";
@@ -41,6 +43,21 @@ interface NewsletterIssue {
 type Writing = BlogPost | NewsletterIssue;
 
 export type IndexLoader = (context: Context) => Promise<Writing>;
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      media: "(prefers-color-scheme: dark)",
+      href: gitHubDark,
+    },
+    {
+      rel: "stylesheet",
+      media: "(prefers-color-scheme: light)",
+      href: gitHubDarkDimmed,
+    },
+  ];
+};
 
 const posts = [
   initialization,
@@ -115,7 +132,7 @@ const BlogIndex = () => {
                 </div>
               </div>
               <div className="mt-4 sm:mt-2 text-sm text-gray-500 dark:text-gray-400 lg:text-right">
-                By subscribing, you agree with Revue’s{" "}
+                By subscribing, you agree with Revue's{" "}
                 <ExternalLink
                   href="https://www.getrevue.co/terms"
                   className="underline"

@@ -1,10 +1,11 @@
-import type { ComponentType } from "react";
+import { ComponentType } from "react";
 import type { WithContext, BlogPosting } from "schema-dts";
 import { GregBrimble } from "~/schema.org/GregBrimble";
 import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
-import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
 import { formatDate } from "~/utils/formatDate";
 import { SmartLink } from "../SmartLink";
+import { CodeBlock } from "../CodeBlock";
+import { Markdown } from "../Markdown";
 
 export const BlogPost = ({
   Component,
@@ -147,7 +148,7 @@ export const BlogPost = ({
         </p>
       </div>
       <article className="mt-6 prose dark:prose-invert prose-lg mx-auto">
-        <Component />
+        <Markdown contents={Component} />
       </article>
       <script
         type="application/ld+json"

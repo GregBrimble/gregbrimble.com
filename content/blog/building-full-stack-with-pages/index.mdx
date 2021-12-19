@@ -35,9 +35,7 @@ If you're not already familiar, Cloudflare Pages [connects with your git provide
 
 In our project, let's create a new function:
 
-```javascript
-// ./functions/time.js
-
+```javascript filename="./functions/time.js"
 export const onRequest = () => {
   return new Response(new Date().toISOString());
 };
