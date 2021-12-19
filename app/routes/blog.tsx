@@ -86,6 +86,12 @@ export const loader: LoaderFunction = async ({
   );
 };
 
+export const headers = () => {
+  return {
+    "Cache-Control": "max-age=60",
+  };
+};
+
 const BlogIndex = () => {
   const writings: Writing[] = useLoaderData();
 
