@@ -17,6 +17,8 @@ import { GregBrimble } from "./schema.org/GregBrimble";
 import { GregBrimbleCom } from "./schema.org/GregBrimbleCom";
 
 import stylesUrl from "./styles/app.css";
+import { useLayoutEffect } from "react";
+import { useSafeLayoutEffect } from "./utils/useSafeLayoutEffect";
 
 export let links: LinksFunction = () => {
   return [
@@ -58,8 +60,12 @@ const Document = ({
   children: React.ReactNode;
   title?: string;
 }) => {
+  useSafeLayoutEffect(() => {
+    document.body.parentElement?.classList.remove("no-js");
+  });
+
   return (
-    <html lang="en">
+    <html lang="en" className="no-js">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -71,7 +77,10 @@ const Document = ({
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-gray-900 selection:bg-rose-100 dark:selection:bg-rose-800">
+      {/*
+          #f43f5d = rgb(244,63,93) = rose-600
+      */}
+      <body className="bg-white dark:bg-gray-900 selection:bg-[rgba(244,63,93,0.3)] dark:selection:bg-[rgba(244,63,93,0.5)]">
         {children}
         <Scripts />
         <script

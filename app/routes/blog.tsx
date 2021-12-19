@@ -153,7 +153,7 @@ const BlogIndex = () => {
         </div>
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
           {writings.map((writing) => (
-            <Link to={writing.to} key={writing.title}>
+            <Link to={writing.to} key={writing.title} className="group">
               {writing.type === "BlogPost" ? (
                 <div className="aspect-w-3 aspect-h-2">
                   <img
@@ -181,7 +181,7 @@ const BlogIndex = () => {
                 </p>
               </div>
               <div className="mt-3">
-                <p className="text-base font-semibold text-blue-600 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-400">
+                <p className="text-base font-semibold text-blue-600 dark:text-blue-300 group-hover:text-blue-500 dark:group-hover:text-blue-400">
                   Read the full article
                 </p>
               </div>

@@ -84,6 +84,13 @@ export const openSourceProjects: OpenSourceProject[] = [
     date: "2020",
   },
   {
+    title: "gregbrimble.com",
+    href: "https://github.com/GregBrimble/gregbrimble.com",
+    status: OpenSourceProjectStatus.maintained,
+    description: `Personal website of Greg Brimble, Technological Engineer.`,
+    date: "2014–2022",
+  },
+  {
     title: "Functional Reasoner for Acquiring Novel Knowledge (FRANK)",
     href: "https://github.com/frank-lab-ai/franky",
     status: OpenSourceProjectStatus.completed,
@@ -216,13 +223,6 @@ export const openSourceProjects: OpenSourceProject[] = [
     description:
       "A GitHub Action to upload static assets to a Dark (darklang) canvas.",
     date: "2019",
-  },
-  {
-    title: "gregbrimble.com",
-    href: "https://github.com/GregBrimble/gregbrimble.com",
-    status: OpenSourceProjectStatus.maintained,
-    description: `Personal website of Greg Brimble, Technological Engineer.`,
-    date: "2014–2022",
   },
   {
     title: "workers.sh",

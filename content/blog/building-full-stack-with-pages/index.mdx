@@ -35,7 +35,7 @@ If you're not already familiar, Cloudflare Pages [connects with your git provide
 
 In our project, let's create a new function:
 
-```javascript filename="./functions/time.js"
+```javascript filename="functions/time.js"
 export const onRequest = () => {
   return new Response(new Date().toISOString());
 };
@@ -55,9 +55,7 @@ We declare a `PagesFunction` type in the [@cloudflare/workers-types](https://git
 
 So, returning to our image-sharing app, let's assume we already have some images uploaded, and we want to display them on the homepage. We'll need an endpoint which will return a list of these images, which the front-end can call:
 
-```typescript
-// ./functions/api/images.ts
-
+```typescript filename="functions/api/images.ts"
 export const jsonResponse = (value: any, init: ResponseInit = {}) =>
   new Response(JSON.stringify(value), {
     headers: { "Content-Type": "application/json", ...init.headers },
@@ -134,9 +132,7 @@ import Bindings from "./bindings.png";
 
 Cloudflare Images is an inexpensive, high-performance, and featureful service for hosting and transforming images. You can create multiple variants to render your images in different ways and control access with signed URLs. We'll add a function to interface with this service's API and upload incoming files to Cloudflare Images:
 
-```typescript
-// ./functions/api/admin/upload.ts
-
+```typescript filename="functions/api/admin/upload.ts"
 export const onRequestPost: PagesFunction<{
   IMAGES: KVNamespace;
 }> = async ({ request, env }) => {
@@ -211,9 +207,7 @@ Let's add a download counter to each of our images. We can create a `highres` va
 
 We'll need to create and publish the Durable Object class capable of maintaining this download count:
 
-```typescript
-// ./durable_objects/downloadCounter.js
-
+```typescript filename="durable_objects/downloadCounter.js"
 export class DownloadCounter {
   constructor(state) {
     this.state = state;
@@ -244,9 +238,7 @@ If you need to execute some code (such as authentication or logging) before you 
 
 In our application, we want to prevent unauthorized users from uploading images (`/api/admin/upload`) or deleting images (`/api/admin/delete`). Cloudflare Access lets us apply role-based access control to all or part of our application, and you only need a single file to integrate it into our serverless functions. We create `./functions/api/admin/_middleware.ts` which will apply to all incoming requests at `/api/admin/*`:
 
-```typescript
-// ./functions/api/admin/_middleware.ts
-
+```typescript filename="functions/api/admin/_middleware.ts"
 const validateJWT = async (jwtAssertion: string | null, aud: string) => {
   // If the JWT is valid, return the JWT payload
   // Else, return false
@@ -286,9 +278,7 @@ We've built the front end of this image sharing platform with [Create React App]
 
 Your front end simply needs to make a call to the Functions we've already configured, and render out that data. We're using [SWR](https://swr.vercel.app/) to simplify things, but you could do this with entirely vanilla JavaScript `fetch`-es, if that's your preference.
 
-```typescript
-// ./src/components/ImageGrid.tsx
-
+```typescript filename="src/components/ImageGrid.tsx"
 export const ImageGrid = () => {
   const { data, error } = useSWR<{ images: Image[] }>("/api/images");
 
@@ -317,13 +307,13 @@ No matter how fast it is, iterating on a project like this can be painful if you
 
 Install from npm:
 
-```sh
+```sh terminal
 npm install wrangler@beta
 ```
 
 and either serve a folder of static assets, or proxy using your existing tooling:
 
-```sh
+```sh terminal
 # Serve a directory
 npx wrangler pages dev ./public
 

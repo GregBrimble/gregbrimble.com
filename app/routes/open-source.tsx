@@ -33,7 +33,7 @@ export default function OpenSource() {
           {openSourceProjects.map((openSourceProject) => (
             <OpenSourceProject
               {...openSourceProject}
-              key={openSourceProject.href}
+              key={openSourceProject.href + openSourceProject.title}
             />
           ))}
         </div>

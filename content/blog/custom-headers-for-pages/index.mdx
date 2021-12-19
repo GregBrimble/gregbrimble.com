@@ -16,7 +16,7 @@ authors:
 
 Until today, Cloudflare Workers has been a great solution to setting headers, but we wanted to create an even smoother developer experience. Today, we're excited to announce that Pages now natively supports custom headers on your projects! Simply create a `_headers` file in the build directory of your project and within it, define the rules you want to apply.
 
-```txt
+```txt filename="_headers"
 /developer-docs/*
   X-Hiring: Looking for a job? We're hiring engineers (https://www.cloudflare.com/careers/jobs)
 ```
@@ -31,7 +31,7 @@ When you create a Pages project, a `pages.dev` deployment is created for your pr
 
 For example, to prevent your `pages.dev` deployment from being indexed, you can add the following to your `_headers` file:
 
-```txt
+```txt filename="_headers"
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
 ```
@@ -52,7 +52,7 @@ Customizing headers doesn't just help with your site's search result ranking —
 
 You can configure these headers to protect an `/app/*` path, with the following in your `_headers` file:
 
-```txt
+```txt filename="_headers"
 /app/*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
@@ -69,14 +69,14 @@ There are, however, some cases where it is safe to allow these cross-origin requ
 
 For example, the use of the asterisk will enable any origin to request any asset from your Pages deployment:
 
-```txt
+```txt filename="_headers"
 /*
   Access-Control-Allow-Origin: *
 ```
 
 To be more restrictive and limit requests to only be allowed from a 'staging' subdomain, we can do the following:
 
-```txt
+```txt filename="_headers"
 https://:project.pages.dev/*
   Access-Control-Allow-Origin: https://staging.:project.pages.dev
 ```
@@ -91,7 +91,7 @@ Although we don't support all of its features, we've modeled this matching engin
 
 With this same engine, we're bringing these features to your `_redirects` file as well. You can now configure your redirects with splats, placeholders and status codes as shown in the example below:
 
-```txt
+```txt filename="_redirects"
 /blog/* https://blog.example.com/:splat 301
 /products/:code/:name /products?name=:name&code=:code
 /submit-form https://static-form.example.com/submit 307
