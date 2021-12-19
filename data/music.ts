@@ -56,11 +56,18 @@ const mapLastFMTrack = async ({
 });
 
 export class Music {
-  token: string;
+  kv: KVNamespace;
+  key?: string;
   username = "gregbrimble";
 
-  constructor(token: string) {
-    this.token = token;
+  constructor(kv: KVNamespace) {
+    this.kv = kv;
+  }
+
+  async getKey() {
+    if (this.key) return this.key;
+    this.key = (await this.kv.get("LAST_FM_API_KEY")) as string;
+    return this.key;
   }
 
   async getCurrentTrack() {
@@ -69,7 +76,7 @@ export class Music {
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=1&extended=1&format=json`
       );
       url.searchParams.set("user", this.username);
-      url.searchParams.set("api_key", this.token);
+      url.searchParams.set("api_key", await this.getKey());
 
       const response = await fetch(url.toString());
       const {
@@ -89,7 +96,7 @@ export class Music {
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=5&extended=1&format=json`
       );
       url.searchParams.set("user", this.username);
-      url.searchParams.set("api_key", this.token);
+      url.searchParams.set("api_key", await this.getKey());
 
       const response = await fetch(url.toString());
       const {

@@ -36,7 +36,7 @@ export class Newsletter {
 
   async getToken() {
     if (this.token) return this.token;
-    this.token = (await this.kv.get("REVUE_API_TOKEN")) || undefined;
+    this.token = (await this.kv.get("REVUE_API_TOKEN")) as string;
     return this.token;
   }
 
