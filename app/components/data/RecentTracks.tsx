@@ -25,7 +25,7 @@ export const RecentTracks = ({ tracks }: { tracks: Track[] }) => {
                 <div className="flex items-center justify-between">
                   <ExternalLink
                     href={track.url}
-                    className="text-sm font-medium dark:text-white hover:underline"
+                    className="text-sm font-medium dark:text-white hover:underline" // TODO: light text?
                   >
                     {track.name}
                   </ExternalLink>

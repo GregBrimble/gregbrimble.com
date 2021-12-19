@@ -33,7 +33,7 @@ export default function Index() {
               >
                 About Me
               </h2>
-              <div className="mt-6 prose prose-blue dark:prose-@light dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400">
+              <div className="mt-6 prose dark:prose-invert prose-lg">
                 <Biography
                   // @ts-ignore: Bug in Remix. They didn't grab the full types from xdm.
                   components={{

@@ -13,6 +13,7 @@ import { indexLoader as optimizingImages } from "./blog/optimizing-images";
 import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-pages";
 import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
 import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
+import { indexLoader as remixOnCloudflarePages } from "./blog/remix-on-cloudflare-pages";
 import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
@@ -47,6 +48,7 @@ const posts = [
   customHeadersForPages,
   cloudflareImagesAndCloudflarePages,
   buildingFullStackWithPages,
+  remixOnCloudflarePages,
 ];
 
 export const loader: LoaderFunction = async ({

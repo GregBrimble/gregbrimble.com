@@ -14,7 +14,7 @@ export default function OpenSource() {
             This is a selection of my projects on{" "}
             <ExternalLink
               href="https://github.com/GregBrimble"
-              className="underline text-blue-600"
+              className="underline text-blue-600 dark:text-blue-300"
             >
               GitHub
             </ExternalLink>{" "}
@@ -22,7 +22,7 @@ export default function OpenSource() {
             comments over{" "}
             <ExternalLink
               href="mailto:hello@gregbrimble.com"
-              className="underline text-blue-600"
+              className="underline text-blue-600 dark:text-blue-300"
             >
               email
             </ExternalLink>{" "}

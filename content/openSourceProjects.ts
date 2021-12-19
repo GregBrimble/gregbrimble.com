@@ -10,26 +10,70 @@ interface OpenSourceProject {
 
 export const openSourceProjects: OpenSourceProject[] = [
   {
+    title: "wrangler",
+    href: "https://github.com/cloudflare/wrangler2",
+    status: OpenSourceProjectStatus.active,
+    description: "wrangler 2.0, the CLI for managing Cloudflare Workers.",
+    date: "2021–2022",
+  },
+  {
+    title: "Workers Types",
+    href: "https://github.com/cloudflare/workers-types",
+    status: OpenSourceProjectStatus.active,
+    description:
+      "TypeScript type definitions for authoring Cloudflare Workers.",
+    date: "2019–2022",
+  },
+  {
+    title: "Homebrew",
+    href: "https://github.com/Homebrew/brew",
+    status: OpenSourceProjectStatus.active,
+    description: "The missing package manager for macOS (or Linux).",
+    date: "2021–2022",
+  },
+  {
     title: "kv-orm",
     href: "https://github.com/kv-orm/core",
     status: OpenSourceProjectStatus.active,
     description:
       "A Node.js ORM (object relational mapper) for key-value datastores.",
-    date: "2018–2021",
+    date: "2018–2022",
   },
   {
     title: "kv-orm Cloudflare Workers",
     href: "https://github.com/kv-orm/cf-workers",
     status: OpenSourceProjectStatus.maintained,
     description: "A datastore plugin for kv-orm for Cloudflare Workers KV.",
-    date: "2019–2021",
+    date: "2019–2022",
   },
   {
     title: "kv-orm Cloudflare Workers Example",
     href: "https://github.com/GregBrimble/kv-orm-cf-workers-example",
     status: OpenSourceProjectStatus.active,
     description: "An example showcasing kv-orm running on Cloudflare Workers.",
-    date: "2019–2021",
+    date: "2019–2022",
+  },
+  {
+    title: "remix.pages.dev",
+    href: "https://github.com/GregBrimble/remix.pages.dev",
+    status: OpenSourceProjectStatus.maintained,
+    description: "Remix on Cloudflare Pages.",
+    date: "2021",
+  },
+  {
+    title: "images.pages.dev",
+    href: "https://github.com/cloudflare/images.pages.dev",
+    status: OpenSourceProjectStatus.maintained,
+    description: "Image sharing platform build with Cloudflare Pages.",
+    date: "2021",
+  },
+  {
+    title: "The 2021 Web Almanac",
+    href: "https://almanac.httparchive.org/en/2021/structured-data",
+    status: OpenSourceProjectStatus.completed,
+    description:
+      "Analysis for the Structured Data chapter of the 2021 Web Alamanc by HTTP Archive.",
+    date: "2021",
   },
   {
     title: "The 2020 Web Almanac",
@@ -42,7 +86,7 @@ export const openSourceProjects: OpenSourceProject[] = [
   {
     title: "Functional Reasoner for Acquiring Novel Knowledge (FRANK)",
     href: "https://github.com/frank-lab-ai/franky",
-    status: OpenSourceProjectStatus.active,
+    status: OpenSourceProjectStatus.completed,
     description:
       "A question-answering system capable of inferring new facts from its knowledge graph sources.",
     date: "2020–2021",
@@ -52,35 +96,21 @@ export const openSourceProjects: OpenSourceProject[] = [
     href: "https://github.com/cloudflare-workers-community/cloudflare-workers-discord-bot",
     status: OpenSourceProjectStatus.active,
     description: "A bot for the Cloudflare Workers Discord server.",
-    date: "2021",
-  },
-  {
-    title: "VSCode Workers",
-    href: "https://github.com/glenstack/vscode-workers",
-    status: OpenSourceProjectStatus.active,
-    description: "Visual Studio Code running on Cloudflare Workers.",
-    date: "2020–2021",
+    date: "2021–2022",
   },
   {
     title: "Cloudflare Workers Git Gateway",
     href: "https://github.com/glenstack/glenstack/tree/master/packages/cf-workers-git-gateway",
     status: OpenSourceProjectStatus.active,
     description: "Perform git actions from within a Cloudflare Worker.",
-    date: "2020–2021",
-  },
-  {
-    title: "Linc FAB Action",
-    href: "https://github.com/GregBrimble/linc-fab-action",
-    status: OpenSourceProjectStatus.maintained,
-    description: "A GitHub Action to build and upload FABs to Linc.",
-    date: "2020",
+    date: "2020–2022",
   },
   {
     title: "Cloudflare Workers GraphQL",
     href: "https://github.com/glenstack/glenstack/tree/master/packages/cf-workers-graphql",
     status: OpenSourceProjectStatus.active,
     description: "A lightweight GraphQL Server for Cloudflare Workers.",
-    date: "2020–2021",
+    date: "2020–2022",
   },
   {
     title: "Cloudflare Workers Access",
@@ -95,7 +125,7 @@ export const openSourceProjects: OpenSourceProject[] = [
     href: "https://github.com/glenstack/glenstack/tree/master/packages/cf-workers-discord-bot",
     status: OpenSourceProjectStatus.active,
     description: "Interact with Discord from within Cloudflare Workers.",
-    date: "2021",
+    date: "2021–2022",
   },
   {
     title: "Cloudflare Workers Algolia Search",
@@ -142,19 +172,18 @@ export const openSourceProjects: OpenSourceProject[] = [
     date: "2020",
   },
   {
-    title: 'Cloudflare TV: Say "Hello" to the Class of 2020',
-    href: "https://cloudflare.tv/event/2KbnUNcBZUacOLjFynOyzo",
-    status: OpenSourceProjectStatus.completed,
-    description:
-      "A television segment about internships in the summer of 2020.",
-    date: "2020",
-  },
-  {
     title: "wait-until-all",
     href: "https://github.com/GregBrimble/wait-until-all",
     status: OpenSourceProjectStatus.maintained,
     description:
       "A Promise registration and execution utility, useful within a FetchEvent context.",
+    date: "2020",
+  },
+  {
+    title: "Linc FAB Action",
+    href: "https://github.com/GregBrimble/linc-fab-action",
+    status: OpenSourceProjectStatus.maintained,
+    description: "A GitHub Action to build and upload FABs to Linc.",
     date: "2020",
   },
   {
@@ -193,7 +222,7 @@ export const openSourceProjects: OpenSourceProject[] = [
     href: "https://github.com/GregBrimble/gregbrimble.com",
     status: OpenSourceProjectStatus.maintained,
     description: `Personal website of Greg Brimble, Technological Engineer.`,
-    date: "2014–2021",
+    date: "2014–2022",
   },
   {
     title: "workers.sh",
@@ -233,6 +262,20 @@ export const openSourceProjects: OpenSourceProject[] = [
     description:
       "Personal productivity tools inspired by software development processes.",
     date: "2018",
+  },
+  {
+    title: "Remix Starter for Cloudflare Workers",
+    href: "https://github.com/GregBrimble/remix-beta-on-workers",
+    status: OpenSourceProjectStatus.archived,
+    description: "A proof-of-concept of Remix running on Cloudflare Workers.",
+    date: "2021",
+  },
+  {
+    title: "VSCode Workers",
+    href: "https://github.com/glenstack/vscode-workers",
+    status: OpenSourceProjectStatus.archived,
+    description: "Visual Studio Code running on Cloudflare Workers.",
+    date: "2020",
   },
   {
     title: "Wrangler Cloudflared Template",

@@ -104,7 +104,7 @@ export const BlogPost = ({
           {description}
         </p>
 
-        <div className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+        <div className="mt-6 prose dark:prose-invert prose-lg mx-auto">
           <figure>
             <img
               className="w-full rounded-lg"
@@ -130,12 +130,12 @@ export const BlogPost = ({
         {authors.length > 1 && (
           <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
             {authors.map((author, index) => (
-              <>
+              <span key={author.name}>
                 <SmartLink href={author.url} rel="author" className="underline">
                   {author.name}
                 </SmartLink>
                 {index < authors.length - 1 ? ", " : ""}
-              </>
+              </span>
             ))}
           </p>
         )}
@@ -146,7 +146,7 @@ export const BlogPost = ({
           </time>
         </p>
       </div>
-      <article className="mt-6 prose dark:prose-@light prose-blue dark:prose-blue@light prose-lg text-gray-500 dark:text-gray-400 mx-auto">
+      <article className="mt-6 prose dark:prose-invert prose-lg mx-auto">
         <Component />
       </article>
       <script

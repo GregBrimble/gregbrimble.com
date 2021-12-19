@@ -11,7 +11,7 @@ image:
 
 Images are a massive part of the Internet. On the median web page, [images account for 51% of the bytes loaded](https://almanac.httparchive.org/en/2020/page-weight), so any improvement made to their speed or their size has a significant impact on performance.
 
-Today, we are excited to announce [Cloudflare’s Image Optimization Testing Tool](https://images.cloudflare.com/). Simply enter your website’s URL, and we’ll run a series of automated tests to determine if there are any possible improvements you could make in delivering optimal images to visitors.
+Today, we are excited to announce [Cloudflare's Image Optimization Testing Tool](https://images.cloudflare.com/). Simply enter your website's URL, and we'll run a series of automated tests to determine if there are any possible improvements you could make in delivering optimal images to visitors.
 
 import ImageOptimizationTestResults from "./image-optimization-test-results.png";
 
@@ -34,7 +34,7 @@ Since the end of August 2021, [Google has used the Core Web Vitals to quantify p
 
 CLS and LCP are the two metrics we can improve by optimizing images. When CLS is high, this indicates that large amounts of the page layout is shifting as it loads. LCP measures the time it takes for the single largest image or text block in the viewport to render.
 
-These can both be measured “in the field” with Real User Monitoring (RUM) analytics such as [Cloudflare's Web Analytics](https://blog.cloudflare.com/start-measuring-web-vitals-with-browser-insights/), or in a “lab environment” using [Cloudflare’s Image Optimization Testing Tool](https://images.cloudflare.com/).
+These can both be measured “in the field” with Real User Monitoring (RUM) analytics such as [Cloudflare's Web Analytics](https://blog.cloudflare.com/start-measuring-web-vitals-with-browser-insights/), or in a “lab environment” using [Cloudflare's Image Optimization Testing Tool](https://images.cloudflare.com/).
 
 ## How to optimize for speed
 
@@ -42,11 +42,11 @@ These can both be measured “in the field” with Real User Monitoring (RUM) an
 
 One of the most impactful performance improvements a website author can make is ensuring they deliver images with appropriate dimensions. Images taken on a modern camera can be truly massive and some recent flagship phones have gigantic sensors. The Samsung Galaxy S21 Ultra, for example, has a 108 MP sensor which captures a 12,000 by 9,000 pixel image. That same phone has a screen width of only 1440 pixels. It is physically impossible to show every pixel of the photo on that device: at most, only 4% of total pixels can be displayed.
 
-Embedding this image on a webpage presents the same problem, but this time, that image and all of its unused pixels are sent over the Internet. Ultimately, this creates unnecessary load on the server, higher egress costs, and longer loading times for visitors.. This is exacerbated even further for visitors on mobile since they are often using a slower connection and have limits on their data usage. On a fast 3G connection, that 108 MP photo might consume 26 MB of both the visitor’s data plan and the website’s egress bandwidth, and take more than two minutes to load!
+Embedding this image on a webpage presents the same problem, but this time, that image and all of its unused pixels are sent over the Internet. Ultimately, this creates unnecessary load on the server, higher egress costs, and longer loading times for visitors.. This is exacerbated even further for visitors on mobile since they are often using a slower connection and have limits on their data usage. On a fast 3G connection, that 108 MP photo might consume 26 MB of both the visitor's data plan and the website's egress bandwidth, and take more than two minutes to load!
 
 It might be tempting to always deliver images with the highest possible resolution to avoid “blocky” or pixelated images, but when resizing is done correctly, this is not a problem. “Blocky” artifacts typically occur when an image is processed multiple times (for example, an image is repeatedly uploaded and downloaded by users on a platform which compresses that image). Pixelated images occur when an image has been shrunk to a size smaller than the screen it is rendered on.
 
-So, how can website authors avoid these pitfalls and ensure a correctly sized image is delivered to visitors’ devices? There are two main approaches:
+So, how can website authors avoid these pitfalls and ensure a correctly sized image is delivered to visitors' devices? There are two main approaches:
 
 - **Media conditions with `srcset` and `sizes`**
 
@@ -56,7 +56,7 @@ When embedding an image on a webpage, traditionally the author would simply pass
 <img src="hello_world_12000.jpg" alt="Hello, world!" />
 ```
 
-[Since 2017, all modern browsers have supported the more dynamic `srcset` attribute](https://caniuse.com/srcset). This allows authors to set multiple image sources, depending on the matching media condition of the visitor’s browser:
+[Since 2017, all modern browsers have supported the more dynamic `srcset` attribute](https://caniuse.com/srcset). This allows authors to set multiple image sources, depending on the matching media condition of the visitor's browser:
 
 ```html
 <img
@@ -160,7 +160,7 @@ Finally, you can improve image loading by hosting all of a page's images togethe
 
 ## Test your website
 
-Today, we’re excited to announce the launch of [Cloudflare’s Image Optimization Testing Tool](https://images.cloudflare.com/). Simply enter your website URL, and we’ll run a series of automated tests to determine if there are any possible improvements you could make in delivering optimal images to visitors.
+Today, we're excited to announce the launch of [Cloudflare's Image Optimization Testing Tool](https://images.cloudflare.com/). Simply enter your website URL, and we'll run a series of automated tests to determine if there are any possible improvements you could make in delivering optimal images to visitors.
 
 We use WebPageTest and Lighthouse to calculate the Core Web Vitals on two versions of your page: one as the original, and one with Cloudflare's best-effort automatic optimizations. These optimizations are performed using a Cloudflare Worker in combination with our Image Resizing product, and will transform an image's format, quality, and dimensions.
 

@@ -23,11 +23,11 @@ Until today, Cloudflare Workers has been a great solution to setting headers, bu
 
 ## What can you set with custom headers?
 
-Being able to set custom headers is useful for a variety of reasons — let’s explore some of your most popular use cases.
+Being able to set custom headers is useful for a variety of reasons — let's explore some of your most popular use cases.
 
 ### Search Engine Optimization (SEO)
 
-When you create a Pages project, a `pages.dev` deployment is created for your project which enables you to [get started immediately](https://developers.cloudflare.com/pages/get-started) and easily [preview changes](https://developers.cloudflare.com/pages/platform/preview-deployments) as you iterate. However, we realize this poses an issue — publishing multiple copies of your website can harm your rankings in search engine results. One way to solve this is by disabling indexing on all `pages.dev` subdomains, but we see many using their `pages.dev` subdomain as their primary domain. With today’s announcement you can attach headers such as [`X-Robots-Tag`](https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag) to hint to Google and other search engines how you'd like your deployment to be indexed.
+When you create a Pages project, a `pages.dev` deployment is created for your project which enables you to [get started immediately](https://developers.cloudflare.com/pages/get-started) and easily [preview changes](https://developers.cloudflare.com/pages/platform/preview-deployments) as you iterate. However, we realize this poses an issue — publishing multiple copies of your website can harm your rankings in search engine results. One way to solve this is by disabling indexing on all `pages.dev` subdomains, but we see many using their `pages.dev` subdomain as their primary domain. With today's announcement you can attach headers such as [`X-Robots-Tag`](https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag) to hint to Google and other search engines how you'd like your deployment to be indexed.
 
 For example, to prevent your `pages.dev` deployment from being indexed, you can add the following to your `_headers` file:
 
@@ -38,7 +38,7 @@ https://:project.pages.dev/*
 
 ### Security
 
-Customizing headers doesn’t just help with your site’s search result ranking — a number of browser security features can be configured with headers. A few headers that can enhance your site’s security are:
+Customizing headers doesn't just help with your site's search result ranking — a number of browser security features can be configured with headers. A few headers that can enhance your site's security are:
 
 - [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options): You can prevent [click-jacking](https://owasp.org/www-community/attacks/Clickjacking) by informing browsers not to embed your application inside another (e.g. with an `<iframe>`).
 
@@ -89,7 +89,7 @@ Although we don't support all of its features, we've modeled this matching engin
 
 ## Enhanced support for redirects
 
-With this same engine, we’re bringing these features to your `_redirects` file as well. You can now configure your redirects with splats, placeholders and status codes as shown in the example below:
+With this same engine, we're bringing these features to your `_redirects` file as well. You can now configure your redirects with splats, placeholders and status codes as shown in the example below:
 
 ```txt
 /blog/* https://blog.example.com/:splat 301
