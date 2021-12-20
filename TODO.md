@@ -5,3 +5,5 @@
 - [ ] Social redirects
 - [ ] Prev/Next on blog posts
 - [ ] Pagination on blog posts
+- [ ] Social images
+- [ ] Open Graph/Twitter/etc.

@@ -1,6 +1,11 @@
+import { Context } from "data";
 import { LoaderFunction, useLoaderData } from "remix";
 
-export const loader: LoaderFunction = async ({ context }) => {
+export const loader: LoaderFunction = async ({
+  context,
+}: {
+  context: Context;
+}) => {
   const length = await context.clients.newsletter.debug();
 
   return { length };

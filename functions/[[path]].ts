@@ -13,7 +13,7 @@ export const onRequest: PagesFunction<Env, any, any> =
     build,
     getLoadContext: (context) => {
       return {
-        ...attachClients({ env: context.env }),
+        ...attachClients(context),
       };
     },
   });

@@ -1,3 +1,5 @@
+import { Env } from "functions/[[path]]";
+
 interface LastFMTrack {
   artist: {
     url: string;
@@ -56,17 +58,19 @@ const mapLastFMTrack = async ({
 });
 
 export class Music {
-  kv: KVNamespace;
+  context: EventContext<Env, any, any>;
   key?: string;
   username = "gregbrimble";
 
-  constructor(kv: KVNamespace) {
-    this.kv = kv;
+  constructor(context: EventContext<Env, any, any>) {
+    this.context = context;
   }
 
   async getKey() {
     if (this.key) return this.key;
-    this.key = (await this.kv.get("LAST_FM_API_KEY")) as string;
+    this.key = (await this.context.env.GREGBRIMBLE_COM_SECRETS.get(
+      "LAST_FM_API_KEY"
+    )) as string;
     return this.key;
   }
 

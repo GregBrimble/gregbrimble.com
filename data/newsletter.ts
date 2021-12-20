@@ -1,3 +1,5 @@
+import { Env } from "functions/[[path]]";
+
 interface RevueIssue {
   title: string;
   description: string;
@@ -27,16 +29,18 @@ const mapRevueIssue = async ({
 });
 
 export class Newsletter {
-  kv: KVNamespace;
+  context: EventContext<Env, any, any>;
   token?: string;
 
-  constructor(kv: KVNamespace) {
-    this.kv = kv;
+  constructor(context: EventContext<Env, any, any>) {
+    this.context = context;
   }
 
   async getToken() {
     if (this.token) return this.token;
-    this.token = (await this.kv.get("REVUE_API_TOKEN")) as string;
+    this.token = (await this.context.env.GREGBRIMBLE_COM_SECRETS.get(
+      "REVUE_API_TOKEN"
+    )) as string;
     return this.token;
   }
 
@@ -46,6 +50,13 @@ export class Newsletter {
 
   async getIssue(id: string) {
     try {
+      const cachedIssue =
+        await this.context.env.GREGBRIMBLE_COM_SECRETS.get<Issue>(
+          `revue:issue:${id}`,
+          "json"
+        );
+      if (cachedIssue) return cachedIssue;
+
       const response = await fetch(
         `https://www.getrevue.co/api/v2/issues/${id}`,
         {
@@ -56,7 +67,17 @@ export class Newsletter {
         issue: [issue],
       } = (await response.json()) as RevueIssueResponse;
 
-      return await mapRevueIssue(issue);
+      const mappedIssue = await mapRevueIssue(issue);
+      this.context.waitUntil(
+        this.context.env.GREGBRIMBLE_COM_SECRETS.put(
+          `revue:issue:${id}`,
+          JSON.stringify(mappedIssue),
+          {
+            expirationTtl: 60 * 60,
+          }
+        )
+      );
+      return mappedIssue;
     } catch {}
   }
 }
