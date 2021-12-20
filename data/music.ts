@@ -68,9 +68,7 @@ export class Music {
 
   async getKey() {
     if (this.key) return this.key;
-    this.key = (await this.context.env.GREGBRIMBLE_COM_SECRETS.get(
-      "LAST_FM_API_KEY"
-    )) as string;
+    this.key = (await this.context.env.KV.get("LAST_FM_API_KEY")) as string;
     return this.key;
   }
 
