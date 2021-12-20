@@ -38,9 +38,7 @@ export class Newsletter {
 
   async getToken() {
     if (this.token) return this.token;
-    this.token = (await this.context.env.GREGBRIMBLE_COM_SECRETS.get(
-      "REVUE_API_TOKEN"
-    )) as string;
+    this.token = (await this.context.env.KV.get("REVUE_API_TOKEN")) as string;
     return this.token;
   }
 
@@ -50,11 +48,10 @@ export class Newsletter {
 
   async getIssue(id: string) {
     try {
-      const cachedIssue =
-        await this.context.env.GREGBRIMBLE_COM_SECRETS.get<Issue>(
-          `revue:issue:${id}`,
-          "json"
-        );
+      const cachedIssue = await this.context.env.KV.get<Issue>(
+        `revue:issue:${id}`,
+        "json"
+      );
       if (cachedIssue) return cachedIssue;
 
       const response = await fetch(
@@ -69,7 +66,7 @@ export class Newsletter {
 
       const mappedIssue = await mapRevueIssue(issue);
       this.context.waitUntil(
-        this.context.env.GREGBRIMBLE_COM_SECRETS.put(
+        this.context.env.KV.put(
           `revue:issue:${id}`,
           JSON.stringify(mappedIssue),
           {

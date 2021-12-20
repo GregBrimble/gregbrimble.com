@@ -12,7 +12,7 @@ export const attachClients = (
 ): Context => {
   return {
     clients: {
-      music: new Music(env.GREGBRIMBLE_COM_SECRETS),
+      music: new Music(context),
       newsletter: new Newsletter(context),
       // videos: new Videos(env.GREGBRIMBLE_COM_SECRETS),
     },

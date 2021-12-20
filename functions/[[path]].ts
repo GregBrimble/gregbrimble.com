@@ -5,7 +5,7 @@ import { attachClients } from "data";
 import * as build from "../build";
 
 export interface Env {
-  GREGBRIMBLE_COM_SECRETS: KVNamespace;
+  KV: KVNamespace;
 }
 
 export const onRequest: PagesFunction<Env, any, any> =
