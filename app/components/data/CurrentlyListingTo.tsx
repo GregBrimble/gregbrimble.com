@@ -63,7 +63,7 @@ export const CurrentlyListingTo = ({
                   {currentTrack.album}
                 </p>
                 {recentTracks && (
-                  <div className="mt-10 lg:mt-2 flex flex-col lg:block space-y-4 lg:space-x-6 max-w-full overflow-y-scroll whitespace-nowrap pb-3">
+                  <div className="mt-10 lg:mt-2 flex flex-col lg:block space-y-4 lg:space-x-6 max-w-full overflow-x-scroll whitespace-nowrap pb-3">
                     {recentTracks.map((track) => (
                       <div
                         className="flex lg:inline-flex items-center"
