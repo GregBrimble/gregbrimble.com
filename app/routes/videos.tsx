@@ -6,18 +6,13 @@ export const loader: LoaderFunction = async ({
 }: {
   context: Context;
 }) => {
-  const length = await context.clients.newsletter.debug();
-
-  return { length };
+  return {};
 };
 
 export default function Videos() {
-  const loaderData = useLoaderData();
-
   return (
     <div>
-      <h1>Videos</h1>
-      <div>{JSON.stringify(loaderData)}</div>
+      <h1 className="text-white">Coming soon</h1>
     </div>
   );
 }
