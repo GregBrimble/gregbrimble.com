@@ -1,5 +1,7 @@
 import { Env } from "functions/[[path]]";
 
+const CACHE_DURATION = 60 * 60 * 24; // 1 day
+
 interface RevueIssue {
   title: string;
   description: string;
@@ -70,7 +72,7 @@ export class Newsletter {
           `revue:issue:${id}`,
           JSON.stringify(mappedIssue),
           {
-            expirationTtl: 60 * 60,
+            expirationTtl: CACHE_DURATION,
           }
         )
       );

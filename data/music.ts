@@ -1,5 +1,7 @@
 import { Env } from "functions/[[path]]";
 
+const CACHE_DURATION = 60 * 3; // 3 minutes
+
 interface LastFMTrack {
   artist: {
     url: string;
@@ -74,6 +76,12 @@ export class Music {
 
   async getCurrentTrack() {
     try {
+      const cachedTrack = await this.context.env.KV.get<Track>(
+        "lastfm:currentTrack",
+        "json"
+      );
+      if (cachedTrack) return cachedTrack;
+
       const url = new URL(
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=1&extended=1&format=json`
       );
@@ -87,13 +95,28 @@ export class Music {
         },
       } = (await response.json()) as LastFMRecentTracksResponse;
 
-      if (track["@attr"]?.nowplaying === "true")
-        return await mapLastFMTrack(track);
+      if (track["@attr"]?.nowplaying === "true") {
+        const mappedTrack = await mapLastFMTrack(track);
+        this.context.waitUntil(
+          this.context.env.KV.put(
+            "lastfm:currentTrack",
+            JSON.stringify(mappedTrack),
+            { expirationTtl: CACHE_DURATION }
+          )
+        );
+        return mappedTrack;
+      }
     } catch {}
   }
 
   async getRecentTracks() {
     try {
+      const cachedTracks = await this.context.env.KV.get<Track>(
+        "lastfm:recentTracks",
+        "json"
+      );
+      if (cachedTracks) return cachedTracks;
+
       const url = new URL(
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=5&extended=1&format=json`
       );
@@ -105,11 +128,21 @@ export class Music {
         recenttracks: { track: tracks },
       } = (await response.json()) as LastFMRecentTracksResponse;
 
-      return await Promise.all(
+      const mappedTracks = await Promise.all(
         tracks
           .filter((track) => track["@attr"]?.nowplaying !== "true")
           .map(mapLastFMTrack)
       );
+
+      this.context.waitUntil(
+        this.context.env.KV.put(
+          "lastfm:recentTracks",
+          JSON.stringify(mappedTracks),
+          { expirationTtl: CACHE_DURATION }
+        )
+      );
+
+      return mappedTracks;
     } catch {}
   }
 }
