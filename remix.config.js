@@ -1,6 +1,7 @@
 /**
  * @type {import('@remix-run/dev/config').AppConfig}
  */
+// eslint-disable-next-line no-undef
 module.exports = {
   appDirectory: "app",
   assetsBuildDirectory: "public/build",
@@ -10,7 +11,7 @@ module.exports = {
   serverBuildDirectory: "build",
   devServerBroadcastDelay: 1000,
   ignoredRouteFiles: [".*"],
-  mdx: async (filename) => {
+  mdx: async () => {
     const [rehypePrism, remarkMDXCodeMeta] = await Promise.all([
       import("rehype-highlight").then((mod) => mod.default),
       import("remark-mdx-code-meta").then((mod) => mod.remarkMdxCodeMeta),

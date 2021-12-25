@@ -1,9 +1,9 @@
-import { useLoaderData } from "remix";
+import { MetaFunction, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import { CurrentlyListingTo } from "~/components/data/CurrentlyListingTo";
 import { RecentTracks } from "~/components/data/RecentTracks";
-import type { Context } from "../../data";
-import type { Track } from "../../data/music";
+import { Context } from "types";
+import type { Track } from "data/music";
 
 interface LoaderData {
   currentTrack?: Track;
@@ -18,6 +18,13 @@ export const loader: LoaderFunction = async ({
   return {
     currentTrack: await context.clients.music.getCurrentTrack(),
     recentTracks: (await context.clients.music.getRecentTracks()) as Track[],
+  };
+};
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Data | Greg Brimble",
+    description: "The personal and open data of Greg Brimble.",
   };
 };
 

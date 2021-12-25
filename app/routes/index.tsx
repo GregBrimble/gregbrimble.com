@@ -2,7 +2,7 @@ import type { MetaFunction } from "remix";
 import Biography from "../components/Biography.mdx";
 import { Markdown } from "~/components/Markdown";
 
-export let meta: MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return {
     title: "Greg Brimble",
     description: "Personal website of Greg Brimble, Technological Engineer",

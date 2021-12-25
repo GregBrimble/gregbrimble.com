@@ -4,6 +4,13 @@
   "description": "Personal website of Greg Brimble, Technological Engineer",
   "version": "1.0.0",
   "scripts": {
+    "prepare": "husky install",
+    "test:types": "tsc",
+    "prettier": "prettier --ignore-path .gitignore .",
+    "format": "npm run prettier -- --write",
+    "test:format": "npm run prettier -- --list-different",
+    "test:lint": "eslint --ignore-path .gitignore app",
+    "validate": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\" \"npm run build\"",
     "postinstall": "remix setup cloudflare-pages",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
@@ -41,19 +48,32 @@
     "@tailwindcss/aspect-ratio": "0.4.0",
     "@tailwindcss/forms": "0.4.0",
     "@tailwindcss/typography": "0.5.0",
+    "@types/eslint": "^8.2.1",
     "@types/node": "17.0.0",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
+    "@types/tailwindcss": "^2.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
     "autoprefixer": "10.4.0",
     "concurrently": "6.5.0",
     "cross-env": "7.0.3",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
+    "prettier": "^2.5.1",
     "schema-dts": "1.0.0",
     "tailwindcss": "3.0.7",
     "typescript": "4.5.4",
-    "wrangler": "file:../wrangler2/packages/wrangler"
+    "wrangler": "^0.0.0-8ab7d2e"
   },
   "engines": {
     "node": ">=16.7"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
+    "*.{js,ts,jsx,tsx,css,md,mdx,json}": "prettier --write"
+  }
 }

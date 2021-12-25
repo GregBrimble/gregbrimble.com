@@ -4,7 +4,6 @@ import { GregBrimble } from "~/schema.org/GregBrimble";
 import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
 import { formatDate } from "~/utils/formatDate";
 import { SmartLink } from "../SmartLink";
-import { CodeBlock } from "../CodeBlock";
 import { Markdown } from "../Markdown";
 
 export const BlogPost = ({

@@ -1,11 +1,11 @@
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData } from "remix";
 import type { IndexLoader } from "~/routes/blog";
-import type { Context } from "../../../data";
+import type { Context } from "types";
 import type { Issue } from "../../../data/newsletter";
 import { NewsletterIssue } from "~/components/blog/NewsletterIssue";
 
-const EXTRACT_ID_REGEXP = /\-(\d+)$/i;
+const EXTRACT_ID_REGEXP = /-(\d+)$/i;
 
 export const generateNewsletterIssue = ({
   slug,

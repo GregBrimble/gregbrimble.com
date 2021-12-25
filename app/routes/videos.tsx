@@ -1,5 +1,5 @@
-import { Context } from "data";
 import { LoaderFunction, useLoaderData } from "remix";
+import { Context } from "types";
 
 export const loader: LoaderFunction = async ({
   context,
@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async ({
 export default function Videos() {
   return (
     <div>
-      <h1 className="text-white">Coming soon</h1>
+      <h1 className="text-gray-900 dark:text-white">Coming soon</h1>
     </div>
   );
 }

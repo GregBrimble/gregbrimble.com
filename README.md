@@ -1,23 +1,19 @@
-# Welcome to Remix!
+# gregbrimble.com
 
-- [Remix Docs](https://remix.run/docs)
+Personal website of Greg Brimble, Technological Engineer
 
-## Development
+## Structure
 
-You will be utlizing Wrangler for local development to emulate the Cloudflare runtime. This is already wired up in your package.json as the `dev` script:
+[gregbrimble.com](https://gregbrimble.com) is hosted with [Cloudflare Pages](https://pages.cloudflare.com/) and uses the [Remix](https://remix.run) framework.
 
-```sh
-# start the remix dev server and wrangler
-$ npm run dev
-```
+Read more about running [Remix on Cloudflare Pages](https://blog.cloudflare.com/remix-on-cloudflare-pages/) and the [full-stack Cloudflare Pages](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) platform on the Cloudflare blog.
 
-Open up [http://127.0.0.1:8788](http://127.0.0.1:8788) and you should be ready to go!
+### Data
 
-## Deployment
+Pulls:
 
-Cloudflare Pages are currently only deployable through their Git provider integrations.
+- newsletter issues from [Revue](https://newsletter.gregbrimble.com),
+- music from [Last.fm](http://last.fm/user/GregBrimble),
+- videos from [Cloudflare Stream](https://gregbrimble.com/videos).
 
-If you don't already have an account, then [create a Cloudflare account here](https://dash.cloudflare.com/sign-up/pages) and after verifying your email address with Cloudflare, go to your dashboard and follow the [Cloudflare Pages deployment guide](https://developers.cloudflare.com/pages/framework-guides/deploy-anything).
-
-Configure the "Build command" should be set to `npm run build`, and the "Build output directory" should be set to `public`.
-
+Stores data in [Workers KV](https://www.cloudflare.com/products/workers-kv/).

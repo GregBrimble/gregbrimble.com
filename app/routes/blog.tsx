@@ -8,7 +8,7 @@ import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
 import { formatDate } from "~/utils/formatDate";
 import { ExternalLink } from "~/components/ExternalLink";
-import type { Context } from "../../data";
+import type { Context } from "types";
 
 import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";

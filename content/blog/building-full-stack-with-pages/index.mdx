@@ -247,23 +247,24 @@ const validateJWT = async (jwtAssertion: string | null, aud: string) => {
   return jwtPayload;
 };
 
-const cloudflareAccessMiddleware: PagesFunction<{ IMAGES: KVNamespace }> =
-  async ({ request, env, next, data }) => {
-    const { aud } = (await env.IMAGES.get("setup", "json")) as Setup;
+const cloudflareAccessMiddleware: PagesFunction<{
+  IMAGES: KVNamespace;
+}> = async ({ request, env, next, data }) => {
+  const { aud } = (await env.IMAGES.get("setup", "json")) as Setup;
 
-    const jwtPayload = await validateJWT(
-      request.headers.get("CF-Access-JWT-Assertion"),
-      aud
-    );
+  const jwtPayload = await validateJWT(
+    request.headers.get("CF-Access-JWT-Assertion"),
+    aud
+  );
 
-    if (jwtPayload === false)
-      return new Response("Access denied.", { status: 403 });
+  if (jwtPayload === false)
+    return new Response("Access denied.", { status: 403 });
 
-    // We could also use the data object to pass information between middlewares
-    data.user = jwtPayload.email;
+  // We could also use the data object to pass information between middlewares
+  data.user = jwtPayload.email;
 
-    return await next();
-  };
+  return await next();
+};
 
 export const onRequest = [cloudflareAccessMiddleware];
 ```

@@ -7,31 +7,22 @@ import {
   Outlet,
   useCatch,
 } from "remix";
-import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
+import type { ErrorBoundaryComponent } from "remix";
 import type { WithContext, Person, Brand, Organization } from "schema-dts";
-import type { Context } from "../data";
+
+import type {
+  Context,
+  LoaderFunction,
+  LinksFunction,
+  MetaFunction,
+} from "types";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
-import { GregBrimbleBrand } from "./schema.org/GregBrimbleBrand";
-import { GregBrimble } from "./schema.org/GregBrimble";
-import { GregBrimbleCom } from "./schema.org/GregBrimbleCom";
-
-import stylesUrl from "./styles/app.css";
-import { useLayoutEffect } from "react";
-import { useSafeLayoutEffect } from "./utils/useSafeLayoutEffect";
-
-export let links: LinksFunction = () => {
-  return [
-    { rel: "stylesheet", href: stylesUrl },
-    { rel: "stylesheet", href: "/fonts/inter/variable.css" },
-  ];
-};
-
-export const meta: MetaFunction = () => {
-  return {
-    title: "Greg Brimble",
-  };
-};
+import { GregBrimbleBrand } from "~/schema.org/GregBrimbleBrand";
+import { GregBrimble } from "~/schema.org/GregBrimble";
+import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
+import { useSafeLayoutEffect } from "~/utils/useSafeLayoutEffect";
+import stylesUrl from "~/styles/app.css";
 
 interface LoaderData {
   isLive: boolean;
@@ -47,10 +38,26 @@ export const loader: LoaderFunction = async ({
   };
 
   try {
-    data.isLive = (await context.clients.videos.getLiveVideo()) !== undefined;
-  } catch {}
+    data.isLive = (await context.clients.videos?.getLiveVideo()) !== undefined;
+  } catch {
+    //
+  }
 
   return data;
+};
+
+export const links: LinksFunction = () => {
+  return [
+    { rel: "stylesheet", href: stylesUrl },
+    { rel: "stylesheet", href: "/fonts/inter/variable.css" },
+  ];
+};
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Greg Brimble",
+    description: "Personal website of Greg Brimble, Technological Engineer",
+  };
 };
 
 const Document = ({
@@ -128,8 +135,8 @@ export default function App() {
   );
 }
 
-export function CatchBoundary() {
-  let caught = useCatch();
+export const CatchBoundary = () => {
+  const caught = useCatch();
 
   switch (caught.status) {
     case 401:
@@ -147,9 +154,9 @@ export function CatchBoundary() {
         `Unexpected caught response with status: ${caught.status}`
       );
   }
-}
+};
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   console.error(error);
 
   return (
@@ -163,4 +170,4 @@ export function ErrorBoundary({ error }: { error: Error }) {
       </p>
     </Document>
   );
-}
+};

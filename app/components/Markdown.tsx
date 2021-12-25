@@ -7,6 +7,7 @@ export const Markdown: FC<{ contents: ComponentType }> = ({
 }) => {
   return (
     <Component
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: Bug in Remix. They didn't grab the full types from xdm.
       components={{
         a: SmartLink,
