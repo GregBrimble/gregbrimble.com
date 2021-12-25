@@ -9,7 +9,7 @@
     "prettier": "prettier --ignore-path .gitignore .",
     "format": "npm run prettier -- --write",
     "test:format": "npm run prettier -- --list-different",
-    "test:lint": "eslint --ignore-path .gitignore app",
+    "test:lint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx .",
     "validate": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\" \"npm run build\"",
     "postinstall": "remix setup cloudflare-pages",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
@@ -74,6 +74,6 @@
   "sideEffects": false,
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
-    "*.{js,ts,jsx,tsx,css,md,mdx,json}": "prettier --write"
+    "*": "prettier --ignore-unknown --write"
   }
 }

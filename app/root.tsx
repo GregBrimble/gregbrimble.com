@@ -39,9 +39,7 @@ export const loader: LoaderFunction = async ({
 
   try {
     data.isLive = (await context.clients.videos?.getLiveVideo()) !== undefined;
-  } catch {
-    //
-  }
+  } catch {}
 
   return data;
 };
