@@ -13,7 +13,6 @@ export interface Env {
 }
 
 export const onRequest: PagesFunction<Env, any, any> = async (...args) => {
-  const x: string = 5;
   const response = await createPagesFunctionHandler({
     build,
     getLoadContext: (context): Context => {
