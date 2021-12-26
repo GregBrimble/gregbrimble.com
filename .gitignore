@@ -166,5 +166,5 @@ dist
 #########
 
 /public/fonts
-/app/styles
+/app/styles/dist.css
 /.mf
