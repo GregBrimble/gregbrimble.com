@@ -22,7 +22,7 @@ import { GregBrimbleBrand } from "~/schema.org/GregBrimbleBrand";
 import { GregBrimble } from "~/schema.org/GregBrimble";
 import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
 import { useSafeLayoutEffect } from "~/utils/useSafeLayoutEffect";
-import stylesUrl from "~/styles/app.css";
+import stylesUrl from "~/styles/dist.css";
 
 interface LoaderData {
   isLive: boolean;

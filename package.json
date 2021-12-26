@@ -14,7 +14,7 @@
     "postinstall": "remix setup cloudflare-pages",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
-    "build:css": "tailwindcss -i styles/app.css -o app/styles/app.css",
+    "build:css": "tailwindcss -i app/styles/app.css -o app/styles/dist.css",
     "build:remix": "remix build",
     "build:production": "cross-env NODE_ENV=production npm run build:css -- --minify && npm run build:remix",
     "build:development": "cross-env NODE_ENV=development npm run build:css && npm run build:remix",
