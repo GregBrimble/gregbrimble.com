@@ -2,7 +2,7 @@
 // import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
 import { createPagesFunctionHandler } from "./worker";
 import { attachClients } from "data";
-import { Context } from "types";
+import { Context } from "~/types";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

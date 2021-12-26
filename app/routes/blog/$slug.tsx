@@ -1,5 +1,5 @@
 import { HeadersFunction, json, useLoaderData } from "remix";
-import { LoaderFunction } from "types";
+import { LoaderFunction } from "~/types";
 
 export const loader: LoaderFunction = async ({ context, params }) => {
   const canonicalURL = "";

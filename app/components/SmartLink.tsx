@@ -18,3 +18,5 @@ export const SmartLink = forwardRef<
 
   return <ExternalLink ref={forwardedRef} {...props} />;
 });
+
+SmartLink.displayName = "SmartLink";

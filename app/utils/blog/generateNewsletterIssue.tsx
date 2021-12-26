@@ -1,7 +1,7 @@
 import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData } from "remix";
 import type { IndexLoader } from "~/routes/blog";
-import type { Context } from "types";
+import type { Context } from "~/types";
 import type { Issue } from "../../../data/newsletter";
 import { NewsletterIssue } from "~/components/blog/NewsletterIssue";
 

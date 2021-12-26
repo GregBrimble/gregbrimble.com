@@ -8,7 +8,7 @@ import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";
 import { formatDate } from "~/utils/formatDate";
 import { ExternalLink } from "~/components/ExternalLink";
-import type { Context } from "types";
+import type { Context } from "~/types";
 
 import { indexLoader as initialization } from "./blog/initialization";
 import { indexLoader as optimizingImages } from "./blog/optimizing-images";
@@ -138,7 +138,7 @@ const BlogIndex = () => {
                 </div>
               </div>
               <div className="mt-4 sm:mt-2 text-sm text-gray-500 dark:text-gray-400 lg:text-right">
-                By subscribing, you agree with Revue's{" "}
+                By subscribing, you agree with Revue&apos;s{" "}
                 <ExternalLink
                   href="https://www.getrevue.co/terms"
                   className="underline"

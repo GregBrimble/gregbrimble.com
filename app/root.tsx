@@ -15,7 +15,7 @@ import type {
   LoaderFunction,
   LinksFunction,
   MetaFunction,
-} from "types";
+} from "~/types";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
 import { GregBrimbleBrand } from "~/schema.org/GregBrimbleBrand";
@@ -154,7 +154,11 @@ export const CatchBoundary = () => {
   }
 };
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export const ErrorBoundary: ErrorBoundaryComponent = ({
+  error,
+}: {
+  error: Error;
+}) => {
   console.error(error);
 
   return (

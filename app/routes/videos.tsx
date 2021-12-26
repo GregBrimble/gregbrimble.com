@@ -1,5 +1,5 @@
 import { LoaderFunction, useLoaderData } from "remix";
-import { Context } from "types";
+import { Context } from "~/types";
 
 export const loader: LoaderFunction = async ({
   context,

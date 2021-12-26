@@ -9,7 +9,7 @@
     "prettier": "prettier --ignore-path .gitignore .",
     "format": "npm run prettier -- --write",
     "test:format": "npm run prettier -- --list-different",
-    "test:lint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx .",
+    "test:lint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx app content data functions",
     "validate": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\" \"npm run build\"",
     "postinstall": "remix setup cloudflare-pages",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
@@ -60,6 +60,8 @@
     "cross-env": "7.0.3",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.4",
     "prettier": "^2.5.1",
@@ -72,6 +74,46 @@
     "node": ">=16.7"
   },
   "sideEffects": false,
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2021,
+      "project": "./tsconfig.json",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "eslint-plugin-react",
+      "eslint-plugin-react-hooks"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": [
+        "off"
+      ],
+      "react/prop-types": [
+        "off"
+      ],
+      "no-empty": [
+        "error",
+        {
+          "allowEmptyCatch": true
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "eslint --cache --fix",
     "*": "prettier --ignore-unknown --write"
