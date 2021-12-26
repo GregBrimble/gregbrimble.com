@@ -18,9 +18,9 @@ import type {
 } from "~/types";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
-import { GregBrimbleBrand } from "~/schema.org/GregBrimbleBrand";
-import { GregBrimble } from "~/schema.org/GregBrimble";
-import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
+import { GregBrimbleBrand } from "~/content/schema.org/GregBrimbleBrand";
+import { GregBrimble } from "~/content/schema.org/GregBrimble";
+import { GregBrimbleCom } from "~/content/schema.org/GregBrimbleCom";
 import { useSafeLayoutEffect } from "~/utils/useSafeLayoutEffect";
 import stylesUrl from "~/styles/dist.css";
 

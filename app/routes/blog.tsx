@@ -16,7 +16,7 @@ import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-
 import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
 import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
 import { indexLoader as remixOnCloudflarePages } from "./blog/remix-on-cloudflare-pages";
-import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
+import { GregBrimbleBlog } from "~/content/schema.org/GregBrimbleBlog";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 

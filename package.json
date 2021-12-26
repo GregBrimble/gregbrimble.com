@@ -5,14 +5,17 @@
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
-    "test:types": "tsc",
+    "postinstall": "remix setup cloudflare-pages",
     "prettier": "prettier --ignore-path .gitignore .",
     "eslint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx app functions",
-    "format": "npm run prettier -- --write && npm run eslint -- --fix",
+    "fix:format": "npm run prettier -- --write",
+    "fix:lint": "npm run eslint -- --fix",
+    "fix": "concurrently \"npm run fix:format\" \"npm run fix:lint\"",
+    "test:types": "tsc",
     "test:format": "npm run prettier -- --list-different",
     "test:lint": "npm run eslint",
-    "validate": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\" \"npm run build\"",
-    "postinstall": "remix setup cloudflare-pages",
+    "test": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\"",
+    "validate": "concurrently --kill-others-on-fail \"npm run test\" \"npm run build\"",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
     "prebuild:css": "npm run build:fonts",
     "build:css": "tailwindcss -i app/styles/app.css -o app/styles/dist.css",
@@ -77,6 +80,9 @@
   "sideEffects": false,
   "eslintConfig": {
     "root": true,
+    "ignorePatterns": [
+      "./public/**/*"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": 2021,

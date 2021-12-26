@@ -7,7 +7,7 @@ import type { Track } from "~/data/music";
 
 interface LoaderData {
   currentTrack?: Track;
-  recentTracks: Track[];
+  recentTracks?: Track[];
 }
 
 export const loader: LoaderFunction = async ({
@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<LoaderData> => {
   return {
     currentTrack: await context.clients.music.getCurrentTrack(),
-    recentTracks: (await context.clients.music.getRecentTracks()) as Track[],
+    recentTracks: await context.clients.music.getRecentTracks(),
   };
 };
 
@@ -48,11 +48,13 @@ export default function Data() {
         />
       )}
 
-      <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
-        <div className="max-w-lg mx-auto lg:max-w-7xl">
-          {!currentTrack && <RecentTracks tracks={recentTracks} />}
+      {recentTracks && !currentTrack && (
+        <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
+          <div className="max-w-lg mx-auto lg:max-w-7xl">
+            <RecentTracks tracks={recentTracks} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

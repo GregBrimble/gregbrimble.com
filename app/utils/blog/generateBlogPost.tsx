@@ -1,4 +1,4 @@
-import type { HeadersFunction, LinksFunction, MetaFunction } from "remix";
+import type { LinksFunction, MetaFunction } from "remix";
 import type { ComponentType } from "react";
 import { BlogPost } from "~/components/blog/BlogPost";
 import { IndexLoader } from "~/routes/blog";

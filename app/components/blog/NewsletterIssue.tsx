@@ -1,7 +1,7 @@
 import type { BlogPosting, WithContext } from "schema-dts";
-import { GregBrimble } from "~/schema.org/GregBrimble";
-import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
-import { GregBrimbleCom } from "~/schema.org/GregBrimbleCom";
+import { GregBrimble } from "~/content/schema.org/GregBrimble";
+import { GregBrimbleBlog } from "~/content/schema.org/GregBrimbleBlog";
+import { GregBrimbleCom } from "~/content/schema.org/GregBrimbleCom";
 import { formatDate } from "~/utils/formatDate";
 
 export const NewsletterIssue = ({

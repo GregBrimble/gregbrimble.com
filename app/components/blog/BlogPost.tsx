@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import type { BlogPosting, WithContext } from "schema-dts";
-import { GregBrimble } from "~/schema.org/GregBrimble";
-import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
+import { GregBrimble } from "~/content/schema.org/GregBrimble";
+import { GregBrimbleBlog } from "~/content/schema.org/GregBrimbleBlog";
 import { formatDate } from "~/utils/formatDate";
 import { SmartLink } from "../SmartLink";
 import { Markdown } from "../Markdown";

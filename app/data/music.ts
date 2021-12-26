@@ -111,7 +111,7 @@ export class Music {
 
   async getRecentTracks() {
     try {
-      const cachedTracks = await this.context.env.KV.get<Track>(
+      const cachedTracks = await this.context.env.KV.get<Track[]>(
         "lastfm:recentTracks",
         "json"
       );
