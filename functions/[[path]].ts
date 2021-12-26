@@ -1,7 +1,7 @@
 // https://github.com/remix-run/remix/pull/1237
 // import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
 import { createPagesFunctionHandler } from "./worker";
-import { attachClients } from "../app/data";
+import { attachClients } from "~/data";
 import { Context } from "~/types";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
