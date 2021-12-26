@@ -3,7 +3,7 @@ import { forwardRef, AnchorHTMLAttributes } from "react";
 export const ExternalLink = forwardRef<
   HTMLAnchorElement,
   AnchorHTMLAttributes<HTMLAnchorElement>
->((props, forwardedRef) => {
+>(function ExternalLink(props, forwardedRef) {
   return (
     <a
       ref={forwardedRef}
@@ -14,4 +14,4 @@ export const ExternalLink = forwardRef<
   );
 });
 
-ExternalLink.displayName = "ExternalLink";
+// ExternalLink.displayName = "ExternalLink";
