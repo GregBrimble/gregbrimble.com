@@ -6,7 +6,7 @@ import { ExternalLink } from "./ExternalLink";
 export const SmartLink = forwardRef<
   HTMLAnchorElement,
   AnchorHTMLAttributes<HTMLAnchorElement> | LinkProps
->((props, forwardedRef) => {
+>(function SmartLink(props, forwardedRef) {
   if ("to" in props && props.to) {
     return <Link ref={forwardedRef} {...props} />;
   } else if ("href" in props && props.href) {
@@ -18,5 +18,3 @@ export const SmartLink = forwardRef<
 
   return <ExternalLink ref={forwardedRef} {...props} />;
 });
-
-SmartLink.displayName = "SmartLink";

@@ -1,6 +1,6 @@
-import { Music } from "data/music";
-import { Newsletter } from "data/newsletter";
-import { Videos } from "data/videos";
+import { Music } from "~/data/music";
+import { Newsletter } from "~/data/newsletter";
+import { Videos } from "~/data/videos";
 import { LoaderFunction as RemixLoaderFunction } from "remix";
 
 export interface Context {

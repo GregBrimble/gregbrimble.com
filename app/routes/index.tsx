@@ -1,5 +1,5 @@
 import type { MetaFunction } from "remix";
-import Biography from "../components/Biography.mdx";
+import Biography from "~/content/Biography.mdx";
 import { Markdown } from "~/components/Markdown";
 
 export const meta: MetaFunction = () => {

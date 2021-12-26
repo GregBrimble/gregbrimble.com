@@ -13,5 +13,3 @@ export const ExternalLink = forwardRef<
     />
   );
 });
-
-// ExternalLink.displayName = "ExternalLink";

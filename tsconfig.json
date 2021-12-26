@@ -1,6 +1,5 @@
 {
-  "include": ["app/**/*", "content/**/*", "data/**/*", "functions/**/*"],
-  // "include": ["**/*"],
+  "include": ["app/**/*", "functions/**/*"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "types": ["@cloudflare/workers-types", "@types/node", "@remix-run/dev"],

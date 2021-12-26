@@ -1,5 +1,5 @@
 import moment from "moment";
-import type { Track } from "../../../data/music";
+import type { Track } from "~/data/music";
 import { ExternalLink } from "../ExternalLink";
 
 export const RecentTracks = ({ tracks }: { tracks: Track[] }) => {

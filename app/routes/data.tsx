@@ -3,7 +3,7 @@ import type { LoaderFunction } from "remix";
 import { CurrentlyListingTo } from "~/components/data/CurrentlyListingTo";
 import { RecentTracks } from "~/components/data/RecentTracks";
 import { Context } from "~/types";
-import type { Track } from "data/music";
+import type { Track } from "~/data/music";
 
 interface LoaderData {
   currentTrack?: Track;

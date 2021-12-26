@@ -1,6 +1,6 @@
 import { ExternalLink } from "~/components/ExternalLink";
 import { OpenSourceProject } from "~/components/OpenSourceProject";
-import { openSourceProjects } from "../../content/openSourceProjects";
+import { openSourceProjects } from "~/content/openSourceProjects";
 
 export default function OpenSource() {
   return (
