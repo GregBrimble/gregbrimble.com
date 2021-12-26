@@ -2,7 +2,7 @@ import { Link, LinksFunction, Outlet, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import gitHubDark from "highlight.js/styles/github-dark.css";
 import gitHubDarkDimmed from "highlight.js/styles/github-dark-dimmed.css";
-import type { WithContext, Blog } from "schema-dts";
+import type { Blog, WithContext } from "schema-dts";
 import MailIcon from "@heroicons/react/solid/MailIcon";
 import { Decoration } from "~/components/blog/Decoration";
 import { usePathname } from "~/utils/usePathname";

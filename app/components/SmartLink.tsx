@@ -1,4 +1,4 @@
-import { forwardRef, AnchorHTMLAttributes } from "react";
+import { AnchorHTMLAttributes, forwardRef } from "react";
 import { Link } from "remix";
 import type { LinkProps } from "remix";
 import { ExternalLink } from "./ExternalLink";

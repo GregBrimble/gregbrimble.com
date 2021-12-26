@@ -1,19 +1,19 @@
 import {
-  useLoaderData,
-  Meta,
   Links,
-  Scripts,
   LiveReload,
+  Meta,
   Outlet,
+  Scripts,
   useCatch,
+  useLoaderData,
 } from "remix";
 import type { ErrorBoundaryComponent } from "remix";
-import type { WithContext, Person, Brand, Organization } from "schema-dts";
+import type { Brand, Organization, Person, WithContext } from "schema-dts";
 
 import type {
   Context,
-  LoaderFunction,
   LinksFunction,
+  LoaderFunction,
   MetaFunction,
 } from "~/types";
 import { Header } from "~/components/Header";

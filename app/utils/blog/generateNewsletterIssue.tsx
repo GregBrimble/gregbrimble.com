@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction, LoaderFunction } from "remix";
+import type { LinksFunction, LoaderFunction, MetaFunction } from "remix";
 import { useLoaderData } from "remix";
 import type { IndexLoader } from "~/routes/blog";
 import type { Context } from "~/types";

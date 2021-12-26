@@ -7,9 +7,10 @@
     "prepare": "husky install",
     "test:types": "tsc",
     "prettier": "prettier --ignore-path .gitignore .",
-    "format": "npm run prettier -- --write",
+    "eslint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx app functions",
+    "format": "npm run prettier -- --write && npm run eslint -- --fix",
     "test:format": "npm run prettier -- --list-different",
-    "test:lint": "eslint --ignore-path .gitignore --ext .js,.ts,.jsx,.tsx app functions",
+    "test:lint": "npm run eslint",
     "validate": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:format\" \"npm run test:lint\" \"npm run build\"",
     "postinstall": "remix setup cloudflare-pages",
     "build:fonts": "mkdir -p ./public/fonts && cp -r ./node_modules/@fontsource/inter ./public/fonts",
@@ -95,12 +96,8 @@
       "prettier"
     ],
     "rules": {
-      "react/react-in-jsx-scope": [
-        "off"
-      ],
-      "react/prop-types": [
-        "off"
-      ],
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
       "no-empty": [
         "error",
         {

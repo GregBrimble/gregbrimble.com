@@ -1,4 +1,4 @@
-import { forwardRef, AnchorHTMLAttributes } from "react";
+import { AnchorHTMLAttributes, forwardRef } from "react";
 
 export const ExternalLink = forwardRef<
   HTMLAnchorElement,

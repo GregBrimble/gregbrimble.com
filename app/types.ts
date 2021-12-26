@@ -1,7 +1,7 @@
+import { LoaderFunction as RemixLoaderFunction } from "remix";
 import { Music } from "~/data/music";
 import { Newsletter } from "~/data/newsletter";
 import { Videos } from "~/data/videos";
-import { LoaderFunction as RemixLoaderFunction } from "remix";
 
 export interface Context {
   clients: { music: Music; newsletter: Newsletter; videos?: Videos };

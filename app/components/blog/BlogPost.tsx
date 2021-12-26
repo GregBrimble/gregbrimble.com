@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import type { WithContext, BlogPosting } from "schema-dts";
+import type { BlogPosting, WithContext } from "schema-dts";
 import { GregBrimble } from "~/schema.org/GregBrimble";
 import { GregBrimbleBlog } from "~/schema.org/GregBrimbleBlog";
 import { formatDate } from "~/utils/formatDate";
