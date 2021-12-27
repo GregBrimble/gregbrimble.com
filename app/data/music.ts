@@ -76,11 +76,17 @@ export class Music {
 
   async getCurrentTrack() {
     try {
-      const cachedTrack = await this.context.env.KV.get<Track>(
+      const cachedTrack = await this.context.env.KV.get<Track | false>(
         "lastfm:currentTrack",
         "json"
       );
-      if (cachedTrack) return cachedTrack;
+      if (cachedTrack !== null) {
+        if (cachedTrack !== false) {
+          return cachedTrack;
+        }
+
+        return undefined;
+      }
 
       const url = new URL(
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=1&extended=1&format=json`
@@ -105,6 +111,14 @@ export class Music {
           )
         );
         return mappedTrack;
+      } else {
+        this.context.waitUntil(
+          this.context.env.KV.put(
+            "lastfm:currentTrack",
+            JSON.stringify(false),
+            { expirationTtl: CACHE_DURATION }
+          )
+        );
       }
     } catch {}
   }

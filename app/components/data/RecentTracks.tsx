@@ -4,7 +4,7 @@ import { ExternalLink } from "../ExternalLink";
 
 export const RecentTracks = ({ tracks }: { tracks: Track[] }) => {
   return (
-    <div className="w-96">
+    <div>
       <div className="pb-5 border-b border-gray-200 dark:border-gray-700">
         <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
           Music
@@ -22,16 +22,16 @@ export const RecentTracks = ({ tracks }: { tracks: Track[] }) => {
                 />
               </ExternalLink>
               <div className="flex-1 space-y-1">
-                <div className="flex items-center justify-between">
+                <div className="flex justify-between">
                   <ExternalLink
                     href={track.url}
-                    className="text-sm font-medium dark:text-white hover:underline" // TODO: light text?
+                    className="text-sm font-medium dark:text-white hover:underline"
                   >
                     {track.name}
                   </ExternalLink>
 
                   <time
-                    className="text-sm text-gray-500 dark:text-gray-400"
+                    className="text-sm text-gray-500 dark:text-gray-400 ml-2 min-w-max"
                     dateTime={track.date}
                   >
                     {moment(track.date).fromNow()}

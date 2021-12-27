@@ -44,7 +44,7 @@ export const CurrentlyListingTo = ({
           </div>
           <div className="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
             <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none flex items-center h-full">
-              <div className="lg:pt-12 lg:pb-8">
+              <div className="lg:pt-12 lg:pb-8 max-w-full">
                 <MusicNoteIcon className="absolute h-12 w-12 text-white dark:text-blue-900 opacity-25" />
                 <MusicNoteIcon className="animate-ping-small h-12 w-12 text-blue-200 dark:text-blue-700 opacity-20" />
 
@@ -63,7 +63,7 @@ export const CurrentlyListingTo = ({
                   {currentTrack.album}
                 </p>
                 {recentTracks && (
-                  <div className="mt-10 lg:mt-2 flex flex-col lg:block space-y-4 lg:space-x-6 max-w-full overflow-x-scroll whitespace-nowrap pb-3">
+                  <div className="mt-10 lg:mt-2 flex flex-col lg:block gap-y-4 lg:space-x-6 overflow-x-scroll whitespace-nowrap pb-3">
                     {recentTracks.map((track) => (
                       <div
                         className="flex lg:inline-flex items-center"

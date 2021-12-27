@@ -40,6 +40,38 @@ module.exports = {
             "--tw-prose-invert-pre-bg": "#080c13",
           },
         },
+        green: {
+          css: {
+            "--tw-prose-body": theme("colors.green[700]"),
+            "--tw-prose-invert-body": theme("colors.green[200]"),
+            "--tw-prose-links": theme("colors.green[700]"),
+            "--tw-prose-invert-links": theme("colors.green[200]"),
+          },
+        },
+        blue: {
+          css: {
+            "--tw-prose-body": theme("colors.blue[700]"),
+            "--tw-prose-invert-body": theme("colors.blue[200]"),
+            "--tw-prose-links": theme("colors.blue[700]"),
+            "--tw-prose-invert-links": theme("colors.blue[200]"),
+          },
+        },
+        yellow: {
+          css: {
+            "--tw-prose-body": theme("colors.yellow[700]"),
+            "--tw-prose-invert-body": theme("colors.yellow[200]"),
+            "--tw-prose-links": theme("colors.yellow[700]"),
+            "--tw-prose-invert-links": theme("colors.yellow[200]"),
+          },
+        },
+        red: {
+          css: {
+            "--tw-prose-body": theme("colors.red[700]"),
+            "--tw-prose-invert-body": theme("colors.red[200]"),
+            "--tw-prose-links": theme("colors.red[700]"),
+            "--tw-prose-invert-links": theme("colors.red[200]"),
+          },
+        },
       }),
     },
   },

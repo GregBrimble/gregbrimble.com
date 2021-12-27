@@ -4,10 +4,13 @@ import { CurrentlyListingTo } from "~/components/data/CurrentlyListingTo";
 import { RecentTracks } from "~/components/data/RecentTracks";
 import { Context } from "~/types";
 import type { Track } from "~/data/music";
+import type { Commit } from "~/data/code";
+import { RecentCommits } from "~/components/data/Commits";
 
 interface LoaderData {
   currentTrack?: Track;
   recentTracks?: Track[];
+  recentCommits?: Commit[];
 }
 
 export const loader: LoaderFunction = async ({
@@ -18,6 +21,7 @@ export const loader: LoaderFunction = async ({
   return {
     currentTrack: await context.clients.music.getCurrentTrack(),
     recentTracks: await context.clients.music.getRecentTracks(),
+    recentCommits: await context.clients.code.getRecentCommits(),
   };
 };
 
@@ -29,7 +33,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Data() {
-  const { currentTrack, recentTracks } = useLoaderData<LoaderData>();
+  const { currentTrack, recentTracks, recentCommits } =
+    useLoaderData<LoaderData>();
 
   return (
     <div>
@@ -48,13 +53,14 @@ export default function Data() {
         />
       )}
 
-      {recentTracks && !currentTrack && (
-        <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
-          <div className="max-w-lg mx-auto lg:max-w-7xl">
+      <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
+        <div className="max-w-lg mx-auto lg:max-w-7xl grid lg:grid-cols-2 gap-6">
+          {recentTracks && !currentTrack && (
             <RecentTracks tracks={recentTracks} />
-          </div>
+          )}
+          {recentCommits && <RecentCommits commits={recentCommits} />}
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -1,26 +1,55 @@
-import { Component, DetailedHTMLProps, HTMLAttributes, useState } from "react";
+import { HTMLAttributes, isValidElement, useState } from "react";
 import copy from "copy-to-clipboard";
 import hljs from "highlight.js";
 import ClipboardCopyIcon from "@heroicons/react/outline/ClipboardCopyIcon";
 import ClipboardCheckIcon from "@heroicons/react/outline/ClipboardCheckIcon";
 import ArrowsExpandIcon from "@heroicons/react/outline/ArrowsExpandIcon";
+import { Alert } from "./Alert";
 
 export const CodeBlock = ({
   filename,
   terminal = false,
   lineNumbers = true,
-  ...props
-}: DetailedHTMLProps<HTMLAttributes<HTMLPreElement>, HTMLPreElement> & {
+  children: preChildren,
+}: Pick<HTMLAttributes<HTMLPreElement>, "children"> & {
   filename?: string;
   terminal?: boolean;
   lineNumbers?: boolean;
 }) => {
-  const { children, ...codeProps } = (props.children as Component).props;
-
   const [expanded, setExpanded] = useState(false);
-
-  const code = children?.toString().trimEnd() || "";
   const [copied, setCopied] = useState(false);
+
+  if (!isValidElement(preChildren)) {
+    // TODO: Throw error so it gets seen in Sentry
+
+    return (
+      <>
+        <Alert type="error">
+          The <code>pre</code> element&apos;s children is not a valid element
+          and so could not be rendered in the <code>CodeBlock</code> component.
+        </Alert>
+        <div className="mt-4">{preChildren}</div>
+      </>
+    );
+  }
+
+  const { children: codeChildren, ...codeProps } = preChildren.props;
+
+  if (typeof codeChildren !== "string") {
+    // TODO: Throw error so it gets seen in Sentry
+
+    return (
+      <>
+        <Alert type="error">
+          The <code>code</code> element does not contain a string as its child
+          so could not be rendered in the <code>CodeBlock</code> component.
+        </Alert>
+        <div className="mt-4">{preChildren}</div>
+      </>
+    );
+  }
+
+  const code = codeChildren.trimEnd();
 
   const copyCode = () => {
     copy(code);
@@ -28,8 +57,8 @@ export const CodeBlock = ({
     setTimeout(() => setCopied(false), 3000);
   };
 
-  const matches = /language-(\w+)/.exec((codeProps as any).className);
-  const language = matches ? matches[1] : "txt";
+  const matches = /language-(\w+)/.exec(codeProps.className);
+  const language = matches && matches[1] ? matches[1] : "txt";
 
   const label = filename ? filename : terminal ? "Terminal" : undefined;
 
@@ -86,7 +115,7 @@ export const CodeBlock = ({
       <pre className="mt-0 rounded-t-none">
         <code
           {...codeProps}
-          className={"hljs " + (codeProps as any).className || ""}
+          className={"hljs " + (codeProps.className || "")}
           dangerouslySetInnerHTML={{
             __html: lines
               .map((line, i) => {

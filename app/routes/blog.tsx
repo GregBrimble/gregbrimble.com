@@ -209,9 +209,9 @@ export default function Blog() {
       {isBlogPost ? (
         <div className="relative py-16 overflow-hidden">
           <Decoration />
-          <div className="relative px-4 sm:px-6 lg:px-8">
+          <main className="relative px-4 sm:px-6 lg:px-8">
             <Outlet />
-          </div>
+          </main>
         </div>
       ) : (
         <BlogIndex />

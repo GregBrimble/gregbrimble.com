@@ -6,6 +6,7 @@ import {
   Scripts,
   useCatch,
   useLoaderData,
+  useLocation,
 } from "remix";
 import type { ErrorBoundaryComponent } from "remix";
 import type { Brand, Organization, Person, WithContext } from "schema-dts";
@@ -22,6 +23,8 @@ import { GregBrimbleBrand } from "~/content/schema.org/GregBrimbleBrand";
 import { GregBrimble } from "~/content/schema.org/GregBrimble";
 import { GregBrimbleCom } from "~/content/schema.org/GregBrimbleCom";
 import { useSafeLayoutEffect } from "~/utils/useSafeLayoutEffect";
+import { NotFound } from "~/components/NotFound";
+import { UnexpectedError } from "~/components/UnexpectedError";
 import stylesUrl from "~/styles/dist.css";
 
 interface LoaderData {
@@ -137,13 +140,12 @@ export const CatchBoundary = () => {
   const caught = useCatch();
 
   switch (caught.status) {
-    case 401:
     case 404:
       return (
-        <Document title={`${caught.status} ${caught.statusText}`}>
-          <h1>
-            {caught.status} {caught.statusText}
-          </h1>
+        <Document title="Not Found | Greg Brimble">
+          <Header />
+          <NotFound />
+          <Footer />
         </Document>
       );
 
@@ -159,17 +161,13 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({
 }: {
   error: Error;
 }) => {
-  console.error(error);
-
   return (
-    <Document title="Uh-oh!">
-      <h1>App Error</h1>
-      <pre>{error.message}</pre>
-      <pre>{error.stack}</pre>
-      <p>
-        Replace this UI with what you want users to see when your app throws
-        uncaught errors.
-      </p>
+    <Document title="Unexpected Error | Greg Brimble">
+      <Header />
+
+      <UnexpectedError error={error} />
+
+      <Footer />
     </Document>
   );
 };
