@@ -4,6 +4,7 @@ import {
   Meta,
   Outlet,
   Scripts,
+  ScrollRestoration,
   useCatch,
   useLoaderData,
   useLocation,
@@ -98,6 +99,7 @@ const Document = ({
       */}
       <body className="bg-white dark:bg-gray-900 selection:bg-[rgba(244,63,93,0.3)] dark:selection:bg-[rgba(244,63,93,0.5)]">
         {children}
+        <ScrollRestoration />
         <Scripts />
         <script
           type="application/ld+json"
