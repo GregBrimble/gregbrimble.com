@@ -1,3 +1,4 @@
+import moment from "moment";
 import { ReactNode } from "react";
 import { Link } from "remix";
 import { Logo } from "./Logo";
@@ -15,21 +16,83 @@ const navigation: NavigationLink[] = [
   { name: "Blog", to: "/blog" },
 ];
 
-export const Header = ({ isLive = false }: { isLive?: boolean }) => {
-  const videoLink: NavigationLink = isLive
-    ? {
-        name: (
-          <span className="inline-flex items-center space-x-3">
-            <span>Live</span>
-            <span
-              className="h-4 w-4 rounded-full flex items-center justify-center"
-              aria-hidden="true"
-            >
-              <span className="animate-ping absolute bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full" />
-              <span className="bg-red-400 dark:bg-red-500 h-2 w-2 rounded-full" />
-            </span>
+export const Header = ({
+  isLive = false,
+  nextLive,
+}: {
+  isLive?: boolean;
+  nextLive?: { start: string; end: string };
+}) => {
+  let minutesUntilNextLive: number | undefined = undefined;
+  let duration: number | undefined = undefined;
+
+  if (nextLive) {
+    minutesUntilNextLive = moment(nextLive.start).diff(moment(), "minutes");
+    duration = moment(nextLive.end).diff(nextLive.start, "minutes");
+  }
+
+  const runningLate =
+    !isLive &&
+    minutesUntilNextLive !== undefined &&
+    minutesUntilNextLive > -(duration || 120) / 2 &&
+    minutesUntilNextLive <= 0;
+
+  const scheduledSoon =
+    minutesUntilNextLive !== undefined && minutesUntilNextLive <= 120;
+
+  let liveLabel: ReactNode;
+  if (isLive) {
+    liveLabel = (
+      <span className="inline-flex items-center space-x-3">
+        <span>Live</span>
+        <span
+          className="h-4 w-4 rounded-full flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <span className="animate-ping absolute bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full" />
+          <span className="bg-red-400 dark:bg-red-500 h-2 w-2 rounded-full" />
+        </span>
+      </span>
+    );
+  } else if (runningLate) {
+    liveLabel = (
+      <span className="inline-flex items-center space-x-3">
+        <span>
+          Live{" "}
+          <span className="text-red-500 dark:text-red-400">very shortly</span>
+        </span>
+        <span
+          className="h-4 w-4 rounded-full flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <span className="animate-ping absolute bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full" />
+          <span className="bg-red-400 dark:bg-red-500 h-2 w-2 rounded-full" />
+        </span>
+      </span>
+    );
+  } else if (scheduledSoon) {
+    liveLabel = (
+      <span className="inline-flex items-center space-x-3">
+        <span>
+          Live in{" "}
+          <span className="text-red-500 dark:text-red-400">
+            {minutesUntilNextLive} minute{minutesUntilNextLive === 1 ? "" : "s"}
           </span>
-        ),
+        </span>
+        <span
+          className="h-4 w-4 rounded-full flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <span className="animate-ping absolute bg-red-100 dark:bg-red-800 h-4 w-4 rounded-full" />
+          <span className="bg-red-400 dark:bg-red-500 h-2 w-2 rounded-full" />
+        </span>
+      </span>
+    );
+  }
+
+  const videoLink: NavigationLink = liveLabel
+    ? {
+        name: liveLabel,
         to: "/live",
       }
     : {

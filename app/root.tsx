@@ -29,6 +29,7 @@ import stylesUrl from "~/styles/dist.css";
 
 interface LoaderData {
   isLive: boolean;
+  nextLive?: { start: string; end: string };
 }
 
 export const loader: LoaderFunction = async ({
@@ -36,12 +37,19 @@ export const loader: LoaderFunction = async ({
 }: {
   context: Context;
 }): Promise<LoaderData> => {
-  const data = {
+  const data: LoaderData = {
     isLive: false,
   };
 
   try {
-    data.isLive = (await context.clients.videos?.getLiveVideo()) !== undefined;
+    data.isLive = (await context.clients.videos.getLiveVideo()) !== undefined;
+  } catch {}
+
+  try {
+    const schedule = await context.clients.videos.getSchedule();
+    if (schedule && schedule.length > 0) {
+      data.nextLive = schedule[0];
+    }
   } catch {}
 
   return data;
@@ -125,11 +133,11 @@ const Document = ({
 };
 
 export default function App() {
-  const { isLive } = useLoaderData<LoaderData>();
+  const { isLive, nextLive } = useLoaderData<LoaderData>();
 
   return (
     <Document>
-      <Header isLive={isLive} />
+      <Header isLive={isLive} nextLive={nextLive} />
       <Outlet />
       <Footer />
     </Document>

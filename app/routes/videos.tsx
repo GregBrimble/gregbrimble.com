@@ -14,8 +14,6 @@ export const loader: LoaderFunction = async ({
 export default function Videos() {
   const data = useLoaderData();
 
-  console.log(data);
-
   return (
     <div>
       <h1 className="text-gray-900 dark:text-white">Coming soon</h1>

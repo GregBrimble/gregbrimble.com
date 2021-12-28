@@ -88,13 +88,25 @@ export class Videos {
     { title: string; start: string; end: string }[] | undefined
   > {
     try {
-      const response = await fetch(
-        "https://api.twitch.tv/helix/schedule/icalendar?broadcaster_id=613488943"
-      );
-      const ical = await response.text();
+      let iCal: string | undefined = undefined;
+
+      const cachedICal = await this.context.env.KV.get("twitch:ical");
+      if (cachedICal) {
+        iCal = cachedICal;
+      } else {
+        const response = await fetch(
+          "https://api.twitch.tv/helix/schedule/icalendar?broadcaster_id=613488943"
+        );
+        iCal = await response.text();
+        this.context.waitUntil(
+          this.context.env.KV.put("twitch:ical", iCal, {
+            expirationTtl: 60 * 60,
+          })
+        );
+      }
 
       const matches = [
-        ...ical.matchAll(
+        ...iCal.matchAll(
           /BEGIN:VEVENT\nUID:(?<uid>.*)\n[\s\S]*?DTSTART;TZID=\/(?<startTimezone>.*?):(?<startYear>\d{4})(?<startMonth>\d{2})(?<startDay>\d{2})T(?<startHour>\d{2})(?<startMinute>\d{2})(?<startSecond>\d{2})\nDTEND;TZID=\/(?<endTimezone>.*?):(?<endYear>\d{4})(?<endMonth>\d{2})(?<endDay>\d{2})T(?<endHour>\d{2})(?<endMinute>\d{2})(?<endSecond>\d{2})\nSUMMARY:(?<summary>.*)\nRRULE:FREQ=WEEKLY;BYDAY=(?<day>.*)[\s\S]*?END:VEVENT/gm
         ),
       ]
@@ -172,7 +184,10 @@ export class Videos {
           });
 
           const nextStart = rule
-            .occurrences({ start: moment(), take: 1 })
+            .occurrences({
+              start: moment().subtract(duration, "milliseconds"),
+              take: 1,
+            })
             .toArray()[0];
 
           return {
@@ -183,7 +198,7 @@ export class Videos {
         }
       );
 
-      return events;
+      return events.sort((a, b) => a.start.localeCompare(b.start));
     } catch {}
   }
 }

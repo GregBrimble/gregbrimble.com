@@ -14,6 +14,7 @@ Pulls:
 
 - newsletter issues from [Revue](https://newsletter.gregbrimble.com),
 - music from [Last.fm](http://last.fm/user/GregBrimble),
-- videos from [Cloudflare Stream](https://gregbrimble.com/videos).
+- videos and livestreams from [Cloudflare Stream](https://gregbrimble.com/videos),
+- livestream schedule from [Twitch](https://twitch.tv/gregbrimble).
 
 Stores data in [Workers KV](https://www.cloudflare.com/products/workers-kv/).
