@@ -125,13 +125,13 @@ export const Header = ({
             </div>
           </div>
         </div>
-        <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
+        <div className="pt-2 pb-4 flex flex-wrap justify-center gap-x-6 lg:hidden">
           {[...navigation, videoLink].map((link) => (
             <SmartLink
               key={link.to || link.href}
               to={link.to}
               href={link.href}
-              className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              className="mt-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             >
               {link.name}
             </SmartLink>
