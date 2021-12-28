@@ -9,7 +9,7 @@ export interface Context {
     music: Music;
     newsletter: Newsletter;
     code: Code;
-    videos?: Videos;
+    videos: Videos;
   };
 }
 

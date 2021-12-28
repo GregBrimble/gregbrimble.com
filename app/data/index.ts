@@ -2,6 +2,7 @@ import { Env } from "functions/[[path]]";
 import { Music } from "./music";
 import { Code } from "./code";
 import { Newsletter } from "./newsletter";
+import { Videos } from "./videos";
 
 export const attachClients = (context: EventContext<Env, any, any>) => {
   return {
@@ -9,7 +10,7 @@ export const attachClients = (context: EventContext<Env, any, any>) => {
       music: new Music(context),
       newsletter: new Newsletter(context),
       code: new Code(context),
-      // videos: new Videos(env.GREGBRIMBLE_COM_SECRETS),
+      videos: new Videos(context),
     },
   };
 };

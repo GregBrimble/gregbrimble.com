@@ -36,6 +36,15 @@ export default function Data() {
   const { currentTrack, recentTracks, recentCommits } =
     useLoaderData<LoaderData>();
 
+  const gridChildren = [
+    recentTracks && !currentTrack && (
+      <RecentTracks tracks={recentTracks} key="Recent Tracks" />
+    ),
+    recentCommits && (
+      <RecentCommits commits={recentCommits} key="Recent Commits" />
+    ),
+  ].filter(Boolean);
+
   return (
     <div>
       <div className="pt-16 px-4 sm:px-6 lg:pt-24 lg:px-8">
@@ -54,11 +63,12 @@ export default function Data() {
       )}
 
       <div className="pt-12 px-4 sm:px-6 lg:pt-18 lg:px-8">
-        <div className="max-w-lg mx-auto lg:max-w-7xl grid lg:grid-cols-2 gap-6">
-          {recentTracks && !currentTrack && (
-            <RecentTracks tracks={recentTracks} />
-          )}
-          {recentCommits && <RecentCommits commits={recentCommits} />}
+        <div
+          className={`max-w-lg mx-auto lg:max-w-7xl grid gap-6 ${
+            gridChildren.length > 1 ? "lg:grid-cols-2" : ""
+          }`}
+        >
+          {gridChildren}
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@
   - [ ] Pagination on blog posts
   - [ ] RSS
   - [ ] Sitemap
+- [ ] Scroll to top on page nav
 - [ ] /uses page
 - [x] Social redirects
 - [ ] Social images

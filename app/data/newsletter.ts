@@ -44,10 +44,6 @@ export class Newsletter {
     return this.token;
   }
 
-  async debug() {
-    return (await this.getToken()).length;
-  }
-
   async getIssue(id: string) {
     try {
       const cachedIssue = await this.context.env.KV.get<Issue>(
