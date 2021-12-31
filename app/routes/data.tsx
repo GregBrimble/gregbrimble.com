@@ -6,6 +6,7 @@ import { Context } from "~/types";
 import type { Track } from "~/data/music";
 import type { Commit } from "~/data/code";
 import { RecentCommits } from "~/components/data/Commits";
+import { generateMeta } from "~/utils/generateMeta";
 
 interface LoaderData {
   currentTrack?: Track;
@@ -26,10 +27,21 @@ export const loader: LoaderFunction = async ({
 };
 
 export const meta: MetaFunction = () => {
-  return {
-    title: "Data | Greg Brimble",
+  return generateMeta({
+    title: "Data",
     description: "The personal and open data of Greg Brimble.",
-  };
+    path: "/data",
+    keywords: [
+      "Greg Brimble",
+      "open data",
+      "open source",
+      "data",
+      "music",
+      "code",
+      "GitHub",
+      "Last.fm",
+    ],
+  });
 };
 
 export default function Data() {

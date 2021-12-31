@@ -12,7 +12,7 @@ export const BlogPost = ({
   title,
   description,
   publishedDate,
-  updatedDate,
+  modifiedDate,
   image,
   authors,
 }: {
@@ -21,7 +21,7 @@ export const BlogPost = ({
   title: string;
   description: string;
   publishedDate: string;
-  updatedDate?: string;
+  modifiedDate?: string;
   image: {
     url: string;
     alt?: string;
@@ -62,7 +62,7 @@ export const BlogPost = ({
     copyrightYear: new Date(publishedDate).getFullYear(),
     // TODO: creditText
     dateCreated: publishedDate,
-    dateModified: updatedDate ?? publishedDate,
+    dateModified: modifiedDate ?? publishedDate,
     datePublished: publishedDate,
     headline: title,
     inLanguage: "en-US",

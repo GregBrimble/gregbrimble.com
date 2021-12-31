@@ -1,6 +1,17 @@
+import { MetaFunction } from "remix";
 import { ExternalLink } from "~/components/ExternalLink";
 import { OpenSourceProject } from "~/components/OpenSourceProject";
 import { openSourceProjects } from "~/content/openSourceProjects";
+import { generateMeta } from "~/utils/generateMeta";
+
+export const meta: MetaFunction = () => {
+  return generateMeta({
+    title: "Open Source",
+    description: "A selection of Greg's open source projects.",
+    path: "/open-source",
+    keywords: ["Greg Brimble", "open source", "programming", "software"],
+  });
+};
 
 export default function OpenSource() {
   return (

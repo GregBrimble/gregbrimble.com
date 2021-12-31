@@ -4,6 +4,7 @@ import type { IndexLoader } from "~/routes/blog";
 import type { Context } from "~/types";
 import type { Issue } from "~/data/newsletter";
 import { NewsletterIssue } from "~/components/blog/NewsletterIssue";
+import { generateMeta } from "../generateMeta";
 
 const EXTRACT_ID_REGEXP = /-(\d+)$/i;
 
@@ -43,10 +44,19 @@ export const generateNewsletterIssue = ({
     return { title, publishedDate, html };
   };
 
-  const meta: MetaFunction = ({ data: { title } }) => {
-    return {
-      title: `${title} | Greg Brimble`,
-    };
+  const meta: MetaFunction = ({ data: { title, publishedDate } }) => {
+    return generateMeta({
+      title,
+      description,
+      path: `/blog/${slug}`,
+      keywords: ["Greg Brimble", "newsletter", "blog post"], // TODO: Newsletter Issue keywords
+      type: "article",
+      article: {
+        publishedDate: publishedDate,
+        modifiedDate: publishedDate,
+        authors: [{ name: "Greg Brimble", url: "https://gregbrimble.com/" }],
+      },
+    });
   };
 
   const indexLoader: IndexLoader = async (context: Context) => {

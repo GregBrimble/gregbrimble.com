@@ -5,9 +5,9 @@
   - [ ] Pagination on blog posts
   - [ ] RSS
   - [ ] Sitemap
-- [ ] Scroll to top on page nav
+- [x] Scroll to top on page nav
 - [ ] /uses page
 - [x] Social redirects
 - [ ] Social images
-- [ ] Open Graph/Twitter/etc.
+- [x] Open Graph/Twitter/etc.
 - [ ] Sentry

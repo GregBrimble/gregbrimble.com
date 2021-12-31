@@ -1,4 +1,11 @@
-import { Link, LinksFunction, Outlet, useLoaderData } from "remix";
+import {
+  HeadersFunction,
+  Link,
+  LinksFunction,
+  MetaFunction,
+  Outlet,
+  useLoaderData,
+} from "remix";
 import type { LoaderFunction } from "remix";
 import gitHubDark from "highlight.js/styles/github-dark.css";
 import gitHubDarkDimmed from "highlight.js/styles/github-dark-dimmed.css";
@@ -17,6 +24,7 @@ import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudf
 import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
 import { indexLoader as remixOnCloudflarePages } from "./blog/remix-on-cloudflare-pages";
 import { GregBrimbleBlog } from "~/content/schema.org/GregBrimbleBlog";
+import { generateMeta } from "~/utils/generateMeta";
 
 const IS_BLOG_POST_REGEXP = /^\/blog\/.+/i;
 
@@ -26,7 +34,7 @@ interface BlogPost {
   title: string;
   description: string;
   publishedDate: string;
-  updatedDate?: string;
+  modifiedDate?: string;
   image: {
     url: string;
     alt?: string;
@@ -88,7 +96,16 @@ export const loader: LoaderFunction = async ({
   );
 };
 
-export const headers = () => {
+export const meta: MetaFunction = () => {
+  return generateMeta({
+    title: "Writings",
+    description:
+      "A collection of articles by Greg Brimble, primarily about technology.",
+    path: "/blog",
+  });
+};
+
+export const headers: HeadersFunction = () => {
   return {
     "Cache-Control": "max-age=60",
   };

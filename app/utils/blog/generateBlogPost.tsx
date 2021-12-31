@@ -2,13 +2,14 @@ import type { LinksFunction, MetaFunction } from "remix";
 import type { ComponentType } from "react";
 import { BlogPost } from "~/components/blog/BlogPost";
 import { IndexLoader } from "~/routes/blog";
+import { generateMeta } from "../generateMeta";
 
 interface BlogPostAttributes {
   slug: string;
   title: string;
   description: string;
   published_date: string;
-  updated_date?: string;
+  modified_date?: string;
   canonical_url?: string;
   image: {
     alt?: string;
@@ -36,7 +37,7 @@ export const generateBlogPost = (
       title,
       description,
       published_date: publishedDate,
-      updated_date: updatedDate,
+      modified_date: modifiedDate,
       canonical_url: canonicalURL,
       image: dehydatedImage,
       authors = [{ name: "Greg Brimble", url: "https://gregbrimble.com/" }],
@@ -45,7 +46,7 @@ export const generateBlogPost = (
 
   const image = {
     ...dehydatedImage,
-    url: imageURL,
+    url: `https://gregbrimble.com${imageURL}`,
   };
 
   const links: LinksFunction = () => {
@@ -57,10 +58,22 @@ export const generateBlogPost = (
   };
 
   const meta: MetaFunction = () => {
-    return {
-      title: `${title} | Greg Brimble`,
+    return generateMeta({
+      title,
       description,
-    };
+      path: `/blog/${slug}`,
+      image: {
+        url: image.url,
+        alt: image.alt,
+      },
+      keywords: ["Greg Brimble", "blog post"], // TODO: Blog Post keywords
+      type: "article",
+      article: {
+        publishedDate,
+        modifiedDate,
+        authors,
+      },
+    });
   };
 
   const indexLoader: IndexLoader = async () => {
@@ -70,7 +83,7 @@ export const generateBlogPost = (
       title,
       description,
       publishedDate,
-      updatedDate,
+      modifiedDate,
       image,
     };
   };
@@ -83,7 +96,7 @@ export const generateBlogPost = (
         title={title}
         description={description}
         publishedDate={publishedDate}
-        updatedDate={updatedDate}
+        modifiedDate={modifiedDate}
         image={image}
         authors={authors}
       />

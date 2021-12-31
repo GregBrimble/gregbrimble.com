@@ -1,12 +1,18 @@
 import type { MetaFunction } from "remix";
 import Biography from "~/content/Biography.mdx";
 import { Markdown } from "~/components/Markdown";
+import { generateMeta } from "~/utils/generateMeta";
 
 export const meta: MetaFunction = () => {
-  return {
-    title: "Greg Brimble",
-    description: "Personal website of Greg Brimble, Technological Engineer",
-  };
+  return generateMeta({
+    path: "/",
+    keywords: [
+      "Greg Brimble",
+      "technological engineer",
+      "Cloudflare",
+      "Cloudflare Pages",
+    ],
+  });
 };
 
 export default function Index() {
