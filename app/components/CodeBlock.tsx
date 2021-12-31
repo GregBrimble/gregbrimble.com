@@ -115,7 +115,7 @@ export const CodeBlock = ({
       <pre className="mt-0 rounded-t-none">
         <code
           {...codeProps}
-          className={"hljs " + (codeProps.className || "")}
+          className={"hljs " + (codeProps.className ?? "")}
           dangerouslySetInnerHTML={{
             __html: lines
               .map((line, i) => {

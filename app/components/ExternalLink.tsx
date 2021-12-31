@@ -7,8 +7,8 @@ export const ExternalLink = forwardRef<
   return (
     <a
       ref={forwardedRef}
-      rel={props.rel || "noopener noreferrer"}
-      target={props.target || "_blank"}
+      rel={props.rel ?? "noopener noreferrer"}
+      target={props.target ?? "_blank"}
       {...props}
     />
   );

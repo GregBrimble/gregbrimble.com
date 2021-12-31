@@ -34,7 +34,7 @@ export const Header = ({
   const runningLate =
     !isLive &&
     minutesUntilNextLive !== undefined &&
-    minutesUntilNextLive > -(duration || 120) / 2 &&
+    minutesUntilNextLive > -(duration ?? 120) / 2 &&
     minutesUntilNextLive <= 0;
 
   const scheduledSoon =
@@ -114,7 +114,7 @@ export const Header = ({
             <div className="hidden ml-10 space-x-8 lg:block">
               {[...navigation, videoLink].map((link) => (
                 <SmartLink
-                  key={link.to || link.href}
+                  key={link.to ?? link.href}
                   to={link.to}
                   href={link.href}
                   className="text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -128,7 +128,7 @@ export const Header = ({
         <div className="pt-2 pb-4 flex flex-wrap justify-center gap-x-6 lg:hidden">
           {[...navigation, videoLink].map((link) => (
             <SmartLink
-              key={link.to || link.href}
+              key={link.to ?? link.href}
               to={link.to}
               href={link.href}
               className="mt-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"

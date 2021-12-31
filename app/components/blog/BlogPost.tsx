@@ -111,7 +111,7 @@ export const BlogPost = ({
             <img
               className="w-full rounded-lg"
               src={image.url}
-              alt={image.alt || ""}
+              alt={image.alt ?? ""}
               width="1310"
               height="873"
             />

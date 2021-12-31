@@ -167,7 +167,7 @@ const BlogIndex = () => {
                   <img
                     className="object-cover shadow-lg rounded-lg"
                     src={writing.image.url}
-                    alt={writing.image.alt || ""}
+                    alt={writing.image.alt ?? ""}
                   />
                 </div>
               ) : (
