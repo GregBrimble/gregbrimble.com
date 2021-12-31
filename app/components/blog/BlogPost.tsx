@@ -11,7 +11,8 @@ export const BlogPost = ({
   slug,
   title,
   description,
-  date,
+  publishedDate,
+  updatedDate,
   image,
   authors,
 }: {
@@ -19,12 +20,13 @@ export const BlogPost = ({
   slug: string;
   title: string;
   description: string;
-  date: string;
+  publishedDate: string;
+  updatedDate?: string;
   image: {
     url: string;
     alt?: string;
     attribution?: string;
-    attribution_url?: string;
+    attributionURL?: string;
   };
   authors: {
     name: string;
@@ -57,11 +59,11 @@ export const BlogPost = ({
     ),
     // TODO: copyrightHolder
     // TODO: copyrightNotice
-    copyrightYear: new Date(date).getFullYear(),
+    copyrightYear: new Date(publishedDate).getFullYear(),
     // TODO: creditText
-    dateCreated: date,
-    // TODO: dateModified
-    datePublished: date,
+    dateCreated: publishedDate,
+    dateModified: updatedDate ?? publishedDate,
+    datePublished: publishedDate,
     headline: title,
     inLanguage: "en-US",
     // TODO: interactionStatistic
@@ -79,8 +81,8 @@ export const BlogPost = ({
       "@type": "ImageObject",
       caption: image.alt,
       copyrightHolder: image.attribution,
-      copyrightNotice: `${image.attribution} (${image.attribution_url})`,
-      creditText: `${image.attribution} (${image.attribution_url})`,
+      copyrightNotice: `${image.attribution} (${image.attributionURL})`,
+      creditText: `${image.attribution} (${image.attributionURL})`,
       url: image.url,
     },
     mainEntityOfPage: url,
@@ -115,8 +117,8 @@ export const BlogPost = ({
             />
             {image.attribution && (
               <figcaption className="text-right">
-                {image.attribution_url ? (
-                  <SmartLink href={image.attribution_url}>
+                {image.attributionURL ? (
+                  <SmartLink href={image.attributionURL}>
                     {image.attribution}
                   </SmartLink>
                 ) : (
@@ -141,8 +143,8 @@ export const BlogPost = ({
         )}
 
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
-          <time dateTime={new Date(date).toISOString()}>
-            {formatDate(date)}
+          <time dateTime={new Date(publishedDate).toISOString()}>
+            {formatDate(publishedDate)}
           </time>
         </p>
       </div>

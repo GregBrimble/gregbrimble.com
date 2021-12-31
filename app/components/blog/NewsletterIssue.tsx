@@ -8,13 +8,13 @@ export const NewsletterIssue = ({
   slug,
   title,
   description,
-  date,
+  publishedDate,
   html,
 }: {
   slug: string;
   title: string;
   description: string;
-  date: string;
+  publishedDate: string;
   html: string;
 }) => {
   const url = `https://gregbrimble.com/blog/${slug}`;
@@ -37,11 +37,11 @@ export const NewsletterIssue = ({
       "@id": GregBrimbleCom["@id"],
     },
     copyrightNotice: "© 2021 gregbrimble.com. All rights reserved.",
-    copyrightYear: new Date(date).getFullYear(),
+    copyrightYear: new Date(publishedDate).getFullYear(),
     creditText: "© 2021 gregbrimble.com. All rights reserved.",
-    dateCreated: date,
-    // TODO: dateModified
-    datePublished: date,
+    dateCreated: publishedDate,
+    dateModified: publishedDate,
+    datePublished: publishedDate,
     headline: title,
     inLanguage: "en-US",
     // TODO: interactionStatistic
@@ -79,8 +79,8 @@ export const NewsletterIssue = ({
         </p>
 
         <p className="mt-6 text-gray-500 dark:text-gray-400 mx-auto">
-          <time dateTime={new Date(date).toISOString()}>
-            {formatDate(date)}
+          <time dateTime={new Date(publishedDate).toISOString()}>
+            {formatDate(publishedDate)}
           </time>
         </p>
       </div>

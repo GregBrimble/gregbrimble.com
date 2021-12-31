@@ -7,7 +7,8 @@ interface BlogPostAttributes {
   slug: string;
   title: string;
   description: string;
-  date: string;
+  published_date: string;
+  updated_date?: string;
   canonical_url?: string;
   image: {
     alt?: string;
@@ -34,7 +35,8 @@ export const generateBlogPost = (
       slug,
       title,
       description,
-      date,
+      published_date: publishedDate,
+      updated_date: updatedDate,
       canonical_url: canonicalURL,
       image: dehydatedImage,
       authors = [{ name: "Greg Brimble", url: "https://gregbrimble.com/" }],
@@ -67,7 +69,8 @@ export const generateBlogPost = (
       to: `/blog/${slug}`,
       title,
       description,
-      date,
+      publishedDate,
+      updatedDate,
       image,
     };
   };
@@ -79,7 +82,8 @@ export const generateBlogPost = (
         slug={slug}
         title={title}
         description={description}
-        date={date}
+        publishedDate={publishedDate}
+        updatedDate={updatedDate}
         image={image}
         authors={authors}
       />

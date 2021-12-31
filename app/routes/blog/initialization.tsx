@@ -2,7 +2,7 @@ import { generateNewsletterIssue } from "~/utils/blog/generateNewsletterIssue";
 
 const NewsletterIssue = generateNewsletterIssue({
   slug: "initialization",
-  canonical_url:
+  canonicalURL:
     "https://newsletter.gregbrimble.com/issues/initialization-311387",
   description:
     "Greg tries his hand at writing a newsletter and streaming data analysis.",

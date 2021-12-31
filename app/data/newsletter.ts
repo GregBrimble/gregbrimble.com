@@ -16,17 +16,17 @@ interface RevueIssueResponse {
 
 export interface Issue {
   title: string;
-  date: string;
+  publishedDate: string;
   html: string;
 }
 
 const mapRevueIssue = async ({
   title,
-  sent_at: date,
+  sent_at: publishedDate,
   html,
 }: RevueIssue): Promise<Issue> => ({
   title,
-  date,
+  publishedDate,
   html: html.slice(4),
 });
 

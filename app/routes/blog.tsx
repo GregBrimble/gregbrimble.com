@@ -25,7 +25,8 @@ interface BlogPost {
   to: string;
   title: string;
   description: string;
-  date: string;
+  publishedDate: string;
+  updatedDate?: string;
   image: {
     url: string;
     alt?: string;
@@ -37,7 +38,7 @@ interface NewsletterIssue {
   to: string;
   title: string;
   description: string;
-  date: string;
+  publishedDate: string;
 }
 
 type Writing = BlogPost | NewsletterIssue;
@@ -82,7 +83,8 @@ export const loader: LoaderFunction = async ({
     .filter((writing) => writing !== undefined) as Writing[];
 
   return loadedWritings.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
   );
 };
 
@@ -176,7 +178,9 @@ const BlogIndex = () => {
                 </div>
               )}
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                <time dateTime={writing.date}>{formatDate(writing.date)}</time>
+                <time dateTime={writing.publishedDate}>
+                  {formatDate(writing.publishedDate)}
+                </time>
               </p>
               <div className="mt-2 block">
                 <p className="text-xl font-semibold text-gray-900 dark:text-white">

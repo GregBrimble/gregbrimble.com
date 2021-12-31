@@ -9,26 +9,26 @@ const EXTRACT_ID_REGEXP = /-(\d+)$/i;
 
 export const generateNewsletterIssue = ({
   slug,
-  canonical_url,
+  canonicalURL,
   description,
 }: {
   slug: string;
-  canonical_url: string;
+  canonicalURL: string;
   description: string;
 }) => {
-  const id = canonical_url.match(EXTRACT_ID_REGEXP)?.[1] as string;
+  const id = canonicalURL.match(EXTRACT_ID_REGEXP)?.[1] as string;
 
   const links: LinksFunction = () => {
     const links = [];
 
-    if (canonical_url) links.push({ rel: "canonical", href: canonical_url });
+    if (canonicalURL) links.push({ rel: "canonical", href: canonicalURL });
 
     return links;
   };
 
   interface LoaderData {
     title: string;
-    date: string;
+    publishedDate: string;
     html: string;
   }
 
@@ -37,11 +37,10 @@ export const generateNewsletterIssue = ({
   }: {
     context: Context;
   }): Promise<LoaderData> => {
-    const { title, date, html } = (await context.clients.newsletter.getIssue(
-      id
-    )) as Issue;
+    const { title, publishedDate, html } =
+      (await context.clients.newsletter.getIssue(id)) as Issue;
 
-    return { title, date, html };
+    return { title, publishedDate, html };
   };
 
   const meta: MetaFunction = ({ data: { title } }) => {
@@ -51,7 +50,7 @@ export const generateNewsletterIssue = ({
   };
 
   const indexLoader: IndexLoader = async (context: Context) => {
-    const { title, date } = (await context.clients.newsletter.getIssue(
+    const { title, publishedDate } = (await context.clients.newsletter.getIssue(
       id
     )) as Issue;
 
@@ -60,19 +59,19 @@ export const generateNewsletterIssue = ({
       to: `/blog/${slug}`,
       title,
       description,
-      date,
+      publishedDate,
     };
   };
 
   const Component = () => {
-    const { title, date, html } = useLoaderData<LoaderData>();
+    const { title, publishedDate, html } = useLoaderData<LoaderData>();
 
     return (
       <NewsletterIssue
         slug={slug}
         title={title}
         description={description}
-        date={date}
+        publishedDate={publishedDate}
         html={html}
       />
     );
