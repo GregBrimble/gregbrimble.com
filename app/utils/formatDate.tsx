@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
 
@@ -5,4 +7,10 @@ export const formatDate = (dateString: string) => {
     timeZone: "UTC",
     dateStyle: "long",
   });
+};
+
+export const formatDuration = (durationString: string) => {
+  const duration = moment.duration(durationString);
+
+  return `${duration.hours()} hours ${duration.minutes()} minutes`;
 };

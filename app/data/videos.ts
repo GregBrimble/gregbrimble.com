@@ -44,13 +44,37 @@ interface CloudflareStreamVideosResponse {
 }
 
 export interface Video {
-  name: string;
+  slug: string;
+  title: string;
+  imageURL: string;
+  uploadedDate: string;
+  duration: string;
+  quality: "4K" | "2K" | "1080p" | "720p" | "Unknown";
 }
 
 const mapCloudflareStreamVideo = async ({
+  uid,
   meta: { name },
+  thumbnail,
+  uploaded,
+  duration,
+  input: { width },
 }: CloudflareStreamVideo): Promise<Video> => ({
-  name,
+  slug: uid,
+  title: name,
+  imageURL: thumbnail,
+  uploadedDate: uploaded,
+  duration: moment.duration(duration, "seconds").toISOString(),
+  quality:
+    width === 3840
+      ? "4K"
+      : width === 2560
+      ? "2K"
+      : width === 1920
+      ? "1080p"
+      : width === 720
+      ? "720p"
+      : "Unknown",
 });
 
 export class Videos {
@@ -64,7 +88,11 @@ export class Videos {
   }
 
   async getToken() {
-    //
+    if (this.token) return this.token;
+    this.token = (await this.context.env.KV.get(
+      "CLOUDFLARE_STREAM_API_TOKEN"
+    )) as string;
+    return this.token;
   }
 
   async getLiveVideo() {
@@ -72,7 +100,7 @@ export class Videos {
       const response = await fetch(
         `https://api.cloudflare.com/client/v4/accounts/${this.accountID}/stream/live_inputs/${this.liveInputID}/videos`,
         {
-          headers: { Authorization: `Bearer ${this.token}` },
+          headers: { Authorization: `Bearer ${await this.getToken()}` },
         }
       );
       const {
@@ -81,6 +109,25 @@ export class Videos {
 
       const isLive = video.status.state === "live-inprogress";
       if (isLive) return await mapCloudflareStreamVideo(video);
+    } catch {}
+  }
+
+  async getVideos() {
+    try {
+      const response = await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${this.accountID}/stream/live_inputs/${this.liveInputID}/videos`,
+        {
+          headers: { Authorization: `Bearer ${await this.getToken()}` },
+        }
+      );
+      const { result: videos } =
+        (await response.json()) as CloudflareStreamVideosResponse;
+
+      return await Promise.all(
+        videos
+          .filter((video) => video.readyToStream)
+          .map(mapCloudflareStreamVideo)
+      );
     } catch {}
   }
 

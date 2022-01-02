@@ -29,6 +29,7 @@
     "start": "concurrently \"npm run start:css\" \"npm run start:remix\" \"npm run start:wrangler\""
   },
   "dependencies": {
+    "@cloudflare/stream-react": "^1.5.0",
     "@fontsource/inter": "4.5.1",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-brands-svg-icons": "5.15.4",

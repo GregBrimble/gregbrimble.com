@@ -7,7 +7,6 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-  useLocation,
 } from "remix";
 import type { ErrorBoundaryComponent } from "remix";
 import type { Brand, Organization, Person, WithContext } from "schema-dts";
