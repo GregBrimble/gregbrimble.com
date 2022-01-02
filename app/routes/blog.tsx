@@ -23,6 +23,7 @@ import { indexLoader as customHeadersForPages } from "./blog/custom-headers-for-
 import { indexLoader as cloudflareImagesAndCloudflarePages } from "./blog/cloudflare-images-and-cloudflare-pages";
 import { indexLoader as buildingFullStackWithPages } from "./blog/building-full-stack-with-pages";
 import { indexLoader as remixOnCloudflarePages } from "./blog/remix-on-cloudflare-pages";
+import { indexLoader as cloudflarePagesGuide } from "./blog/cloudflare-pages-guide";
 import { GregBrimbleBlog } from "~/content/schema.org/GregBrimbleBlog";
 import { generateMeta } from "~/utils/generateMeta";
 
@@ -40,6 +41,7 @@ interface BlogPost {
     alt?: string;
     attribution?: string;
   };
+  status?: "draft" | "published";
 }
 interface NewsletterIssue {
   type: "NewsletterIssue";
@@ -47,6 +49,7 @@ interface NewsletterIssue {
   title: string;
   description: string;
   publishedDate: string;
+  status?: "draft" | "published";
 }
 
 type Writing = BlogPost | NewsletterIssue;
@@ -75,6 +78,7 @@ const posts = [
   cloudflareImagesAndCloudflarePages,
   buildingFullStackWithPages,
   remixOnCloudflarePages,
+  cloudflarePagesGuide,
 ];
 
 export const loader: LoaderFunction = async ({
@@ -88,12 +92,15 @@ export const loader: LoaderFunction = async ({
     .map((promise) =>
       promise.status === "fulfilled" ? promise.value : undefined
     )
-    .filter((writing) => writing !== undefined) as Writing[];
+    .filter(Boolean) as Writing[];
 
-  return loadedWritings.sort(
-    (a, b) =>
-      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
-  );
+  return loadedWritings
+    .filter((writing) => writing?.status !== "draft")
+    .sort(
+      (a, b) =>
+        new Date(b.publishedDate).getTime() -
+        new Date(a.publishedDate).getTime()
+    );
 };
 
 export const meta: MetaFunction = () => {

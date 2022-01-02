@@ -5,24 +5,43 @@ import type { Context } from "~/types";
 import type { Issue } from "~/data/newsletter";
 import { NewsletterIssue } from "~/components/blog/NewsletterIssue";
 import { generateMeta } from "../generateMeta";
+import { ComponentType } from "react";
+
+interface NewsletterIssueAttributes {
+  slug: string;
+  description: string;
+  canonical_url: string;
+  keywords?: string[];
+}
+
+interface NewsletterIssueComponent {
+  default: ComponentType;
+  attributes: NewsletterIssueAttributes;
+}
 
 const EXTRACT_ID_REGEXP = /-(\d+)$/i;
 
-export const generateNewsletterIssue = ({
-  slug,
-  canonicalURL,
-  description,
-}: {
-  slug: string;
-  canonicalURL: string;
-  description: string;
-}) => {
+export const generateNewsletterIssue = (
+  newsletterIssue: NewsletterIssueComponent
+) => {
+  const {
+    attributes: {
+      slug,
+      description,
+      canonical_url: canonicalURL,
+      keywords = [],
+    },
+  } = newsletterIssue;
+
   const id = canonicalURL.match(EXTRACT_ID_REGEXP)?.[1] as string;
 
   const links: LinksFunction = () => {
     const links = [];
 
     if (canonicalURL) links.push({ rel: "canonical", href: canonicalURL });
+    // TODO
+    // if (previousURL) links.push({ rel: "prev", href: previousURL });
+    // if (nextURL) links.push({ rel: "next", href: nextURL });
 
     return links;
   };
@@ -49,7 +68,7 @@ export const generateNewsletterIssue = ({
       title,
       description,
       path: `/blog/${slug}`,
-      keywords: ["Greg Brimble", "newsletter", "blog post"], // TODO: Newsletter Issue keywords
+      keywords: ["Greg Brimble", "newsletter", "blog post", ...keywords],
       type: "article",
       article: {
         publishedDate: publishedDate,
@@ -83,7 +102,9 @@ export const generateNewsletterIssue = ({
         description={description}
         publishedDate={publishedDate}
         html={html}
+        keywords={keywords}
       />
+      // TODO: next, previous
     );
   };
 

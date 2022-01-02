@@ -11,3 +11,4 @@
 - [ ] Social images
 - [x] Open Graph/Twitter/etc.
 - [ ] Sentry
+- [ ] Better 404/500s

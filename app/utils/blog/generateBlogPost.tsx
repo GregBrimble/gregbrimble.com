@@ -8,6 +8,7 @@ interface BlogPostAttributes {
   slug: string;
   title: string;
   description: string;
+  status?: "draft" | "published";
   published_date: string;
   modified_date?: string;
   canonical_url?: string;
@@ -20,6 +21,7 @@ interface BlogPostAttributes {
     name: string;
     url?: string;
   }[];
+  keywords?: string[];
 }
 
 interface BlogPostComponent {
@@ -36,44 +38,57 @@ export const generateBlogPost = (
       slug,
       title,
       description,
+      status = "published",
       published_date: publishedDate,
       modified_date: modifiedDate,
       canonical_url: canonicalURL,
       image: dehydatedImage,
       authors = [{ name: "Greg Brimble", url: "https://gregbrimble.com/" }],
+      keywords = [],
     },
   } = blogPost;
 
   const image = {
-    ...dehydatedImage,
-    url: `https://gregbrimble.com${imageURL}`,
+    url:
+      process.env.NODE_ENV === "development"
+        ? imageURL
+        : `https://gregbrimble.com${imageURL}`,
+    alt: dehydatedImage.alt,
+    attribution: dehydatedImage.attribution,
+    attributionURL: dehydatedImage.attribution_url,
   };
 
   const links: LinksFunction = () => {
     const links = [];
 
     if (canonicalURL) links.push({ rel: "canonical", href: canonicalURL });
+    // TODO
+    // if (previousURL) links.push({ rel: "prev", href: previousURL });
+    // if (nextURL) links.push({ rel: "next", href: nextURL });
 
     return links;
   };
 
   const meta: MetaFunction = () => {
-    return generateMeta({
-      title,
-      description,
-      path: `/blog/${slug}`,
-      image: {
-        url: image.url,
-        alt: image.alt,
-      },
-      keywords: ["Greg Brimble", "blog post"], // TODO: Blog Post keywords
-      type: "article",
-      article: {
-        publishedDate,
-        modifiedDate,
-        authors,
-      },
-    });
+    return {
+      ...generateMeta({
+        title,
+        description,
+        path: `/blog/${slug}`,
+        image: {
+          url: image.url,
+          alt: image.alt,
+        },
+        keywords: ["Greg Brimble", "blog post", ...keywords],
+        type: "article",
+        article: {
+          publishedDate,
+          modifiedDate,
+          authors,
+        },
+      }),
+      ...(status === "draft" ? { robots: "noindex" } : undefined),
+    };
   };
 
   const indexLoader: IndexLoader = async () => {
@@ -85,6 +100,7 @@ export const generateBlogPost = (
       publishedDate,
       modifiedDate,
       image,
+      status,
     };
   };
 
@@ -99,7 +115,9 @@ export const generateBlogPost = (
         modifiedDate={modifiedDate}
         image={image}
         authors={authors}
+        keywords={keywords}
       />
+      // TODO: next, previous
     );
   };
 
