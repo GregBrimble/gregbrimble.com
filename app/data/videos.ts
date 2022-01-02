@@ -43,6 +43,10 @@ interface CloudflareStreamVideosResponse {
   result: CloudflareStreamVideo[];
 }
 
+interface CloudflareStreamVideoResponse {
+  result: CloudflareStreamVideo;
+}
+
 export interface Video {
   slug: string;
   title: string;
@@ -128,6 +132,21 @@ export class Videos {
           .filter((video) => video.readyToStream)
           .map(mapCloudflareStreamVideo)
       );
+    } catch {}
+  }
+
+  async getVideo(id: string) {
+    try {
+      const response = await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${this.accountID}/stream/${id}`,
+        {
+          headers: { Authorization: `Bearer ${await this.getToken()}` },
+        }
+      );
+      const { result: video } =
+        (await response.json()) as CloudflareStreamVideoResponse;
+
+      return await mapCloudflareStreamVideo(video);
     } catch {}
   }
 
