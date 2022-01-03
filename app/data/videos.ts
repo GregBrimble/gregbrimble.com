@@ -50,7 +50,12 @@ interface CloudflareStreamVideoResponse {
 export interface Video {
   slug: string;
   title: string;
-  imageURL: string;
+  image: {
+    url: string;
+  };
+  width: number;
+  height: number;
+  iframeURL: string;
   uploadedDate: string;
   duration: string;
   quality: "4K" | "2K" | "1080p" | "720p" | "Unknown";
@@ -62,11 +67,14 @@ const mapCloudflareStreamVideo = async ({
   thumbnail,
   uploaded,
   duration,
-  input: { width },
+  input: { width, height },
 }: CloudflareStreamVideo): Promise<Video> => ({
   slug: uid,
   title: name,
-  imageURL: thumbnail,
+  image: { url: thumbnail },
+  width,
+  height,
+  iframeURL: `https://iframe.videodelivery.net/${uid}?autoplay=true&primaryColor=%2393c5fd`,
   uploadedDate: uploaded,
   duration: moment.duration(duration, "seconds").toISOString(),
   quality:

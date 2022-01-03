@@ -5,7 +5,8 @@ import { GregBrimbleCom } from "./GregBrimbleCom";
 export const GregBrimbleBlog: Blog & { "@id": string } = {
   "@type": "Blog",
   "@id": "https://gregbrimble.com/#GregBrimbleBlog",
-  abstract: "A collection of articles primarily about technology.",
+  abstract:
+    "A collection of articles by Greg Brimble, primarily about technology.",
   // TODO: accessMode
   // TODO: accessModeSufficient
   accountablePerson: {
@@ -34,7 +35,8 @@ export const GregBrimbleBlog: Blog & { "@id": string } = {
     "@id": GregBrimbleCom["@id"],
   },
   alternateName: "Blog",
-  description: "A collection of articles primarily about technology.",
+  description:
+    "A collection of articles by Greg Brimble, primarily about technology.",
   mainEntityOfPage: "https://gregbrimble.com/blog",
   name: "Writings",
   url: "https://gregbrimble.com/blog",

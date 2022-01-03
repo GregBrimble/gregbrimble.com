@@ -1,3 +1,4 @@
+import moment from "moment";
 import { MetaFunction } from "remix";
 
 export const generateMeta = ({
@@ -25,7 +26,13 @@ export const generateMeta = ({
   };
   keywords?: string[];
   type?: "video:other" | "article" | "profile" | "website";
-  video?: { duration?: number; publishedDate: string };
+  video?: {
+    duration?: string;
+    publishedDate: string;
+    iframeURL: string;
+    width: number;
+    height: number;
+  };
   article?: {
     publishedDate: string;
     modifiedDate?: string;
@@ -74,7 +81,12 @@ export const generateMeta = ({
       ? {
           "video:release_date": video.publishedDate,
           ...(video.duration
-            ? { "video:duration": video.duration.toString() }
+            ? {
+                "video:duration": moment
+                  .duration(video.duration)
+                  .as("seconds")
+                  .toString(),
+              }
             : undefined),
           ...(keywords ? { "video:tag": keywords } : undefined),
         }
@@ -124,7 +136,9 @@ export const generateMeta = ({
         }),
     ...(video
       ? {
-          // TODO: Player
+          "twitter:player": video.iframeURL,
+          "twitter:player:width": video.width.toString(),
+          "twitter:player:height": video.height.toString(),
         }
       : undefined),
 

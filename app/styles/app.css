@@ -6,3 +6,8 @@
   padding: 0 !important;
   background: transparent !important;
 }
+
+.stream-video div {
+  position: absolute !important;
+  padding: 0 !important;
+}

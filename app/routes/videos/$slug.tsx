@@ -1,9 +1,16 @@
-import { Link, LoaderFunction, useLoaderData, useParams } from "remix";
+import {
+  Link,
+  LoaderFunction,
+  MetaFunction,
+  useLoaderData,
+  useParams,
+} from "remix";
 import { Stream } from "@cloudflare/stream-react";
 import { WithContext } from "schema-dts";
 import { ExternalLink } from "~/components/ExternalLink";
 import { formatDate } from "~/utils/formatDate";
 import { Video } from "~/data/videos";
+import { generateMeta } from "~/utils/generateMeta";
 
 interface LoaderData {
   video: Video;
@@ -19,6 +26,28 @@ export const loader: LoaderFunction = async ({ context, params }) => {
   }
 
   return { video };
+};
+
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+  if (data.video)
+    return generateMeta({
+      title: data.video.title,
+      // TODO: description
+      path: `/video/${data.video.slug}`,
+      type: "video:other",
+      video: {
+        duration: data.video.duration,
+        publishedDate: data.video.uploadedDate,
+        iframeURL: data.video.iframeURL,
+        width: data.video.width,
+        height: data.video.height,
+      },
+      image: {
+        url: data.video.image.url,
+      },
+    });
+
+  return {};
 };
 
 export default function Video() {
@@ -53,13 +82,14 @@ export default function Video() {
             </p>
 
             <div className="mt-6 mx-auto">
-              <figure className="w-full rounded-lg overflow-hidden">
+              <figure className="w-full rounded-lg overflow-hidden aspect-w-16 aspect-h-9 stream-video">
                 <Stream
                   controls
-                  primaryColor="--tw-prose-links"
+                  primaryColor="#93c5fd"
+                  responsive={true}
                   src={slug}
-                  width="1310"
-                  height="873"
+                  width="1152"
+                  height="648"
                 />
               </figure>
             </div>

@@ -1,7 +1,35 @@
 {
   "name": "Greg Brimble",
+  "description": "Personal website of Greg Brimble, Technological Engineer",
+  "display": "standalone",
+  "start_url": ".",
+  "lang": "en-US",
+  "background_color": "#111827",
+  "theme_color": "#93c5fd",
   "icons": [
     { "src": "/logo-192.png", "type": "image/png", "sizes": "192x192" },
     { "src": "/logo-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Blog",
+      "url": "/blog",
+      "description": "A collection of articles by Greg Brimble, primarily about technology."
+    },
+    {
+      "name": "Videos",
+      "url": "/videos",
+      "description": "A collection of videos by Greg Brimble, primarily about technology."
+    },
+    {
+      "name": "Data",
+      "url": "/data",
+      "description": "The personal and open data of Greg Brimble."
+    },
+    {
+      "name": "Open Source",
+      "url": "/open-source",
+      "description": "A selection of Greg's open source projects."
+    }
   ]
 }
