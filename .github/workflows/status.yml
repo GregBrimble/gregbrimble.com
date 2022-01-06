@@ -11,5 +11,5 @@ jobs:
       - name: Make Deployment
         run: |
           cat << "EOF"
-          ${{ toJSON(github.event) }}
+          ${{ toJSON(github.event.check_run.output.summary) }}
           EOF
