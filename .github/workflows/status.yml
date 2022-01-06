@@ -1,0 +1,15 @@
+name: Deployment
+on:
+  check_run:
+    types: [completed]
+    
+jobs:
+  make_deployment:
+    name: Make Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make Deployment
+        run: |
+          cat << "EOF"
+          ${{ toJSON(github.event) }}
+          EOF
