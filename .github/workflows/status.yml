@@ -21,7 +21,7 @@ jobs:
             
             const matches = /Preview URL[\s\S]*(https:\/\/.*\.pages\.dev)[\s\S]*logs\]\((.*)\)/gm.exec(context.payload.check_run.output.summary)
             const environment_url = matches[1]
-            const logs_url = matches[2]
+            const log_url = matches[2]
             
             github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
