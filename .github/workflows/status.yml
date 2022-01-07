@@ -14,6 +14,11 @@ jobs:
           script: |
             const { DEPLOYMENT_ID } = process.env
             
+            github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: DEPLOYMENT_ID
+            })
             github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
