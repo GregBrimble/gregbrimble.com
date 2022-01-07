@@ -12,13 +12,15 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const environment = context.payload.check_run.head_branch === context.payload.repository.default_branch ? 'production' : context.payload.check_run.head_branch
+            const production_environment = context.payload.check_run.head_branch === context.payload.repository.default_branch
+            const environment = production_environment ? 'production' : context.payload.check_run.head_branch
             
             const { data: deployment } = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.payload.check_run.head_sha,
-              environment
+              environment,
+              production_environment
             })
             
             const matches = /Preview URL[\s\S]*(https:\/\/.*\.pages\.dev)[\s\S]*logs\]\((.*)\)/gm.exec(context.payload.check_run.output.summary)
