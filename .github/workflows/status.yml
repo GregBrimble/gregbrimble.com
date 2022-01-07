@@ -14,7 +14,7 @@ jobs:
           script: |
             const { DEPLOYMENT_ID } = process.env
             
-            github.rest.repos.createDeployment({
+            const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: DEPLOYMENT_ID
@@ -22,7 +22,7 @@ jobs:
             github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              deployment_id: DEPLOYMENT_ID,
+              deployment_id: deployment.id,
               state: 'in_progress'
             })
         env:
