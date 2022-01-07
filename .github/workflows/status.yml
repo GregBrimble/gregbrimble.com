@@ -8,13 +8,20 @@ jobs:
     name: Make Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Initializing Deployment
-        uses: avakar/set-deployment-status@v1
+      - name: Initialize Deployment
+        uses: actions/github-script@v5
         with:
-          deployment_id: ${{ github.event.check_run.head_sha }}
-          state: in_progress
+          script: |
+            const { DEPLOYMENT_ID } = process.env
+            
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: DEPLOYMENT_ID,
+              state: 'in_progress'
+            })
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOYMENT_ID: ${{ github.event.check_run.head_sha }}
       - name: Parse Preview Link
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
@@ -22,11 +29,20 @@ jobs:
           text: ${{ github.event.check_run.output.summary }}
           regex: 'Preview URL.*>(https:\/\/.*\.pages.dev).*logs]\((.*)\)'
       - name: Create Deployment
-        uses: avakar/set-deployment-status@v1
+        uses: actions/github-script@v5
         with:
-          state: success
+          script: |
+            const { DEPLOYMENT_ID, ENVIRONMENT_URL, LOG_URL } = process.env
+            
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: DEPLOYMENT_ID,
+              environment_url: ENVIRONMENT_URL,
+              log_url: LOG_URL,
+              state: 'success'
+            })
+        env:
           deployment_id: ${{ github.event.check_run.head_sha }}
           environment_url: ${{ steps.regex-match.outputs.group1 }}
           log_url: ${{ steps.regex-match.outputs.group2 }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
