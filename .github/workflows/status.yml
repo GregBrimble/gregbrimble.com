@@ -11,6 +11,7 @@ jobs:
       - name: Initializing Deployment
         uses: avakar/set-deployment-status@v1
         with:
+          deployment_id: ${{ github.event.check_run.head_sha }}
           state: in_progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,6 +25,7 @@ jobs:
         uses: avakar/set-deployment-status@v1
         with:
           state: success
+          deployment_id: ${{ github.event.check_run.head_sha }}
           environment_url: ${{ steps.regex-match.outputs.group1 }}
           log_url: ${{ steps.regex-match.outputs.group2 }}
         env:
