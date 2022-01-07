@@ -14,13 +14,15 @@ jobs:
           script: |
             const production_environment = context.payload.check_run.head_branch === context.payload.repository.default_branch
             const environment = production_environment ? 'production' : context.payload.check_run.head_branch
+            const description = 'Cloudflare Pages'
             
             const { data: deployment } = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.payload.check_run.head_sha,
               environment,
-              production_environment
+              production_environment,
+              description
             })
             
             const matches = /Preview URL[\s\S]*(https:\/\/.*\.pages\.dev)[\s\S]*logs\]\((.*)\)/gm.exec(context.payload.check_run.output.summary)
@@ -34,5 +36,6 @@ jobs:
               environment,
               environment_url,
               log_url,
+              description,
               state: 'success'
             })
