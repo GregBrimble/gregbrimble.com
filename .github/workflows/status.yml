@@ -8,50 +8,28 @@ jobs:
     name: Make Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize Deployment
+      - name: Create Deployment
         uses: actions/github-script@v5
         id: deployment
         with:
           script: |
             const { DEPLOYMENT_ID } = process.env
             
-            const deployment = await github.rest.repos.createDeployment({
+            const { data: deployment } = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: DEPLOYMENT_ID
+              ref: context.payload.check_run.head_sha
             })
-            console.log(JSON.stringify(context))
-            console.log(deployment)
-            github.rest.repos.createDeploymentStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              deployment_id: deployment.id,
-              state: 'in_progress'
-            })
-            return deployment.id
-        env:
-          DEPLOYMENT_ID: ${{ github.event.check_run.head_sha }}
-      - name: Parse Preview Link
-        uses: actions-ecosystem/action-regex-match@v2
-        id: regex-match
-        with:
-          text: ${{ github.event.check_run.output.summary }}
-          regex: 'Preview URL.*>(https:\/\/.*\.pages.dev).*logs]\((.*)\)'
-      - name: Create Deployment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const { DEPLOYMENT_ID, ENVIRONMENT_URL, LOG_URL } = process.env
+            
+            const matches = /Preview URL[\s\S]*(https:\/\/.*\.pages\.dev)[\s\S]*logs\]\((.*)\)/gm.exec(context.payload.check_run.output.summary)
+            const environment_url = matches[1]
+            const logs_url = matches[2]
             
             github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              deployment_id: DEPLOYMENT_ID,
-              environment_url: ENVIRONMENT_URL,
-              log_url: LOG_URL,
+              deployment_id: deployment.id,
+              environment_url,
+              log_url,
               state: 'success'
             })
-        env:
-          deployment_id: ${{ steps.deployment.outputs.result }}
-          environment_url: ${{ steps.regex-match.outputs.group1 }}
-          log_url: ${{ steps.regex-match.outputs.group2 }}
