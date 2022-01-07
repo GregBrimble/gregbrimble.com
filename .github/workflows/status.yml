@@ -8,8 +8,23 @@ jobs:
     name: Make Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Make Deployment
-        run: |
-          cat << "EOF"
-          ${{ toJSON(github.event.check_run.output.summary) }}
-          EOF
+      - name: Initializing Deployment
+        uses: avakar/set-deployment-status@v1
+        with:
+          state: in_progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Parse Preview Link
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ github.event.check_run.output.summary }}
+          regex: 'Preview URL.*>(https:\/\/.*\.pages.dev).*logs]\((.*)\)'
+      - name: Create Deployment
+        uses: avakar/set-deployment-status@v1
+        with:
+          state: success
+          environment_url: ${{ steps.regex-match.outputs.group1 }}
+          log_url: ${{ steps.regex-match.outputs.group2 }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
