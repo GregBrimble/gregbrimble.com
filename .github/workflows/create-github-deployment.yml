@@ -1,4 +1,4 @@
-name: Deployment
+name: Create GitHub Deployment
 on:
   check_run:
     types: [completed]
@@ -10,7 +10,6 @@ jobs:
     steps:
       - name: Create Deployment
         uses: actions/github-script@v5
-        id: deployment
         with:
           script: |
             const environment = context.payload.check_run.head_branch === context.payload.repository.default_branch ? 'production' : context.payload.check_run.head_branch
