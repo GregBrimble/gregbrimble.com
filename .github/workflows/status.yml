@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Initialize Deployment
         uses: actions/github-script@v5
+        id: deployment
         with:
           script: |
             const { DEPLOYMENT_ID } = process.env
@@ -25,6 +26,7 @@ jobs:
               deployment_id: deployment.id,
               state: 'in_progress'
             })
+            return deployment.id
         env:
           DEPLOYMENT_ID: ${{ github.event.check_run.head_sha }}
       - name: Parse Preview Link
@@ -48,6 +50,6 @@ jobs:
               state: 'success'
             })
         env:
-          deployment_id: ${{ github.event.check_run.head_sha }}
+          deployment_id: ${{ steps.deployment.outputs.result }}
           environment_url: ${{ steps.regex-match.outputs.group1 }}
           log_url: ${{ steps.regex-match.outputs.group2 }}
