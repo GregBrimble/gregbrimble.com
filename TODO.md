@@ -10,6 +10,7 @@
 - [x] Social redirects
 - [ ] Social images
 - [x] Open Graph/Twitter/etc.
+- [ ] oEmbed
 - [ ] Sentry
 - [ ] Better 404/500s
 - [ ] Live (https://developers.cloudflare.com/stream/stream-live/watch-live-stream#view-by-live-input-uid)
