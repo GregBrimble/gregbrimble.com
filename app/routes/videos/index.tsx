@@ -49,6 +49,41 @@ export default function Videos() {
       // TODO
     },
     author: { "@id": GregBrimble["@id"] },
+    // copyrightHolder
+    // copyrightNotice
+    // copyrightYear
+    // creativeWorkStatus
+    // creator
+    // creditText
+    // dateCreated
+    // dateModified
+    // datePublished
+    // editor
+    // hasPart
+    // headline
+    // inLanguage
+    // interactionStatistic
+    // interactivityType
+    // isAccessibleForFree
+    // keywords
+    // learningResourceType
+    // license
+    // maintainer
+    // producer
+    // provider
+    // publication
+    // publisher
+    // sourceOrganization
+    // teaches
+    // thumbnailUrl
+    // timeRequired
+    // video
+    // description
+    // image
+    // mainEntityOfPage
+    // name
+    // potentialAction
+    // url
   };
 
   return (

@@ -10,5 +10,6 @@
 - [x] Social redirects
 - [ ] Social images
 - [x] Open Graph/Twitter/etc.
+- [ ] oEmbed
 - [ ] Sentry
 - [ ] Better 404/500s
