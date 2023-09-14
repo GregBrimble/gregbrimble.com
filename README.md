@@ -9,7 +9,7 @@ Personal website of Greg Brimble, Technological Engineer
 Read more about running [Remix on Cloudflare Pages](https://blog.cloudflare.com/remix-on-cloudflare-pages/) and the [full-stack Cloudflare Pages](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) platform on the Cloudflare blog.
 
 ### Data
-
+  
 Pulls:
 
 - newsletter issues from [Revue](https://newsletter.gregbrimble.com),
