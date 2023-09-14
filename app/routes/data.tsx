@@ -62,7 +62,7 @@ export default function Data() {
       <div className="pt-16 px-4 sm:px-6 lg:pt-24 lg:px-8">
         <div className="max-w-lg mx-auto lg:max-w-7xl">
           <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-            Data
+            Data!!!
           </h2>
         </div>
       </div>
