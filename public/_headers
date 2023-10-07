@@ -1,5 +1,0 @@
-https://gregbrimble.pages.dev/header-test
-  X-Custom-Header: My-Value
-
-https://gregbrimble.pages.dev:8443/other-header-test
-  X-Custom-Header: Other-Value
